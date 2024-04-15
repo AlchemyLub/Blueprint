@@ -23,7 +23,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FloralHub.Blueprint.UnitTes
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FloralHub.Blueprint.App", "src\FloralHub.Blueprint.App\FloralHub.Blueprint.App.csproj", "{0018881D-D1EA-425B-ABFE-0EEF1FF00CB9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FloralHub.Blueprint.Endpoints", "src\FloralHub.Blueprint.Endpoints\FloralHub.Blueprint.Endpoints.csproj", "{A167B17D-11C7-4C0C-8D35-7194FFDA1520}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FloralHub.Blueprint.Endpoints", "src\FloralHub.Blueprint.Endpoints\FloralHub.Blueprint.Endpoints.csproj", "{A167B17D-11C7-4C0C-8D35-7194FFDA1520}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
