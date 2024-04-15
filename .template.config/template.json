@@ -1,0 +1,13 @@
+{
+    "$schema": "http://json.schemastore.org/template",
+    "author": "Vladislav Rudakov",
+    "identity": "FloralHub.Blueprint.WebApi",
+    "name": "Basic ASP.NET Core Web API",
+    "shortName": "blueprint",
+    "tags": {
+        "language": "C#",
+        "type": "project"
+    },
+    "sourceName": "Blueprint",
+    "classifications": ["Web", "WebAPI", "Web API"]
+  }
