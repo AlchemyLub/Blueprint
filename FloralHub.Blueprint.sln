@@ -25,6 +25,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FloralHub.Blueprint.App", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FloralHub.Blueprint.Endpoints", "src\FloralHub.Blueprint.Endpoints\FloralHub.Blueprint.Endpoints.csproj", "{A167B17D-11C7-4C0C-8D35-7194FFDA1520}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FloralHub.Blueprint.Domain", "src\FloralHub.Blueprint.Domain\FloralHub.Blueprint.Domain.csproj", "{6DD3B465-0ACB-426E-81F9-EC64949FF744}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FloralHub.Blueprint.SharedKernel", "src\FloralHub.Blueprint.SharedKernel\FloralHub.Blueprint.SharedKernel.csproj", "{0942AB70-02DA-4D52-AA22-DD46FA005342}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FloralHub.Blueprint.Application", "src\FloralHub.Blueprint.Application\FloralHub.Blueprint.Application.csproj", "{4D1B1A95-49D2-46D1-8AEB-ED9FAE05B985}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FloralHub.Blueprint.Infrastructure", "src\FloralHub.Blueprint.Infrastructure\FloralHub.Blueprint.Infrastructure.csproj", "{C2F0656A-5527-475C-A105-4D6E851A2671}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +59,22 @@ Global
 		{A167B17D-11C7-4C0C-8D35-7194FFDA1520}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A167B17D-11C7-4C0C-8D35-7194FFDA1520}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A167B17D-11C7-4C0C-8D35-7194FFDA1520}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6DD3B465-0ACB-426E-81F9-EC64949FF744}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DD3B465-0ACB-426E-81F9-EC64949FF744}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6DD3B465-0ACB-426E-81F9-EC64949FF744}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6DD3B465-0ACB-426E-81F9-EC64949FF744}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0942AB70-02DA-4D52-AA22-DD46FA005342}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0942AB70-02DA-4D52-AA22-DD46FA005342}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0942AB70-02DA-4D52-AA22-DD46FA005342}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0942AB70-02DA-4D52-AA22-DD46FA005342}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D1B1A95-49D2-46D1-8AEB-ED9FAE05B985}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D1B1A95-49D2-46D1-8AEB-ED9FAE05B985}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D1B1A95-49D2-46D1-8AEB-ED9FAE05B985}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D1B1A95-49D2-46D1-8AEB-ED9FAE05B985}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2F0656A-5527-475C-A105-4D6E851A2671}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2F0656A-5527-475C-A105-4D6E851A2671}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2F0656A-5527-475C-A105-4D6E851A2671}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2F0656A-5527-475C-A105-4D6E851A2671}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
