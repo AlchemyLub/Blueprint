@@ -1,5 +1,3 @@
-using FloralHub.Blueprint.App.Extensions;
-
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddAllLayers();

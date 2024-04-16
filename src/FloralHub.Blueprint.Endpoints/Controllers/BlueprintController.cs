@@ -11,5 +11,5 @@ public class BlueprintController : ControllerBase
     /// Шаблонный endpoint.
     /// </summary>
     [HttpGet("test")]
-    public int Get() => int.MaxValue;
+    public Guid Get() => Guid.NewGuid();
 }

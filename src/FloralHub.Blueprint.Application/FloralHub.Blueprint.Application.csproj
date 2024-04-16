@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="FloralHub.Blueprint.ArchTests"/>
+    <InternalsVisibleTo Include="FloralHub.Blueprint.UnitTests"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FloralHub.Blueprint.Domain\FloralHub.Blueprint.Domain.csproj" />
+  </ItemGroup>
+
+</Project>
