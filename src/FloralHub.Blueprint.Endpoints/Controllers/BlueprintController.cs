@@ -5,11 +5,11 @@ namespace FloralHub.Blueprint.Endpoints.Controllers;
 /// </summary>
 [ApiController]
 [Route("api/[controller]")]
-public class BlueprintController : ControllerBase
+public class BlueprintController(IInfrastructureService infrastructureService) : ControllerBase
 {
     /// <summary>
     /// Шаблонный endpoint.
     /// </summary>
     [HttpGet("test")]
-    public Guid Get() => Guid.NewGuid();
+    public async Task<IEntity> Get() => await infrastructureService.GetDbEntityAsync(Guid.NewGuid());
 }

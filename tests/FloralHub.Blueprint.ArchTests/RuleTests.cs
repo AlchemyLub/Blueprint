@@ -1,4 +1,4 @@
-namespace FloralHub.Blueprint.ArchTests.Common;
+namespace FloralHub.Blueprint.ArchTests;
 
 /// <summary>
 /// Тесты для проверки правил оформления кода
