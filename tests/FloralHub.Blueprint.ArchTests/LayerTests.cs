@@ -6,7 +6,7 @@ namespace FloralHub.Blueprint.ArchTests;
 public class LayerTests : BaseTest
 {
     /// <summary>
-    /// Общий слой <see cref="SharedKernel"/> не должен содержать зависимости от других проектов
+    /// Общий слой <see cref="SharedKernel"/> не должен содержать зависимости от других слоёв или сторонних пакетов
     /// </summary>
     [Fact]
     public void SharedKernelLayer_Should_BeIsolated()
@@ -134,6 +134,38 @@ public class LayerTests : BaseTest
         ConditionList? condition = Types.InAssembly(EndpointsAssembly)
             .Should()
             .HaveDependencyOn(Application);
+
+        int result = condition.Count();
+
+        result.Should().BePositive();
+    }
+
+    /// <summary>
+    /// Слой приложения <see cref="App"/> не может напрямую зависеть ни от каких слоёв, кроме <see cref="Infrastructure"/>
+    /// и <see cref="Endpoints"/>
+    /// </summary>
+    [Fact]
+    public void AppLayer_Should_BeIsolated()
+    {
+        TestResult? testResult = Types.InAssembly(AppAssembly)
+            .Should()
+            .NotHaveDependencyOnAny(SharedKernel, Domain, Application)
+            .GetResult();
+
+        bool result = testResult.IsSuccessful;
+
+        result.Should().BeTrue();
+    }
+
+    /// <summary>
+    /// Слой приложения <see cref="App"/> может зависеть только от инфраструктурного и презентационного слоя
+    /// </summary>
+    [Fact]
+    public void AppLayer_Should_DependOnlyEndpointsAndInfrastructure()
+    {
+        ConditionList? condition = Types.InAssembly(AppAssembly)
+            .Should()
+            .HaveDependencyOnAll(Infrastructure, Endpoints);
 
         int result = condition.Count();
 

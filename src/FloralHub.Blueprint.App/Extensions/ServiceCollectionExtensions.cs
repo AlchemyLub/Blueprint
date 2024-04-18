@@ -11,5 +11,7 @@ public static class ServiceCollectionExtensions
     /// <param name="services"><see cref="IServiceCollection"/></param>
     /// <returns><see cref="IServiceCollection"/></returns>
     public static IServiceCollection AddAllLayers(this IServiceCollection services) =>
-        services.AddEndpointsLayer();
+        services
+            .AddEndpointsLayer()
+            .AddInfrastructureLayer();
 }
