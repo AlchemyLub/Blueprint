@@ -11,12 +11,14 @@ public class LayerTests : BaseTest
     [Fact]
     public void SharedKernelLayer_Should_BeIsolated()
     {
-        TestResult? result = Types.InAssembly(SharedAssembly)
+        TestResult? testResult = Types.InAssembly(SharedAssembly)
             .Should()
             .NotHaveDependencyOnAny(Application, App, Endpoints, Infrastructure, Domain)
             .GetResult();
 
-        result.IsSuccessful.Should().BeTrue();
+        bool result = testResult.IsSuccessful;
+
+        result.Should().BeTrue();
     }
 
     /// <summary>
@@ -55,12 +57,14 @@ public class LayerTests : BaseTest
     [Fact]
     public void ApplicationLayer_Should_BeIsolated()
     {
-        TestResult? result = Types.InAssembly(ApplicationAssembly)
+        TestResult? testResult = Types.InAssembly(ApplicationAssembly)
             .Should()
             .NotHaveDependencyOnAny(App, Endpoints, Infrastructure)
             .GetResult();
 
-        result.IsSuccessful.Should().BeTrue();
+        bool result = testResult.IsSuccessful;
+
+        result.Should().BeTrue();
     }
 
     /// <summary>

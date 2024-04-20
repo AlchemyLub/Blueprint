@@ -1,8 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <InternalsVisibleTo Include="FloralHub.Blueprint.ArchTests"/>
-    <InternalsVisibleTo Include="FloralHub.Blueprint.UnitTests"/>
+    <InternalsVisibleTo Include="FloralHub.Blueprint.ArchTests" />
+    <InternalsVisibleTo Include="FloralHub.Blueprint.UnitTests" />
   </ItemGroup>
 
   <ItemGroup>
