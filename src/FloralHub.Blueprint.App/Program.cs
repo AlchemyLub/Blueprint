@@ -7,3 +7,5 @@ WebApplication app = builder.Build();
 app.UseAllLayers();
 
 app.Run();
+
+public partial class Program {}

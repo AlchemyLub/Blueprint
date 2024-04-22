@@ -11,12 +11,11 @@ public class LayerTests : BaseTest
     [Fact]
     public void SharedKernelLayer_Should_BeIsolated()
     {
-        TestResult? testResult = Types.InAssembly(SharedAssembly)
+        ConditionList condition = Types.InAssembly(SharedAssembly)
             .Should()
-            .NotHaveDependencyOnAny(Application, App, Endpoints, Infrastructure, Domain)
-            .GetResult();
+            .NotHaveDependencyOnAny(Application, App, Endpoints, Infrastructure, Domain);
 
-        bool result = testResult.IsSuccessful;
+        bool result = condition.GetResult().IsSuccessful;
 
         result.Should().BeTrue();
     }
@@ -27,7 +26,7 @@ public class LayerTests : BaseTest
     [Fact]
     public void DomainLayer_Should_BeIsolated()
     {
-        ConditionList? condition = Types.InAssembly(DomainAssembly)
+        ConditionList condition = Types.InAssembly(DomainAssembly)
             .Should()
             .NotHaveDependencyOnAny(Application, App, Endpoints, Infrastructure);
 
@@ -42,7 +41,7 @@ public class LayerTests : BaseTest
     [Fact]
     public void DomainLayer_Should_DependOnlySharedKernel()
     {
-        ConditionList? condition = Types.InAssembly(DomainAssembly)
+        ConditionList condition = Types.InAssembly(DomainAssembly)
             .Should()
             .HaveDependencyOn(SharedKernel);
 
@@ -57,12 +56,11 @@ public class LayerTests : BaseTest
     [Fact]
     public void ApplicationLayer_Should_BeIsolated()
     {
-        TestResult? testResult = Types.InAssembly(ApplicationAssembly)
+        ConditionList condition = Types.InAssembly(ApplicationAssembly)
             .Should()
-            .NotHaveDependencyOnAny(App, Endpoints, Infrastructure)
-            .GetResult();
+            .NotHaveDependencyOnAny(App, Endpoints, Infrastructure);
 
-        bool result = testResult.IsSuccessful;
+        bool result = condition.GetResult().IsSuccessful;
 
         result.Should().BeTrue();
     }
@@ -73,7 +71,7 @@ public class LayerTests : BaseTest
     [Fact]
     public void ApplicationLayer_Should_DependOnlyDomain()
     {
-        ConditionList? condition = Types.InAssembly(ApplicationAssembly)
+        ConditionList condition = Types.InAssembly(ApplicationAssembly)
             .Should()
             .HaveDependencyOn(Domain);
 
@@ -88,12 +86,11 @@ public class LayerTests : BaseTest
     [Fact]
     public void InfrastructureLayer_Should_BeIsolated()
     {
-        TestResult? testResult = Types.InAssembly(InfrastructureAssembly)
+        ConditionList condition = Types.InAssembly(InfrastructureAssembly)
             .Should()
-            .NotHaveDependencyOnAny(App, Endpoints, SharedKernel)
-            .GetResult();
+            .NotHaveDependencyOnAny(App, Endpoints, SharedKernel);
 
-        bool result = testResult.IsSuccessful;
+        bool result = condition.GetResult().IsSuccessful;
 
         result.Should().BeTrue();
     }
@@ -104,7 +101,7 @@ public class LayerTests : BaseTest
     [Fact]
     public void InfrastructureLayer_Should_DependOnlyApplication()
     {
-        ConditionList? condition = Types.InAssembly(InfrastructureAssembly)
+        ConditionList condition = Types.InAssembly(InfrastructureAssembly)
             .Should()
             .HaveDependencyOn(Application);
 
@@ -119,12 +116,11 @@ public class LayerTests : BaseTest
     [Fact]
     public void EndpointsLayer_Should_BeIsolated()
     {
-        TestResult? testResult = Types.InAssembly(EndpointsAssembly)
+        ConditionList condition = Types.InAssembly(EndpointsAssembly)
             .Should()
-            .NotHaveDependencyOnAny(App, Infrastructure, SharedKernel)
-            .GetResult();
+            .NotHaveDependencyOnAny(App, Infrastructure, SharedKernel);
 
-        bool result = testResult.IsSuccessful;
+        bool result = condition.GetResult().IsSuccessful;
 
         result.Should().BeTrue();
     }
@@ -135,7 +131,7 @@ public class LayerTests : BaseTest
     [Fact]
     public void EndpointsLayer_Should_DependOnlyApplication()
     {
-        ConditionList? condition = Types.InAssembly(EndpointsAssembly)
+        ConditionList condition = Types.InAssembly(EndpointsAssembly)
             .Should()
             .HaveDependencyOn(Application);
 
@@ -151,12 +147,11 @@ public class LayerTests : BaseTest
     [Fact]
     public void AppLayer_Should_BeIsolated()
     {
-        TestResult? testResult = Types.InAssembly(AppAssembly)
+        ConditionList condition = Types.InAssembly(AppAssembly)
             .Should()
-            .NotHaveDependencyOnAny(SharedKernel, Domain, Application)
-            .GetResult();
+            .NotHaveDependencyOnAny(SharedKernel, Domain, Application);
 
-        bool result = testResult.IsSuccessful;
+        bool result = condition.GetResult().IsSuccessful;
 
         result.Should().BeTrue();
     }
@@ -167,7 +162,7 @@ public class LayerTests : BaseTest
     [Fact]
     public void AppLayer_Should_DependOnlyEndpointsAndInfrastructure()
     {
-        ConditionList? condition = Types.InAssembly(AppAssembly)
+        ConditionList condition = Types.InAssembly(AppAssembly)
             .Should()
             .HaveDependencyOnAll(Infrastructure, Endpoints);
 

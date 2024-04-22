@@ -9,4 +9,13 @@
     <ProjectReference Include="..\FloralHub.Blueprint.Domain\FloralHub.Blueprint.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Data\Abstractions\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Analyzers" Version="8.0.4" />
+  </ItemGroup>
+
 </Project>
