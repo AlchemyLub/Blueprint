@@ -1,8 +1,0 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
-
-  <ItemGroup>
-    <ProjectReference Include="..\FloralHub.Blueprint.Endpoints\FloralHub.Blueprint.Endpoints.csproj" />
-    <ProjectReference Include="..\FloralHub.Blueprint.Infrastructure\FloralHub.Blueprint.Infrastructure.csproj" />
-  </ItemGroup>
-
-</Project>

@@ -1,0 +1,96 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.34707.107
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{FC7ADEB8-E81E-4AD8-BAFC-83EF0B7165AD}"
+	ProjectSection(SolutionItems) = preProject
+		.dockerignore = .dockerignore
+		.editorconfig = .editorconfig
+		.gitignore = .gitignore
+		Directory.Build.props = Directory.Build.props
+		LICENSE = LICENSE
+		nuget.config = nuget.config
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{F7A1A89A-82EE-4D65-8D81-8178A4E4B7E3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlchemyLub.Blueprint.Client", "src\AlchemyLub.Blueprint.Client\AlchemyLub.Blueprint.Client.csproj", "{BD9EB0B5-8066-43FF-93C9-9C2924520C9C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlchemyLub.Blueprint.ArchTests", "tests\AlchemyLub.Blueprint.ArchTests\AlchemyLub.Blueprint.ArchTests.csproj", "{3190F749-FF1E-46BA-AE3B-CA4DFE7F4FF8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlchemyLub.Blueprint.IntegrationTests", "tests\AlchemyLub.Blueprint.IntegrationTests\AlchemyLub.Blueprint.IntegrationTests.csproj", "{0B2EE43F-885B-4746-BF35-0C3656099FEA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlchemyLub.Blueprint.Application.UnitTests", "tests\AlchemyLub.Blueprint.UnitTests\AlchemyLub.Blueprint.Application.UnitTests.csproj", "{C55E3D39-79B9-45B9-8C4A-4FCDCACA2F06}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlchemyLub.Blueprint.App", "src\AlchemyLub.Blueprint.App\AlchemyLub.Blueprint.App.csproj", "{3C981E38-D2B2-40C6-807F-094542905A65}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlchemyLub.Blueprint.Application", "src\AlchemyLub.Blueprint.Application\AlchemyLub.Blueprint.Application.csproj", "{D2048FAF-1C96-4206-8082-D4ED78CB0FF2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlchemyLub.Blueprint.Domain", "src\AlchemyLub.Blueprint.Domain\AlchemyLub.Blueprint.Domain.csproj", "{47C0A786-D09F-468E-BDC5-EA6C06A6A2CC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlchemyLub.Blueprint.Endpoints", "src\AlchemyLub.Blueprint.Endpoints\AlchemyLub.Blueprint.Endpoints.csproj", "{C82CE337-3D1A-4049-94D5-187BA456D1ED}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlchemyLub.Blueprint.Infrastructure", "src\AlchemyLub.Blueprint.Infrastructure\AlchemyLub.Blueprint.Infrastructure.csproj", "{2C848D53-60F9-4076-8F34-35D67DF5F7FA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlchemyLub.Blueprint.SharedKernel", "src\AlchemyLub.Blueprint.SharedKernel\AlchemyLub.Blueprint.SharedKernel.csproj", "{F8733878-2F78-493C-8238-3D0AD079388B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BD9EB0B5-8066-43FF-93C9-9C2924520C9C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD9EB0B5-8066-43FF-93C9-9C2924520C9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD9EB0B5-8066-43FF-93C9-9C2924520C9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD9EB0B5-8066-43FF-93C9-9C2924520C9C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3190F749-FF1E-46BA-AE3B-CA4DFE7F4FF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3190F749-FF1E-46BA-AE3B-CA4DFE7F4FF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3190F749-FF1E-46BA-AE3B-CA4DFE7F4FF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3190F749-FF1E-46BA-AE3B-CA4DFE7F4FF8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B2EE43F-885B-4746-BF35-0C3656099FEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B2EE43F-885B-4746-BF35-0C3656099FEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B2EE43F-885B-4746-BF35-0C3656099FEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B2EE43F-885B-4746-BF35-0C3656099FEA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C55E3D39-79B9-45B9-8C4A-4FCDCACA2F06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C55E3D39-79B9-45B9-8C4A-4FCDCACA2F06}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C55E3D39-79B9-45B9-8C4A-4FCDCACA2F06}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C55E3D39-79B9-45B9-8C4A-4FCDCACA2F06}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C981E38-D2B2-40C6-807F-094542905A65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C981E38-D2B2-40C6-807F-094542905A65}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C981E38-D2B2-40C6-807F-094542905A65}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C981E38-D2B2-40C6-807F-094542905A65}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2048FAF-1C96-4206-8082-D4ED78CB0FF2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2048FAF-1C96-4206-8082-D4ED78CB0FF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2048FAF-1C96-4206-8082-D4ED78CB0FF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2048FAF-1C96-4206-8082-D4ED78CB0FF2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{47C0A786-D09F-468E-BDC5-EA6C06A6A2CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47C0A786-D09F-468E-BDC5-EA6C06A6A2CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47C0A786-D09F-468E-BDC5-EA6C06A6A2CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47C0A786-D09F-468E-BDC5-EA6C06A6A2CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C82CE337-3D1A-4049-94D5-187BA456D1ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C82CE337-3D1A-4049-94D5-187BA456D1ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C82CE337-3D1A-4049-94D5-187BA456D1ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C82CE337-3D1A-4049-94D5-187BA456D1ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C848D53-60F9-4076-8F34-35D67DF5F7FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C848D53-60F9-4076-8F34-35D67DF5F7FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C848D53-60F9-4076-8F34-35D67DF5F7FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C848D53-60F9-4076-8F34-35D67DF5F7FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F8733878-2F78-493C-8238-3D0AD079388B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8733878-2F78-493C-8238-3D0AD079388B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8733878-2F78-493C-8238-3D0AD079388B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8733878-2F78-493C-8238-3D0AD079388B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3190F749-FF1E-46BA-AE3B-CA4DFE7F4FF8} = {F7A1A89A-82EE-4D65-8D81-8178A4E4B7E3}
+		{0B2EE43F-885B-4746-BF35-0C3656099FEA} = {F7A1A89A-82EE-4D65-8D81-8178A4E4B7E3}
+		{C55E3D39-79B9-45B9-8C4A-4FCDCACA2F06} = {F7A1A89A-82EE-4D65-8D81-8178A4E4B7E3}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {05B9C602-F7FF-44D5-A565-8D86154B38CE}
+	EndGlobalSection
+EndGlobal

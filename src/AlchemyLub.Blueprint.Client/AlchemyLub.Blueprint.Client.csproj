@@ -1,0 +1,7 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\AlchemyLub.Blueprint.SharedKernel\AlchemyLub.Blueprint.SharedKernel.csproj" />
+  </ItemGroup>
+
+</Project>
