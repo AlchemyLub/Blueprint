@@ -8,7 +8,8 @@ public class IntegrationTestWebAppFactory : WebApplicationFactory<Program>
         builder.ConfigureTestServices(services =>
         {
             // TODO: Дописать!
-            var descriptor = services.SingleOrDefault();
+            services.Replace<IInfrastructureService, InfrastructureServiceStub>();
         });
     }
+
 }

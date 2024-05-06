@@ -1,5 +1,3 @@
-using AlchemyLub.Blueprint.Infrastructure.Services;
-
 namespace AlchemyLub.Blueprint.Infrastructure.Extensions;
 
 /// <summary>
@@ -7,6 +5,11 @@ namespace AlchemyLub.Blueprint.Infrastructure.Extensions;
 /// </summary>
 public static class ServiceCollectionExtensions
 {
+    /// <summary>
+    /// Регистрирует все сервисы инфраструктурного слоя
+    /// </summary>
+    /// <param name="services"><see cref="IServiceCollection"/></param>
+    /// <returns><see cref="IServiceCollection"/></returns>
     public static IServiceCollection AddInfrastructureLayer(this IServiceCollection services) =>
         services.AddScoped<IInfrastructureService, InfrastructureService>();
 }
