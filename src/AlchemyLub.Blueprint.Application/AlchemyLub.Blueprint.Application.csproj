@@ -3,6 +3,7 @@
   <ItemGroup>
     <InternalsVisibleTo Include="AlchemyLub.Blueprint.ArchTests" />
     <InternalsVisibleTo Include="AlchemyLub.Blueprint.UnitTests" />
+    <InternalsVisibleTo Include="AlchemyLub.Blueprint.IntegrationTests" />
   </ItemGroup>
 
   <ItemGroup>

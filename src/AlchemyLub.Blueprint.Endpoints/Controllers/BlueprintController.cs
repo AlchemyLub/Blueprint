@@ -8,8 +8,9 @@ namespace AlchemyLub.Blueprint.Endpoints.Controllers;
 public class BlueprintController(IInfrastructureService infrastructureService) : ControllerBase
 {
     /// <summary>
-    /// Шаблонный endpoint.
+    /// Получить сущность.
     /// </summary>
-    [HttpGet("test")]
-    public async Task<IEntity> Get() => await infrastructureService.GetDbEntityAsync(Guid.NewGuid());
+    /// <param name="id">Идентификатор сущности</param>
+    [HttpGet]
+    public async Task<IEntity> Get(Guid id) => await infrastructureService.GetDbEntity(id);
 }

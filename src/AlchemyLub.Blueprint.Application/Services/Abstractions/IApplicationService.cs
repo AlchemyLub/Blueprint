@@ -10,5 +10,19 @@ internal interface IApplicationService
     /// </summary>
     /// <param name="id">Идентификатор сущности</param>
     /// <returns>Запрашиваемая сущность</returns>
-    public Task<IEntity> GetEntityAsync(Guid id);
+    public Task<IEntity> GetEntity(Guid id);
+
+    /// <summary>
+    /// Создать новую сущность
+    /// </summary>
+    /// <param name="entityType">Тип новой сущности</param>
+    /// <returns>Идентификатор новой сущности</returns>
+    public Task<Guid> CreateEntity(EntityType entityType);
+
+    /// <summary>
+    /// Удалить сущность
+    /// </summary>
+    /// <param name="id">Идентификатор сущности</param>
+    /// <returns><see langword="true"/> если удаление успешно, <see langword="false"/> если нет</returns>
+    public Task<bool> DeleteEntity(Guid id);
 }
