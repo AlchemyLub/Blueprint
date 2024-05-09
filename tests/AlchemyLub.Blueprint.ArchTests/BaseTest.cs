@@ -9,7 +9,7 @@ public abstract class BaseTest
 {
     protected internal static readonly Assembly DomainAssembly = typeof(IEntity).Assembly;
     protected internal static readonly Assembly SharedAssembly = typeof(EntityType).Assembly;
-    protected internal static readonly Assembly EndpointsAssembly = typeof(BlueprintController).Assembly;
+    protected internal static readonly Assembly EndpointsAssembly = typeof(EntitiesController).Assembly;
     protected internal static readonly Assembly ApplicationAssembly = typeof(IApplicationService).Assembly;
     protected internal static readonly Assembly AppAssembly = typeof(ServiceCollectionExtensions).Assembly;
     protected internal static readonly Assembly InfrastructureAssembly = typeof(InfrastructureService).Assembly;

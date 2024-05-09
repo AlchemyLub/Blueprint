@@ -10,13 +10,13 @@ public interface IInfrastructureService
     /// </summary>
     /// <param name="id">Идентификатор сущности</param>
     /// <returns>Запрашиваемая сущность</returns>
-    public Task<IEntity> GetDbEntity(Guid id);
+    public Task<Entity> GetDbEntity(Guid id);
 
     /// <summary>
     /// Создать новую сущность в БД
     /// </summary>
     /// <returns>Идентификатор созданной сущности</returns>
-    public Task<Guid> AddDbEntity();
+    public Task<Guid> CreateDbEntity();
 
     // TODO: Заменить результат на Success/Failure
     /// <summary>
@@ -25,4 +25,11 @@ public interface IInfrastructureService
     /// <param name="id">Идентификатор сущности</param>
     /// <returns><see langword="true"/> если удаление успешно, <see langword="false"/> если нет</returns>
     public Task<bool> DeleteDbEntity(Guid id);
+
+    /// <summary>
+    /// Изменить сущность
+    /// </summary>
+    /// <param name="entity">Новая модель сущности</param>
+    /// <returns>Обновлённая модель <see cref="Entity"/></returns>
+    public Task<Entity> UpdateDbEntity(Entity entity);
 }

@@ -1,4 +1,4 @@
-namespace AlchemyLub.Blueprint.App.Extensions;
+namespace AlchemyLub.Blueprint.Application.Extensions;
 
 /// <summary>
 /// Методы расширения для <see cref="IServiceCollection"/>
@@ -6,13 +6,10 @@ namespace AlchemyLub.Blueprint.App.Extensions;
 public static class ServiceCollectionExtensions
 {
     /// <summary>
-    /// Регистрирует все слои приложения
+    /// Регистрирует все сервисы бизнес слоя
     /// </summary>
     /// <param name="services"><see cref="IServiceCollection"/></param>
     /// <returns><see cref="IServiceCollection"/></returns>
-    public static IServiceCollection AddAllLayers(this IServiceCollection services) =>
-        services
-            .AddApplicationLayer()
-            .AddEndpointsLayer()
-            .AddInfrastructureLayer();
+    public static IServiceCollection AddApplicationLayer(this IServiceCollection services) =>
+        services.AddScoped<IApplicationService, ApplicationService>();
 }

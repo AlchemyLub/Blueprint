@@ -3,14 +3,14 @@ namespace AlchemyLub.Blueprint.Application.Services.Abstractions;
 /// <summary>
 /// Сервис слоя приложения
 /// </summary>
-internal interface IApplicationService
+public interface IApplicationService
 {
     /// <summary>
     /// Получить сущность
     /// </summary>
     /// <param name="id">Идентификатор сущности</param>
     /// <returns>Запрашиваемая сущность</returns>
-    public Task<IEntity> GetEntity(Guid id);
+    public Task<EntityResponse> GetEntity(Guid id);
 
     /// <summary>
     /// Создать новую сущность
@@ -25,4 +25,12 @@ internal interface IApplicationService
     /// <param name="id">Идентификатор сущности</param>
     /// <returns><see langword="true"/> если удаление успешно, <see langword="false"/> если нет</returns>
     public Task<bool> DeleteEntity(Guid id);
+
+    /// <summary>
+    /// Изменить сущность
+    /// </summary>
+    /// <param name="id">Идентификатор сущности</param>
+    /// <param name="request">Модель запроса</param>
+    /// <returns>Обновлённая модель <see cref="EntityResponse"/></returns>
+    public Task<EntityResponse> UpdateEntity(Guid id, EntityRequest request);
 }

@@ -6,6 +6,8 @@ public class IntegrationTestWebAppFactory : WebApplicationFactory<Program>
     protected override void ConfigureWebHost(IWebHostBuilder builder) =>
         builder.ConfigureTestServices(services =>
         {
+            services.AddBlueprintClients();
+
             services.Replace<IInfrastructureService, InfrastructureServiceStub>();
         });
 }

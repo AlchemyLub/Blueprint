@@ -118,7 +118,7 @@ public class LayerTests : BaseTest
     {
         ConditionList condition = Types.InAssembly(EndpointsAssembly)
             .Should()
-            .NotHaveDependencyOnAny(App, Infrastructure, SharedKernel);
+            .NotHaveDependencyOnAny(App, Infrastructure);
 
         bool result = condition.GetResult().IsSuccessful;
 
@@ -149,7 +149,7 @@ public class LayerTests : BaseTest
     {
         ConditionList condition = Types.InAssembly(AppAssembly)
             .Should()
-            .NotHaveDependencyOnAny(SharedKernel, Domain, Application);
+            .NotHaveDependencyOnAny(SharedKernel, Domain);
 
         bool result = condition.GetResult().IsSuccessful;
 

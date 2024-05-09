@@ -6,11 +6,36 @@ namespace AlchemyLub.Blueprint.IntegrationTests.Stubs;
 public class InfrastructureServiceStub : IInfrastructureService
 {
     /// <inheritdoc />
-    public async Task<IEntity> GetDbEntity(Guid id) => await Task.Run(() => new Entity(id) { Title = "Title Stub" });
+    public async Task<Entity> GetDbEntity(Guid id)
+    {
+        await Task.CompletedTask;
+
+        return new Entity(id) { Title = "Title Stub" };
+    }
 
     /// <inheritdoc />
-    public Task<Guid> AddDbEntity() => throw new NotImplementedException();
+    public async Task<Guid> CreateDbEntity()
+    {
+        await Task.CompletedTask;
+
+        Entity entity = new Entity(Guid.NewGuid()) { Title = "Title Stub" };
+
+        return entity.Id;
+    }
 
     /// <inheritdoc />
-    public Task<bool> DeleteDbEntity(Guid id) => throw new NotImplementedException();
+    public async Task<bool> DeleteDbEntity(Guid id)
+    {
+        await Task.CompletedTask;
+
+        return true;
+    }
+
+    /// <inheritdoc />
+    public async Task<Entity> UpdateDbEntity(Entity entity)
+    {
+        await Task.CompletedTask;
+
+        return entity;
+    }
 }

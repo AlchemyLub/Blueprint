@@ -9,7 +9,7 @@ public sealed class InfrastructureService : IInfrastructureService
     };
 
     /// <inheritdoc />
-    public async Task<IEntity> GetDbEntity(Guid id)
+    public async Task<Entity> GetDbEntity(Guid id)
     {
         await Task.CompletedTask;
 
@@ -17,7 +17,7 @@ public sealed class InfrastructureService : IInfrastructureService
     }
 
     /// <inheritdoc />
-    public async Task<Guid> AddDbEntity()
+    public async Task<Guid> CreateDbEntity()
     {
         await Task.CompletedTask;
 
@@ -30,5 +30,13 @@ public sealed class InfrastructureService : IInfrastructureService
         await Task.CompletedTask;
 
         return defaultEntity.Id == id;
+    }
+
+    /// <inheritdoc />
+    public async Task<Entity> UpdateDbEntity(Entity entity)
+    {
+        await Task.CompletedTask;
+
+        return entity;
     }
 }
