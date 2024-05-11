@@ -11,5 +11,17 @@ public static class ServiceCollectionExtensions
     /// <param name="services"><see cref="IServiceCollection"/></param>
     /// <returns><see cref="IServiceCollection"/></returns>
     public static IServiceCollection AddInfrastructureLayer(this IServiceCollection services) =>
-        services.AddScoped<IInfrastructureService, InfrastructureService>();
+        services
+            .AddServices();
+
+    private static IServiceCollection AddServices(this IServiceCollection services) =>
+        services
+            .AddScoped<IInfrastructureService, InfrastructureService>();
+
+    private static IServiceCollection AddDatabaseContext(this IServiceCollection services) =>
+        services
+            .AddDbContext<ApplicationDbContext>((serviceProvider, options) =>
+            {
+
+            });
 }

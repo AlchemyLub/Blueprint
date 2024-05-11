@@ -13,6 +13,16 @@ public class Entity(Guid id) : IEntity
     /// </summary>
     public required string Title { get; init; }
 
+    /// <summary>
+    /// Описание
+    /// </summary>
+    public required string Description { get; init; }
+
+    /// <summary>
+    /// Дата создания сущности
+    /// </summary>
+    public DateTime CreatedAt { get; init; }
+
     /// <inheritdoc />
     public EntityType Type => EntityType.Common;
 }
