@@ -25,8 +25,16 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
         // TODO: Дописать инициализацию строки подключения
         NpgsqlConnectionStringBuilder connectionStringBuilder = new()
         {
-            Host = "<Server>",
-            Port = 5432
+            Host = "Server",
+            Port = 5432,
+            Database = "Database",
+            Username = "UserId",
+            Password = "Password",
+            CommandTimeout = 20,
+            Timeout = 5,
+            Pooling = true,
+            LogParameters = true,
+            KeepAlive = 10,
         };
 
         optionsBuilder.UseNpgsql(

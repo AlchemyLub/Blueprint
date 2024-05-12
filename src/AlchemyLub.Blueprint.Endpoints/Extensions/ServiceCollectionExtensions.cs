@@ -1,3 +1,6 @@
+using System.Text.Json.Serialization;
+using AlchemyLub.Blueprint.Endpoints.Validators;
+
 namespace AlchemyLub.Blueprint.Endpoints.Extensions;
 
 /// <summary>
@@ -12,9 +15,13 @@ public static class ServiceCollectionExtensions
     /// <returns><see cref="IServiceCollection"/></returns>
     public static IServiceCollection AddEndpointsLayer(this IServiceCollection services)
     {
-        services.AddControllers();
+        services
+            .AddControllers()
+            .AddJsonOptions(options => options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
 
         services.AddEndpointsApiExplorer();
+
+        services.AddValidators();
 
         services.AddSwaggerGen(options =>
         {
@@ -69,4 +76,8 @@ public static class ServiceCollectionExtensions
 
         return services;
     }
+
+    private static IServiceCollection AddValidators(this IServiceCollection services) =>
+        services
+            .AddSingleton<IValidator<EntityRequest>, EntityRequestValidator>();
 }
