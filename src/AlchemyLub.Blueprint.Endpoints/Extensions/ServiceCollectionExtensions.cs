@@ -1,5 +1,7 @@
 using System.Text.Json.Serialization;
+using AlchemyLub.Blueprint.Endpoints.SchemaFilters;
 using AlchemyLub.Blueprint.Endpoints.Validators;
+using Unchase.Swashbuckle.AspNetCore.Extensions.Extensions;
 
 namespace AlchemyLub.Blueprint.Endpoints.Extensions;
 
@@ -40,7 +42,7 @@ public static class ServiceCollectionExtensions
                 {
                     new OpenApiSecurityScheme
                     {
-                        Reference = new OpenApiReference
+                        Reference = new()
                         {
                             Type = ReferenceType.SecurityScheme,
                             Id = "Bearer"
@@ -70,6 +72,17 @@ public static class ServiceCollectionExtensions
                     Url = new("https://mit-license.org/")
                 }
             });
+
+            options.IncludeXmlCommentaries();
+
+            options.AddEnumsWithValuesFixFilters(enumOptions =>
+            {
+                enumOptions.ApplyDocumentFilter = true;
+                enumOptions.IncludeXEnumRemarks = true;
+                enumOptions.DescriptionSource = DescriptionSources.XmlComments;
+            });
+
+            options.SchemaFilter<OpenApiIgnoreEnumSchemaFilter>();
         });
 
         services.AddHealthChecks();
@@ -80,4 +93,12 @@ public static class ServiceCollectionExtensions
     private static IServiceCollection AddValidators(this IServiceCollection services) =>
         services
             .AddSingleton<IValidator<EntityRequest>, EntityRequestValidator>();
+
+    private static void IncludeXmlCommentaries(this SwaggerGenOptions options)
+    {
+        string xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+        string xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+
+        options.IncludeXmlCommentsWithRemarks(xmlPath, true);
+    }
 }

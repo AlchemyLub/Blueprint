@@ -5,7 +5,9 @@ public sealed class InfrastructureService : IInfrastructureService
 {
     private readonly Entity defaultEntity = new(Guid.NewGuid())
     {
-        Title = "Entity title"
+        Title = "Entity title",
+        Description = "Entity description",
+        CreatedAt = DateTime.UtcNow
     };
 
     /// <inheritdoc />

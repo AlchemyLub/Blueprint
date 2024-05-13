@@ -5,12 +5,19 @@ namespace AlchemyLub.Blueprint.IntegrationTests.Stubs;
 /// </summary>
 public class InfrastructureServiceStub : IInfrastructureService
 {
+    private readonly Entity defaultEntity = new(Guid.NewGuid())
+    {
+        Title = "Entity title stub",
+        Description = "Entity description stub",
+        CreatedAt = DateTime.UtcNow
+    };
+
     /// <inheritdoc />
     public async Task<Entity> GetDbEntity(Guid id)
     {
         await Task.CompletedTask;
 
-        return new Entity(id) { Title = "Title Stub" };
+        return defaultEntity;
     }
 
     /// <inheritdoc />
@@ -18,9 +25,7 @@ public class InfrastructureServiceStub : IInfrastructureService
     {
         await Task.CompletedTask;
 
-        Entity entity = new Entity(Guid.NewGuid()) { Title = "Title Stub" };
-
-        return entity.Id;
+        return defaultEntity.Id;
     }
 
     /// <inheritdoc />

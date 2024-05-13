@@ -8,6 +8,7 @@ public enum EntityType
     /// <summary>
     /// Неизвестный тип
     /// </summary>
+    [OpenApiIgnoreEnum]
     Unknown = 0,
 
     /// <summary>

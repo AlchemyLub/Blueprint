@@ -12,12 +12,8 @@ internal sealed class ApplicationService(IInfrastructureService infrastructureSe
     }
 
     /// <inheritdoc />
-    public async Task<Guid> CreateEntity(EntityType entityType)
-    {
-        Guid entityId = await infrastructureService.CreateDbEntity();
-
-        return entityId;
-    }
+    public async Task<Guid> CreateEntity(EntityType entityType) =>
+        await infrastructureService.CreateDbEntity();
 
     /// <inheritdoc />
     public async Task<bool> DeleteEntity(Guid id) => await infrastructureService.DeleteDbEntity(id);
@@ -25,7 +21,11 @@ internal sealed class ApplicationService(IInfrastructureService infrastructureSe
     /// <inheritdoc />
     public async Task<EntityResponse> UpdateEntity(Guid id, EntityRequest request)
     {
-        Entity entity = await infrastructureService.UpdateDbEntity(new(id) { Title = request.Title });
+        Entity entity = await infrastructureService.UpdateDbEntity(new(id)
+        {
+            Title = request.Title,
+            Description = request.Description
+        });
 
         return new(entity.Id, entity.Title);
     }

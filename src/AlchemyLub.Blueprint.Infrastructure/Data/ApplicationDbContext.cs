@@ -22,7 +22,7 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
     {
         base.OnConfiguring(optionsBuilder);
 
-        // TODO: Дописать инициализацию строки подключения
+        // TODO: Дописать инициализацию строки подключения и перенести ближе к регистрации в DI
         NpgsqlConnectionStringBuilder connectionStringBuilder = new()
         {
             Host = "Server",
@@ -37,11 +37,6 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
             KeepAlive = 10,
         };
 
-        optionsBuilder.UseNpgsql(
-            connectionStringBuilder.ToString(),
-            options =>
-            {
-                return;
-            });
-        }
+        optionsBuilder.UseNpgsql(connectionStringBuilder.ToString());
+    }
 }

@@ -1,5 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
+    <Folder Include="Attributes\" />
     <Folder Include="Requests\" />
   </ItemGroup>
 </Project>
