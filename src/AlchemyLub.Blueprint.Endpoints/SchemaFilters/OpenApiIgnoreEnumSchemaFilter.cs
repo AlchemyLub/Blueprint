@@ -1,5 +1,8 @@
 namespace AlchemyLub.Blueprint.Endpoints.SchemaFilters;
 
+/// <summary>
+/// Фильтр позволяющий не отображать в Swagger значения перечислений [<see langword="enum"/>], помеченных атрибутом
+/// </summary>
 public sealed class OpenApiIgnoreEnumSchemaFilter : ISchemaFilter
 {
     public void Apply(OpenApiSchema schema, SchemaFilterContext context)

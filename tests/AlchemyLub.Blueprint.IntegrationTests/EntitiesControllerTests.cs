@@ -17,7 +17,7 @@ public class EntitiesControllerTests(IntegrationTestWebAppFactory factory) : Bas
     {
         Guid entityId = Guid.NewGuid();
 
-        EntityResponse entityResponse = await EntitiesClient.GetEntity(entityId);
+        ClientEntityResponse entityResponse = await EntitiesClient.GetEntity(entityId);
 
         entityResponse.Id.Should().Be(entityId);
     }
@@ -42,9 +42,9 @@ public class EntitiesControllerTests(IntegrationTestWebAppFactory factory) : Bas
     public async Task UpdateEntity_ShouldBe_SuccessfullyResponse()
     {
         Guid entityId = Guid.NewGuid();
-        EntityRequest request = new("Title");
+        ClientEntityRequest request = new("Title", "Description");
 
-        EntityResponse response = await EntitiesClient.UpdateEntity(entityId, request);
+        ClientEntityResponse response = await EntitiesClient.UpdateEntity(entityId, request);
 
         response.Id.Should().NotBe(Guid.Empty);
         response.Title.Should().Be(request.Title);

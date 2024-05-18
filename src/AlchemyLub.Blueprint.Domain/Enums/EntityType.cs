@@ -1,14 +1,14 @@
-namespace AlchemyLub.Blueprint.SharedKernel.Enums;
+namespace AlchemyLub.Blueprint.Domain.Enums;
 
 /// <summary>
 /// Тип сущности
 /// </summary>
 public enum EntityType
 {
+    // TODO: На другой версии повесить атрибут! Или решить как-то по другому
     /// <summary>
     /// Неизвестный тип
     /// </summary>
-    [OpenApiIgnoreEnum]
     Unknown = 0,
 
     /// <summary>

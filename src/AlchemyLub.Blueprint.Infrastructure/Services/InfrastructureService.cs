@@ -3,7 +3,7 @@ namespace AlchemyLub.Blueprint.Infrastructure.Services;
 /// <inheritdoc cref="IInfrastructureService"/>
 public sealed class InfrastructureService : IInfrastructureService
 {
-    private readonly Entity defaultEntity = new(Guid.NewGuid())
+    private readonly Func<Guid, Entity> defaultEntityFunc = id => new(id)
     {
         Title = "Entity title",
         Description = "Entity description",
@@ -15,7 +15,7 @@ public sealed class InfrastructureService : IInfrastructureService
     {
         await Task.CompletedTask;
 
-        return defaultEntity;
+        return defaultEntityFunc(id);
     }
 
     /// <inheritdoc />
@@ -23,7 +23,7 @@ public sealed class InfrastructureService : IInfrastructureService
     {
         await Task.CompletedTask;
 
-        return defaultEntity.Id;
+        return defaultEntityFunc(Guid.NewGuid()).Id;
     }
 
     /// <inheritdoc />
@@ -31,7 +31,7 @@ public sealed class InfrastructureService : IInfrastructureService
     {
         await Task.CompletedTask;
 
-        return defaultEntity.Id == id;
+        return defaultEntityFunc(id).Id == id;
     }
 
     /// <inheritdoc />

@@ -12,7 +12,12 @@ public class EntitiesController(IApplicationService applicationService) : Contro
     /// </summary>
     /// <param name="id">Идентификатор сущности</param>
     [HttpGet("{id}")]
-    public async Task<EntityResponse> GetEntity(Guid id) => await applicationService.GetEntity(id);
+    public async Task<EntityResponse> GetEntity(Guid id)
+    {
+        Entity entity = await applicationService.GetEntity(id);
+
+        return new(entity.Id, entity.Title);
+    }
 
     /// <summary>
     /// Создать сущность
@@ -33,6 +38,17 @@ public class EntitiesController(IApplicationService applicationService) : Contro
     /// <param name="id">Идентификатор сущности</param>
     /// <param name="request">Новая сущность</param>
     [HttpPatch("{id}")]
-    public async Task<EntityResponse> UpdateEntity(Guid id, EntityRequest request) =>
-        await applicationService.UpdateEntity(id, request);
+    public async Task<EntityResponse> UpdateEntity(Guid id, EntityRequest request)
+    {
+        Entity newEntity = new(id)
+        {
+            Title = request.Title,
+            Description = request.Description,
+            CreatedAt = DateTime.UtcNow
+        };
+
+        Entity entity = await applicationService.UpdateEntity(id, newEntity);
+
+        return new(entity.Id, entity.Title);
+    }
 }

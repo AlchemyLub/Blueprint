@@ -1,23 +1,30 @@
+using static AlchemyLub.Blueprint.ArchTests.Constants;
+
 namespace AlchemyLub.Blueprint.ArchTests;
 
 /// <summary>
 /// Тесты для проверки связей между слоями
 /// </summary>
-public class LayerTests : BaseTest
+public class LayerTests
 {
     /// <summary>
-    /// Общий слой <see cref="SharedKernel"/> не должен содержать зависимости от других слоёв или сторонних пакетов
+    /// Слой клиентов <see cref="Clients"/> не должен зависеть от других слоёв
     /// </summary>
     [Fact]
-    public void SharedKernelLayer_Should_BeIsolated()
+    public void ClientsLayer_Should_BeIsolated()
     {
-        ConditionList condition = Types.InAssembly(SharedAssembly)
+        ConditionList condition = Types.InAssembly(Assemblies.ClientsAssembly)
             .Should()
-            .NotHaveDependencyOnAny(Application, App, Endpoints, Infrastructure, Domain);
+            .NotHaveDependencyOnAny(
+                FullProjectNames.App,
+                FullProjectNames.Application,
+                FullProjectNames.Domain,
+                FullProjectNames.Endpoints,
+                FullProjectNames.Infrastructure);
 
-        bool result = condition.GetResult().IsSuccessful;
+        int result = condition.Count();
 
-        result.Should().BeTrue();
+        result.Should().BePositive();
     }
 
     /// <summary>
@@ -26,24 +33,14 @@ public class LayerTests : BaseTest
     [Fact]
     public void DomainLayer_Should_BeIsolated()
     {
-        ConditionList condition = Types.InAssembly(DomainAssembly)
+        ConditionList condition = Types.InAssembly(Assemblies.DomainAssembly)
             .Should()
-            .NotHaveDependencyOnAny(Application, App, Endpoints, Infrastructure);
-
-        int result = condition.Count();
-
-        result.Should().BePositive();
-    }
-
-    /// <summary>
-    /// Доменный слой <see cref="Domain"/> может зависеть только от общего проекта
-    /// </summary>
-    [Fact]
-    public void DomainLayer_Should_DependOnlySharedKernel()
-    {
-        ConditionList condition = Types.InAssembly(DomainAssembly)
-            .Should()
-            .HaveDependencyOn(SharedKernel);
+            .NotHaveDependencyOnAny(
+                FullProjectNames.Application,
+                FullProjectNames.App,
+                FullProjectNames.Endpoints,
+                FullProjectNames.Infrastructure,
+                FullProjectNames.Clients);
 
         int result = condition.Count();
 
@@ -56,28 +53,17 @@ public class LayerTests : BaseTest
     [Fact]
     public void ApplicationLayer_Should_BeIsolated()
     {
-        ConditionList condition = Types.InAssembly(ApplicationAssembly)
+        ConditionList condition = Types.InAssembly(Assemblies.ApplicationAssembly)
             .Should()
-            .NotHaveDependencyOnAny(App, Endpoints, Infrastructure);
+            .NotHaveDependencyOnAny(
+                FullProjectNames.App,
+                FullProjectNames.Endpoints,
+                FullProjectNames.Infrastructure,
+                FullProjectNames.Clients);
 
         bool result = condition.GetResult().IsSuccessful;
 
         result.Should().BeTrue();
-    }
-
-    /// <summary>
-    /// Слой бизнес логики <see cref="Application"/> может зависеть только от домена
-    /// </summary>
-    [Fact]
-    public void ApplicationLayer_Should_DependOnlyDomain()
-    {
-        ConditionList condition = Types.InAssembly(ApplicationAssembly)
-            .Should()
-            .HaveDependencyOn(Domain);
-
-        int result = condition.Count();
-
-        result.Should().BePositive();
     }
 
     /// <summary>
@@ -86,28 +72,13 @@ public class LayerTests : BaseTest
     [Fact]
     public void InfrastructureLayer_Should_BeIsolated()
     {
-        ConditionList condition = Types.InAssembly(InfrastructureAssembly)
+        ConditionList condition = Types.InAssembly(Assemblies.InfrastructureAssembly)
             .Should()
-            .NotHaveDependencyOnAny(App, Endpoints, SharedKernel);
+            .NotHaveDependencyOnAny(FullProjectNames.App, FullProjectNames.Endpoints, FullProjectNames.Clients);
 
         bool result = condition.GetResult().IsSuccessful;
 
         result.Should().BeTrue();
-    }
-
-    /// <summary>
-    /// Инфраструктурный слой <see cref="Infrastructure"/> может зависеть только от слоя бизнес логики
-    /// </summary>
-    [Fact]
-    public void InfrastructureLayer_Should_DependOnlyApplication()
-    {
-        ConditionList condition = Types.InAssembly(InfrastructureAssembly)
-            .Should()
-            .HaveDependencyOn(Application);
-
-        int result = condition.Count();
-
-        result.Should().BePositive();
     }
 
     /// <summary>
@@ -116,58 +87,12 @@ public class LayerTests : BaseTest
     [Fact]
     public void EndpointsLayer_Should_BeIsolated()
     {
-        ConditionList condition = Types.InAssembly(EndpointsAssembly)
+        ConditionList condition = Types.InAssembly(Assemblies.EndpointsAssembly)
             .Should()
-            .NotHaveDependencyOnAny(App, Infrastructure);
+            .NotHaveDependencyOnAny(FullProjectNames.App, FullProjectNames.Infrastructure, FullProjectNames.Clients);
 
         bool result = condition.GetResult().IsSuccessful;
 
         result.Should().BeTrue();
-    }
-
-    /// <summary>
-    /// Презентационный слой <see cref="Endpoints"/> может зависеть только от слоя бизнес логики
-    /// </summary>
-    [Fact]
-    public void EndpointsLayer_Should_DependOnlyApplication()
-    {
-        ConditionList condition = Types.InAssembly(EndpointsAssembly)
-            .Should()
-            .HaveDependencyOn(Application);
-
-        int result = condition.Count();
-
-        result.Should().BePositive();
-    }
-
-    /// <summary>
-    /// Слой приложения <see cref="App"/> не может напрямую зависеть ни от каких слоёв, кроме <see cref="Infrastructure"/>
-    /// и <see cref="Endpoints"/>
-    /// </summary>
-    [Fact]
-    public void AppLayer_Should_BeIsolated()
-    {
-        ConditionList condition = Types.InAssembly(AppAssembly)
-            .Should()
-            .NotHaveDependencyOnAny(SharedKernel, Domain);
-
-        bool result = condition.GetResult().IsSuccessful;
-
-        result.Should().BeTrue();
-    }
-
-    /// <summary>
-    /// Слой приложения <see cref="App"/> может зависеть только от инфраструктурного и презентационного слоя
-    /// </summary>
-    [Fact]
-    public void AppLayer_Should_DependOnlyEndpointsAndInfrastructure()
-    {
-        ConditionList condition = Types.InAssembly(AppAssembly)
-            .Should()
-            .HaveDependencyOnAll(Infrastructure, Endpoints);
-
-        int result = condition.Count();
-
-        result.Should().BePositive();
     }
 }

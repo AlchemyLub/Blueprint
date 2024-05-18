@@ -24,6 +24,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\AlchemyLub.Blueprint.App\AlchemyLub.Blueprint.App.csproj" />
+    <ProjectReference Include="..\..\src\AlchemyLub.Blueprint.Clients\AlchemyLub.Blueprint.Clients.csproj" />
   </ItemGroup>
 
 </Project>

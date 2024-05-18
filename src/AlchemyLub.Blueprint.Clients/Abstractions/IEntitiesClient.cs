@@ -1,4 +1,7 @@
-namespace AlchemyLub.Blueprint.Client.Abstractions;
+using AlchemyLub.Blueprint.Clients.Requests;
+using AlchemyLub.Blueprint.Clients.Responses;
+
+namespace AlchemyLub.Blueprint.Clients.Abstractions;
 
 /// <summary>
 /// Клиент базовых сущностей

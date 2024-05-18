@@ -3,9 +3,11 @@ namespace AlchemyLub.Blueprint.Domain;
 /// <summary>
 /// Сущность домена
 /// </summary>
-public class Entity(Guid id) : IEntity
+public class Entity(Guid id)
 {
-    /// <inheritdoc />
+    /// <summary>
+    /// Идентификатор сущности
+    /// </summary>
     public Guid Id => id;
 
     /// <summary>
@@ -23,6 +25,8 @@ public class Entity(Guid id) : IEntity
     /// </summary>
     public DateTime CreatedAt { get; init; }
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Тип сущности
+    /// </summary>
     public EntityType Type => EntityType.Common;
 }

@@ -1,4 +1,4 @@
-namespace AlchemyLub.Blueprint.SharedKernel.Responses;
+namespace AlchemyLub.Blueprint.Endpoints.Responses;
 
 /// <summary>
 /// Модель ответа для базовой сущности

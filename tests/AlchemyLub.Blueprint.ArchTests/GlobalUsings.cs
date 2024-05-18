@@ -1,8 +1,9 @@
 global using System.Reflection;
-global using AlchemyLub.Blueprint.App.Extensions;
 global using AlchemyLub.Blueprint.Application.Services.Abstractions;
-global using AlchemyLub.Blueprint.Domain.Abstractions;
+global using AlchemyLub.Blueprint.Clients.Abstractions;
+global using AlchemyLub.Blueprint.Domain;
 global using AlchemyLub.Blueprint.Endpoints.Controllers;
-global using AlchemyLub.Blueprint.SharedKernel.Enums;
+global using AlchemyLub.Blueprint.Infrastructure.Services;
 global using FluentAssertions;
+global using Microsoft.AspNetCore.Mvc;
 global using NetArchTest.Rules;

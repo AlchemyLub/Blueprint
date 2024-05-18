@@ -1,4 +1,6 @@
-namespace AlchemyLub.Blueprint.Client.Extensions;
+using AlchemyLub.Blueprint.Clients.Abstractions;
+
+namespace AlchemyLub.Blueprint.Clients.Extensions;
 
 /// <summary>
 /// Методы расширения для <see cref="IServiceCollection"/>

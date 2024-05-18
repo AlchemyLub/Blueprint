@@ -1,4 +1,4 @@
-namespace AlchemyLub.Blueprint.SharedKernel.Requests;
+namespace AlchemyLub.Blueprint.Clients.Requests;
 
 /// <summary>
 /// Модель запроса для базовой сущности

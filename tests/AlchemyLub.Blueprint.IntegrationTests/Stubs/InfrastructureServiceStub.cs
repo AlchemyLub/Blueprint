@@ -5,7 +5,7 @@ namespace AlchemyLub.Blueprint.IntegrationTests.Stubs;
 /// </summary>
 public class InfrastructureServiceStub : IInfrastructureService
 {
-    private readonly Entity defaultEntity = new(Guid.NewGuid())
+    private readonly Func<Guid, Entity> defaultEntityFunc = id => new(id)
     {
         Title = "Entity title stub",
         Description = "Entity description stub",
@@ -17,7 +17,7 @@ public class InfrastructureServiceStub : IInfrastructureService
     {
         await Task.CompletedTask;
 
-        return defaultEntity;
+        return defaultEntityFunc(id);
     }
 
     /// <inheritdoc />
@@ -25,7 +25,7 @@ public class InfrastructureServiceStub : IInfrastructureService
     {
         await Task.CompletedTask;
 
-        return defaultEntity.Id;
+        return defaultEntityFunc(Guid.NewGuid()).Id;
     }
 
     /// <inheritdoc />

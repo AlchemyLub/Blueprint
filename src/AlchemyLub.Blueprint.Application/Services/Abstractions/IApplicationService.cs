@@ -10,7 +10,7 @@ public interface IApplicationService
     /// </summary>
     /// <param name="id">Идентификатор сущности</param>
     /// <returns>Запрашиваемая сущность</returns>
-    public Task<EntityResponse> GetEntity(Guid id);
+    public Task<Entity> GetEntity(Guid id);
 
     /// <summary>
     /// Создать новую сущность
@@ -31,6 +31,6 @@ public interface IApplicationService
     /// </summary>
     /// <param name="id">Идентификатор сущности</param>
     /// <param name="request">Модель запроса</param>
-    /// <returns>Обновлённая модель <see cref="EntityResponse"/></returns>
-    public Task<EntityResponse> UpdateEntity(Guid id, EntityRequest request);
+    /// <returns>Обновлённая модель <see cref="Entity"/></returns>
+    public Task<Entity> UpdateEntity(Guid id, Entity request);
 }

@@ -1,6 +1,5 @@
-namespace AlchemyLub.Blueprint.SharedKernel.Attributes;
+namespace AlchemyLub.Blueprint.Endpoints.Attributes;
 
-// TODO: Возможно стоит унести такие вещи в другой слой.
 /// <summary>
 /// Атрибут для игнорирования конкретного значения <see langword="enum"/> в OpenApi документации
 /// </summary>
