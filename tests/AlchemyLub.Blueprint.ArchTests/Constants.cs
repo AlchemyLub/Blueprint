@@ -29,4 +29,13 @@ internal static class Constants
         internal const string Application = $"{nameof(AlchemyLub)}.{nameof(Blueprint)}.{nameof(Blueprint.Application)}";
         internal const string Infrastructure = $"{nameof(AlchemyLub)}.{nameof(Blueprint)}.{nameof(Blueprint.Infrastructure)}";
     }
+
+    /// <summary>
+    /// Суффиксы из названий типов
+    /// </summary>
+    internal static class TypeNameSuffixes
+    {
+        internal const string Controller = nameof(Controller);
+        internal const string Client = nameof(Client);
+    }
 }
