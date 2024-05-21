@@ -5,4 +5,11 @@ namespace AlchemyLub.Blueprint.Clients.Requests;
 /// </summary>
 /// <param name="Title">Заголовок</param>
 /// <param name="Description">Описание</param>
-public record EntityRequest(string Title, string Description);
+/// <param name="Test">Тест</param>
+public record EntityRequest(string Title, string Description, IEnumerable<Test> Test); // TODO: 3й параметр только для тестов!
+
+// TODO: Просто для тестов, потом - удалить!
+public record GenericTest<T>(T Value);
+
+// TODO: Просто для тестов, потом - удалить!
+public record Test(DateTime Time, string Top);

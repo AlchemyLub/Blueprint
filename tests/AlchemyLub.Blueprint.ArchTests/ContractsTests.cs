@@ -2,7 +2,7 @@ using static AlchemyLub.Blueprint.ArchTests.Constants;
 
 namespace AlchemyLub.Blueprint.ArchTests;
 
-// TODO: Дописать по мере возможностей
+// TODO: Дописать по мере возможностей! Пока готово только сравнение типов(надо ещё проверить на дженериках) и сравнить все методы их параметры и возвращаемые значения
 /// <summary>
 /// Тесты для проверки корректного сопоставления контрактов и конечных точек
 /// </summary>
@@ -19,38 +19,30 @@ public class ContractsTests
             && t.IsInterface);
 
         IEnumerable<(Type controllerType, Type clientType)> equaledTypes = from controllerType in controllerTypes
-                join clientType in clientTypes on controllerType.Name equals clientType.Name[1..]
-                select (controllerType, clientType);
+            join clientType
+                in clientTypes
+                on controllerType.Name[..^(TypeNameSuffixes.Controller.Length - 1)]
+                equals clientType.Name[1..^(TypeNameSuffixes.Client.Length - 1)]
+            select (controllerType, clientType);
 
+        AssertResult result = new();
 
+        //foreach ((Type ControllerType, Type ClientType) in equaledTypes)
+        //{
+        //    result = result.Combine(EqualTypes(ControllerType, ClientType));
+        //}
 
-        foreach (Type controllerType in controllerTypes)
+        result = result.Combine(EqualTypes(typeof(EntityRequest), typeof(ClientEntityRequest)));
+
+        if (!result.IsSuccessful)
         {
-            string str = $"I{controllerType.Name.Replace("Controller", "Client")}";
-
-            // Get the corresponding contract interface
-            Type? contractInterface = controllerType.GetInterface(str, true);
-
-            // Check if interface exists
-            contractInterface.Should().NotBeNull();
-
-            // Get all methods in the controller
-            MethodInfo[] controllerMethods = controllerType.GetMethods();
-
-            // Get all methods in the contract interface
-            MethodInfo[] contractMethods = contractInterface!.GetMethods();
-
-            foreach (MethodInfo controllerMethod in controllerMethods)
+            foreach (string error in result.GetErrors())
             {
-                // Check if the method exists in the contract interface
-                MethodInfo? correspondingContractMethod = contractMethods.FirstOrDefault(m => m.Name == controllerMethod.Name);
-                correspondingContractMethod.Should().NotBeNull();
-
-                // Check if the method signature matches
-                controllerMethod.GetParameters().Should().HaveCount(correspondingContractMethod!.GetParameters().Length);
-                controllerMethod.ReturnType.Should().Be(correspondingContractMethod.ReturnType);
+                Console.WriteLine(error);
             }
         }
+
+        result.IsSuccessful.Should().BeTrue();
     }
 
     private void AssertContracts(Type controllerType, Type clientType)
@@ -91,11 +83,11 @@ public class ContractsTests
         // TODO: Сравнение по имени - не айс, нужен другой вариант.
         public PairedMethods[] PairedMethods =>
             (from controllerMethodInfo in ControllerMethods
-                join clientMethodInfo
-                    in ClientMethods
-                    on controllerMethodInfo.Name
-                    equals clientMethodInfo.Name
-                select new PairedMethods(controllerMethodInfo, clientMethodInfo))
+             join clientMethodInfo
+                 in ClientMethods
+                 on controllerMethodInfo.Name
+                 equals clientMethodInfo.Name
+             select new PairedMethods(controllerMethodInfo, clientMethodInfo))
             .ToArray();
     }
 
@@ -109,11 +101,11 @@ public class ContractsTests
         // TODO: Сравнение по имени - не айс, нужен другой вариант.
         public PairedTypes[] ParameterPairedTypes =>
             (from controllerMethodParameterInfo in ControllerMethodParameters
-                join clientMethodParameterInfo
-                    in ClientMethodParameters
-                    on controllerMethodParameterInfo.Name
-                    equals clientMethodParameterInfo.Name
-                select new PairedTypes(clientMethodParameterInfo.ParameterType, clientMethodParameterInfo.ParameterType))
+             join clientMethodParameterInfo
+                 in ClientMethodParameters
+                 on controllerMethodParameterInfo.Name
+                 equals clientMethodParameterInfo.Name
+             select new PairedTypes(clientMethodParameterInfo.ParameterType, clientMethodParameterInfo.ParameterType))
             .ToArray();
     }
 
@@ -127,91 +119,69 @@ public class ContractsTests
         public Lazy<Type> LazyType { get; }
     }
 
-    // TODO: Сгенерировано через GPT, надо подстроить под себя.
-    private static bool CompareClasses(string controllerClassName, string contractClassName)
+    private AssertResult EqualTypes(Type firstType, Type secondType)
     {
-        Assembly controllerAssembly = Assembly.LoadFile(controllerClassName);
-        Assembly contractAssembly = Assembly.LoadFile(contractClassName);
+        AssertResult result = new();
 
-        Type? controllerType = controllerAssembly.GetTypes().FirstOrDefault(t => t.Name == "MyControllerClass");
-        Type? contractType = contractAssembly.GetTypes().FirstOrDefault(t => t.Name == "MyContractClass");
-
-        if (controllerType == null || contractType == null)
+        if (firstType == secondType)
         {
-            Console.WriteLine("Controller or Contract class not found");
-            return false;
+            return result;
         }
 
-        foreach (MethodInfo controllerMethod in controllerType.GetMethods())
-        {
-            MethodInfo? contractMethod = contractType.GetMethod(controllerMethod.Name);
-            if (contractMethod == null)
-            {
-                Console.WriteLine($"Method {controllerMethod.Name} not found in the Contract class");
-                return false;
-            }
+        var firstTypeProperties = firstType.GetProperties();
+        var secondTypeProperties = secondType.GetProperties();
 
-            if (!CheckMethodCompliance(controllerMethod, contractMethod))
-            {
-                return false;
-            }
+        if (firstTypeProperties.Length != secondTypeProperties.Length)
+        {
+            return result.AddError($"У типов {firstType.Name} и {secondType.Name} не совпадает количество свойств");
         }
 
-        return true;
+        Array.Sort(firstTypeProperties, (p1, p2) => string.CompareOrdinal(p1.Name, p2.Name));
+        Array.Sort(secondTypeProperties, (p1, p2) => string.CompareOrdinal(p1.Name, p2.Name));
+
+        for (int i = 0; i < firstTypeProperties.Length; i++)
+        {
+            PropertyInfo firstPropertyInfo = firstTypeProperties[i];
+            PropertyInfo secondPropertyInfo = secondTypeProperties[i];
+
+            if (firstPropertyInfo.Name != secondPropertyInfo.Name)
+            {
+                result.AddError(
+                    $"У типов {firstType.Name} и {secondType.Name} свойства под индексами {i} не совпадают по именам. " +
+                    $"[{firstPropertyInfo.Name} != {secondPropertyInfo.Name}]");
+            }
+
+            result = result.Combine(EqualTypes(firstTypeProperties[i].PropertyType, secondTypeProperties[i].PropertyType));
+        }
+
+        return result;
     }
 
-    public static bool CheckMethodCompliance(MethodInfo controllerMethod, MethodInfo contractMethod)
+    private readonly struct AssertResult()
     {
-        ParameterInfo[] controllerParameters = controllerMethod.GetParameters();
-        ParameterInfo[] contractParameters = contractMethod.GetParameters();
-        Type controllerReturnType = controllerMethod.ReturnType;
-        Type contractReturnType = contractMethod.ReturnType;
+        public bool IsSuccessful => Errors.Count == 0;
 
-        if (!CheckTypeEquality(controllerReturnType, contractReturnType))
+        private List<string> Errors { get; } = new();
+
+        public AssertResult AddError(string errorMessage)
         {
-            Console.WriteLine($"Return types do not match for method: {controllerMethod.Name}");
-            return false;
+            Errors.Add(errorMessage);
+
+            return this;
         }
 
-        for (int i = 0; i < controllerParameters.Length; i++)
+        public List<string> GetErrors() => Errors;
+
+        public AssertResult Combine(AssertResult assertResult)
         {
-            if (!CheckTypeEquality(controllerParameters[i].ParameterType, contractParameters[i].ParameterType))
+            var errors = assertResult.GetErrors();
+
+            if (errors.Count > 0)
             {
-                Console.WriteLine($"Parameter types do not match for method: {controllerMethod.Name}");
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    public static bool CheckTypeEquality(Type type1, Type type2)
-    {
-        if ((type1.IsPrimitive && type2.IsPrimitive) || type1 == type2)
-        {
-            return true;
-        }
-        else if (type1.IsClass && type2.IsClass)
-        {
-            PropertyInfo[] type1Properties = type1.GetProperties();
-            PropertyInfo[] type2Properties = type2.GetProperties();
-
-            if (type1Properties.Length != type2Properties.Length)
-            {
-                return false;
+                Errors.AddRange(errors);
             }
 
-            for (int i = 0; i < type1Properties.Length; i++)
-            {
-                if (type1Properties[i].Name != type2Properties[i].Name || !CheckTypeEquality(type1Properties[i].PropertyType, type2Properties[i].PropertyType))
-                {
-                    return false;
-                }
-            }
-
-            return true;
+            return this;
         }
-
-        return false;
     }
 }
