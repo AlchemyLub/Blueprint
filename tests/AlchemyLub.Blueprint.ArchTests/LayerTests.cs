@@ -1,5 +1,3 @@
-using static AlchemyLub.Blueprint.ArchTests.Constants;
-
 namespace AlchemyLub.Blueprint.ArchTests;
 
 /// <summary>

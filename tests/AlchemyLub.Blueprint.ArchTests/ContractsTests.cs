@@ -1,5 +1,3 @@
-using static AlchemyLub.Blueprint.ArchTests.Constants;
-
 namespace AlchemyLub.Blueprint.ArchTests;
 
 // TODO: Дописать по мере возможностей! Пока готово только сравнение типов(надо ещё проверить на дженериках) и сравнить все методы их параметры и возвращаемые значения
@@ -128,16 +126,37 @@ public class ContractsTests
             return result;
         }
 
-        var firstTypeProperties = firstType.GetProperties();
-        var secondTypeProperties = secondType.GetProperties();
+        // TODO: Не лучший вариант, потому что у многих типов из BCL IsPrimitive == false. Нужен механизм, для их проверки
+        // скорее всего нужно самостоятельно записать все типы и по ним определять
+        // к тому же DateTime и DateTimeOffset вполне взаимозаменяемы(? уточнить) на уровне API, нужна кастомная логика
+        if (firstType.IsPrimitive && secondType.IsPrimitive)
+        {
+            throw new NotImplementedException("Нужна норм ошибка!");
+        }
+
+        // TODO: Рассмотреть такой вариант, как жизнеспособный! Пока не вижу других вариантов.
+        // Если не останавливать, то можно и в примитивные типы закопаться по самое не хочу, к тому же не получится тут
+        // пробросить название свойства/параметра/, которое про
+        //if (firstType.Assembly.FullName?.StartsWith("mscorlib")
+        //    ?? secondType.Assembly.FullName?.StartsWith("mscorlib")
+        //    ?? false)
+        //{
+        //    return result.AddError($"У типов [{firstType.FullName}] и [{secondType.FullName}] не совпадает количество свойств");
+        //}
+
+        PropertyInfo[] firstTypeProperties = firstType.GetProperties();
+        PropertyInfo[] secondTypeProperties = secondType.GetProperties();
 
         if (firstTypeProperties.Length != secondTypeProperties.Length)
         {
-            return result.AddError($"У типов {firstType.Name} и {secondType.Name} не совпадает количество свойств");
+            return result.AddError($"У типов [{firstType.FullName}] и [{secondType.FullName}] не совпадает количество свойств");
         }
 
-        Array.Sort(firstTypeProperties, (p1, p2) => string.CompareOrdinal(p1.Name, p2.Name));
-        Array.Sort(secondTypeProperties, (p1, p2) => string.CompareOrdinal(p1.Name, p2.Name));
+        if (firstTypeProperties.Length > 0)
+        {
+            Array.Sort(firstTypeProperties, (p1, p2) => string.CompareOrdinal(p1.Name, p2.Name));
+            Array.Sort(secondTypeProperties, (p1, p2) => string.CompareOrdinal(p1.Name, p2.Name));
+        }
 
         for (int i = 0; i < firstTypeProperties.Length; i++)
         {
@@ -147,41 +166,46 @@ public class ContractsTests
             if (firstPropertyInfo.Name != secondPropertyInfo.Name)
             {
                 result.AddError(
-                    $"У типов {firstType.Name} и {secondType.Name} свойства под индексами {i} не совпадают по именам. " +
+                    $"У типов [{firstType.FullName}] и [{secondType.FullName}] свойства не совпадают по именам. " +
                     $"[{firstPropertyInfo.Name} != {secondPropertyInfo.Name}]");
             }
 
-            result = result.Combine(EqualTypes(firstTypeProperties[i].PropertyType, secondTypeProperties[i].PropertyType));
+            Type firstPropertyType = firstTypeProperties[i].PropertyType;
+            Type secondPropertyType = secondTypeProperties[i].PropertyType;
+
+            AssertResult comparingTypesResult = EqualTypes(firstPropertyType, secondPropertyType);
+
+            result.Combine(comparingTypesResult);
+
+            if (comparingTypesResult.IsSuccessful && firstPropertyType.IsGenericType)
+            {
+                Type[] firstPropertyGenericArguments = firstPropertyType.GetGenericArguments();
+                Type[] secondPropertyGenericArguments = secondPropertyType.GetGenericArguments();
+
+                if (firstPropertyGenericArguments.Length != secondPropertyGenericArguments.Length)
+                {
+                    return result.AddError(
+                        $"У обобщённых типов [{firstPropertyType.FullName}] и [{secondPropertyType.FullName}] не совпадает количество аргументов");
+                }
+
+                if (firstPropertyGenericArguments.Length > 0)
+                {
+                    Array.Sort(firstPropertyGenericArguments, (p1, p2) => string.CompareOrdinal(p1.Name, p2.Name));
+                    Array.Sort(secondPropertyGenericArguments, (p1, p2) => string.CompareOrdinal(p1.Name, p2.Name));
+                }
+
+                for (int j = 0; j < firstPropertyGenericArguments.Length; j++)
+                {
+                    Type firstGenericArgumentType = firstPropertyGenericArguments[j];
+                    Type secondGenericArgumentType = secondPropertyGenericArguments[j];
+
+                    AssertResult comparingGenericArgumentTypesResult = EqualTypes(firstGenericArgumentType, secondGenericArgumentType);
+
+                    result.Combine(comparingGenericArgumentTypesResult);
+                }
+            }
         }
 
         return result;
-    }
-
-    private readonly struct AssertResult()
-    {
-        public bool IsSuccessful => Errors.Count == 0;
-
-        private List<string> Errors { get; } = new();
-
-        public AssertResult AddError(string errorMessage)
-        {
-            Errors.Add(errorMessage);
-
-            return this;
-        }
-
-        public List<string> GetErrors() => Errors;
-
-        public AssertResult Combine(AssertResult assertResult)
-        {
-            var errors = assertResult.GetErrors();
-
-            if (errors.Count > 0)
-            {
-                Errors.AddRange(errors);
-            }
-
-            return this;
-        }
     }
 }

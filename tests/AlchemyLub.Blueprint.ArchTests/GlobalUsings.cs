@@ -1,5 +1,6 @@
 global using System.Reflection;
 global using AlchemyLub.Blueprint.Application.Services.Abstractions;
+global using AlchemyLub.Blueprint.ArchTests.Results;
 global using AlchemyLub.Blueprint.Clients.Abstractions;
 global using AlchemyLub.Blueprint.Domain;
 global using AlchemyLub.Blueprint.Endpoints.Controllers;
@@ -8,5 +9,6 @@ global using AlchemyLub.Blueprint.Infrastructure.Services;
 global using FluentAssertions;
 global using Microsoft.AspNetCore.Mvc;
 global using NetArchTest.Rules;
+global using static AlchemyLub.Blueprint.ArchTests.Constants;
 global using ClientEntityResponse = AlchemyLub.Blueprint.Clients.Responses.EntityResponse;
 global using ClientEntityRequest = AlchemyLub.Blueprint.Clients.Requests.EntityRequest;
