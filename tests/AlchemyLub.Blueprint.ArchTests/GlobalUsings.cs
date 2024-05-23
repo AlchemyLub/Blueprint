@@ -1,3 +1,5 @@
+global using System.ComponentModel;
+global using System.Diagnostics.CodeAnalysis;
 global using System.Reflection;
 global using AlchemyLub.Blueprint.Application.Services.Abstractions;
 global using AlchemyLub.Blueprint.ArchTests.Results;

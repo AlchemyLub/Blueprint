@@ -9,19 +9,19 @@ public class ContractsTests
     [Fact]
     public void TestContractsCorrespondToControllers()
     {
-        IEnumerable<Type> controllerTypes = Assemblies.EndpointsAssembly.GetTypes().Where(t =>
-            typeof(ControllerBase).IsAssignableFrom(t)
-            && t.Name.EndsWith(TypeNameSuffixes.Controller, StringComparison.InvariantCultureIgnoreCase));
-        IEnumerable<Type> clientTypes = Assemblies.ClientsAssembly.GetTypes().Where(t =>
-            t.Name.EndsWith(TypeNameSuffixes.Client, StringComparison.InvariantCultureIgnoreCase)
-            && t.IsInterface);
+        //IEnumerable<Type> controllerTypes = Assemblies.EndpointsAssembly.GetTypes().Where(t =>
+        //    typeof(ControllerBase).IsAssignableFrom(t)
+        //    && t.Name.EndsWith(TypeNameSuffixes.Controller, StringComparison.InvariantCultureIgnoreCase));
+        //IEnumerable<Type> clientTypes = Assemblies.ClientsAssembly.GetTypes().Where(t =>
+        //    t.Name.EndsWith(TypeNameSuffixes.Client, StringComparison.InvariantCultureIgnoreCase)
+        //    && t.IsInterface);
 
-        IEnumerable<(Type controllerType, Type clientType)> equaledTypes = from controllerType in controllerTypes
-            join clientType
-                in clientTypes
-                on controllerType.Name[..^(TypeNameSuffixes.Controller.Length - 1)]
-                equals clientType.Name[1..^(TypeNameSuffixes.Client.Length - 1)]
-            select (controllerType, clientType);
+        //IEnumerable<(Type controllerType, Type clientType)> equaledTypes = from controllerType in controllerTypes
+        //    join clientType
+        //        in clientTypes
+        //        on controllerType.Name[..^(TypeNameSuffixes.Controller.Length - 1)]
+        //        equals clientType.Name[1..^(TypeNameSuffixes.Client.Length - 1)]
+        //    select (controllerType, clientType);
 
         AssertResult result = new();
 
@@ -30,7 +30,21 @@ public class ContractsTests
         //    result = result.Combine(EqualTypes(ControllerType, ClientType));
         //}
 
-        result = result.Combine(EqualTypes(typeof(EntityRequest), typeof(ClientEntityRequest)));
+        Type controllerType = typeof(EntitiesController);
+        Type contractType = typeof(EntitiesController);
+
+        MethodInfo[] controllerMethods = controllerType.GetMethods();
+        MethodInfo[] contractMethods = contractType.GetMethods();
+
+        // TODO: Исключение для неравного количества
+
+        if (controllerMethods.Length > 1)
+        {
+            Array.Sort(controllerMethods, (p1, p2) => string.CompareOrdinal(p1.Name, p2.Name));
+            Array.Sort(contractMethods, (p1, p2) => string.CompareOrdinal(p1.Name, p2.Name));
+        }
+
+        result = result.Combine(EqualMethods(typeof(EntityRequest), typeof(ClientEntityRequest)));
 
         if (!result.IsSuccessful)
         {
@@ -43,79 +57,44 @@ public class ContractsTests
         result.IsSuccessful.Should().BeTrue();
     }
 
-    private void AssertContracts(Type controllerType, Type clientType)
+
+    private AssertResult EqualMethods(MethodInfo firstMethodInfo, MethodInfo secondMethodInfo)
     {
-        ControllerClientPair pair = new(controllerType, clientType);
+        AssertResult result = new();
 
-        pair.ControllerMethods
-            .Should()
-            .HaveCount(pair.ClientMethods.Length)
-            .And
-            .HaveCount(pair.PairedMethods.Length);
+        ParameterInfo[] firstParameters = firstMethodInfo.GetParameters();
+        ParameterInfo[] secondParameters = secondMethodInfo.GetParameters();
 
-        foreach (PairedMethods pairedMethods in pair.PairedMethods)
+        if (firstParameters.Length != secondParameters.Length)
         {
-            pairedMethods.ControllerMethodParameters
-                .Should()
-                .HaveCount(pairedMethods.ClientMethodParameters.Length)
-                .And
-                .HaveCount(pairedMethods.ParameterPairedTypes.Length);
-
-            foreach (PairedTypes parameterPairedTypes in pairedMethods.ParameterPairedTypes)
-            {
-                if (parameterPairedTypes.LeftType == parameterPairedTypes.RightType)
-                {
-                    continue;
-                }
-
-                parameterPairedTypes.LeftType.Should().Be(parameterPairedTypes.RightType);
-            }
+            return result.AddError($"У методов [{firstMethodInfo.Name}] и [{secondMethodInfo.Name}] не совпадает количество параметров");
         }
+
+        if (firstParameters.Length > 1)
+        {
+            Array.Sort(firstParameters, (p1, p2) => string.CompareOrdinal(p1.Name, p2.Name));
+            Array.Sort(secondParameters, (p1, p2) => string.CompareOrdinal(p1.Name, p2.Name));
+        }
+
+        for (int i = 0; i < firstParameters.Length; i++)
+        {
+            ParameterInfo firstParameterInfo = firstParameters[i];
+            ParameterInfo secondParameterInfo = secondParameters[i];
+
+            string firstParameterInfoName = firstParameterInfo.Name!;
+            string secondParameterInfoName = secondParameterInfo.Name!;
+
+            if (firstParameterInfoName != secondParameterInfoName)
+            {
+                result.AddError($"Параметры [{firstParameterInfoName}] и [{secondParameterInfoName}] имеют разные имена");
+            }
+
+            result = result.Combine(EqualTypes(firstParameterInfo.ParameterType, secondParameterInfo.ParameterType));
+        }
+
+        return result;
     }
 
-    private readonly struct ControllerClientPair(Type controllerType, Type clientType)
-    {
-        public MethodInfo[] ControllerMethods => controllerType.GetMethods();
-        public MethodInfo[] ClientMethods => clientType.GetMethods();
-
-        // TODO: Сравнение по имени - не айс, нужен другой вариант.
-        public PairedMethods[] PairedMethods =>
-            (from controllerMethodInfo in ControllerMethods
-             join clientMethodInfo
-                 in ClientMethods
-                 on controllerMethodInfo.Name
-                 equals clientMethodInfo.Name
-             select new PairedMethods(controllerMethodInfo, clientMethodInfo))
-            .ToArray();
-    }
-
-    private readonly struct PairedMethods(MethodInfo controllerMethod, MethodInfo clientMethod)
-    {
-        public PairedTypes ReturnTypePair => new(controllerMethod.ReturnType, clientMethod.ReturnType);
-
-        public ParameterInfo[] ControllerMethodParameters => controllerMethod.GetParameters();
-        public ParameterInfo[] ClientMethodParameters => controllerMethod.GetParameters();
-
-        // TODO: Сравнение по имени - не айс, нужен другой вариант.
-        public PairedTypes[] ParameterPairedTypes =>
-            (from controllerMethodParameterInfo in ControllerMethodParameters
-             join clientMethodParameterInfo
-                 in ClientMethodParameters
-                 on controllerMethodParameterInfo.Name
-                 equals clientMethodParameterInfo.Name
-             select new PairedTypes(clientMethodParameterInfo.ParameterType, clientMethodParameterInfo.ParameterType))
-            .ToArray();
-    }
-
-    private readonly struct PairedTypes(Type leftType, Type rightType)
-    {
-        public Type LeftType { get; init; } = leftType;
-        public Type RightType { get; init; } = rightType;
-
-        public bool IsEquivalent => LeftType == RightType;
-
-        public Lazy<Type> LazyType { get; }
-    }
 
     private AssertResult EqualTypes(Type firstType, Type secondType)
     {
@@ -126,23 +105,61 @@ public class ContractsTests
             return result;
         }
 
-        // TODO: Не лучший вариант, потому что у многих типов из BCL IsPrimitive == false. Нужен механизм, для их проверки
-        // скорее всего нужно самостоятельно записать все типы и по ним определять
-        // к тому же DateTime и DateTimeOffset вполне взаимозаменяемы(? уточнить) на уровне API, нужна кастомная логика
-        if (firstType.IsPrimitive && secondType.IsPrimitive)
+        if (!TryCheckTestTypes(firstType, secondType, out TestType? testType))
         {
-            throw new NotImplementedException("Нужна норм ошибка!");
+            return result.AddError($"Типы [{firstType.FullName}] и [{secondType.FullName}] не соответствуют друг другу");
         }
 
-        // TODO: Рассмотреть такой вариант, как жизнеспособный! Пока не вижу других вариантов.
-        // Если не останавливать, то можно и в примитивные типы закопаться по самое не хочу, к тому же не получится тут
-        // пробросить название свойства/параметра/, которое про
-        //if (firstType.Assembly.FullName?.StartsWith("mscorlib")
-        //    ?? secondType.Assembly.FullName?.StartsWith("mscorlib")
-        //    ?? false)
-        //{
-        //    return result.AddError($"У типов [{firstType.FullName}] и [{secondType.FullName}] не совпадает количество свойств");
-        //}
+        return testType switch
+        {
+            TestType.Primitive => result.AddError($"Типы {firstType.FullName} и {secondType.FullName}" +
+                                                  $" являются базовыми и не соответствуют друг другу"),
+            TestType.Enum => CheckEnumTypes(firstType, secondType),
+            TestType.CustomType => CheckCustomTypes(firstType, secondType),
+            _ => throw new InvalidEnumArgumentException(nameof(testType), (int)testType, typeof(TestType))
+        };
+    }
+
+    private AssertResult CheckEnumTypes(Type firstType, Type secondType)
+    {
+        AssertResult result = new();
+
+        FieldInfo[] firstFieldsInfo = firstType.GetFields();
+        FieldInfo[] secondFieldsInfo = secondType.GetFields();
+
+        if (firstFieldsInfo.Length != secondFieldsInfo.Length)
+        {
+            return result.AddError($"У перечислений [{firstType.FullName}] и [{secondType.FullName}] не совпадает количество значений");
+        }
+
+        Array.Sort(firstFieldsInfo, (p1, p2) => string.CompareOrdinal(p1.Name, p2.Name));
+        Array.Sort(secondFieldsInfo, (p1, p2) => string.CompareOrdinal(p1.Name, p2.Name));
+
+        for (int i = 0; i < firstFieldsInfo.Length; i++)
+        {
+            FieldInfo firstFieldInfo = firstFieldsInfo[i];
+            FieldInfo secondFieldInfo = secondFieldsInfo[i];
+
+            string firstFieldInfoName = firstFieldInfo.Name;
+            string secondFieldInfoName = firstFieldInfo.Name;
+
+            object? firstFieldInfoConstantValue = firstFieldInfo.GetRawConstantValue();
+            object? secondFieldInfoConstantValue = secondFieldInfo.GetRawConstantValue();
+
+            if (firstFieldInfoName != secondFieldInfoName || firstFieldInfoConstantValue != secondFieldInfoConstantValue)
+            {
+                result.AddError($"У перечислений [{firstType.FullName}] и [{secondType.FullName}] не совпадают значения " +
+                                $"{firstFieldInfoConstantValue}. {firstFieldInfoName}" +
+                                $" <-> {secondFieldInfoConstantValue}. {secondFieldInfoName}");
+            }
+        }
+
+        return result;
+    }
+
+    private AssertResult CheckCustomTypes(Type firstType, Type secondType)
+    {
+        AssertResult result = new();
 
         PropertyInfo[] firstTypeProperties = firstType.GetProperties();
         PropertyInfo[] secondTypeProperties = secondType.GetProperties();
@@ -165,7 +182,7 @@ public class ContractsTests
 
             if (firstPropertyInfo.Name != secondPropertyInfo.Name)
             {
-                result.AddError(
+                return result.AddError(
                     $"У типов [{firstType.FullName}] и [{secondType.FullName}] свойства не совпадают по именам. " +
                     $"[{firstPropertyInfo.Name} != {secondPropertyInfo.Name}]");
             }
@@ -176,36 +193,109 @@ public class ContractsTests
             AssertResult comparingTypesResult = EqualTypes(firstPropertyType, secondPropertyType);
 
             result.Combine(comparingTypesResult);
-
-            if (comparingTypesResult.IsSuccessful && firstPropertyType.IsGenericType)
-            {
-                Type[] firstPropertyGenericArguments = firstPropertyType.GetGenericArguments();
-                Type[] secondPropertyGenericArguments = secondPropertyType.GetGenericArguments();
-
-                if (firstPropertyGenericArguments.Length != secondPropertyGenericArguments.Length)
-                {
-                    return result.AddError(
-                        $"У обобщённых типов [{firstPropertyType.FullName}] и [{secondPropertyType.FullName}] не совпадает количество аргументов");
-                }
-
-                if (firstPropertyGenericArguments.Length > 0)
-                {
-                    Array.Sort(firstPropertyGenericArguments, (p1, p2) => string.CompareOrdinal(p1.Name, p2.Name));
-                    Array.Sort(secondPropertyGenericArguments, (p1, p2) => string.CompareOrdinal(p1.Name, p2.Name));
-                }
-
-                for (int j = 0; j < firstPropertyGenericArguments.Length; j++)
-                {
-                    Type firstGenericArgumentType = firstPropertyGenericArguments[j];
-                    Type secondGenericArgumentType = secondPropertyGenericArguments[j];
-
-                    AssertResult comparingGenericArgumentTypesResult = EqualTypes(firstGenericArgumentType, secondGenericArgumentType);
-
-                    result.Combine(comparingGenericArgumentTypesResult);
-                }
-            }
         }
 
         return result;
+    }
+
+    private bool TryCheckTestTypes(Type firstType, Type secondType, [NotNullWhen(true)] out TestType? testType)
+    {
+        TestType firstTestType = GetTestType(firstType);
+        TestType secondTestType = GetTestType(secondType);
+
+        if (firstTestType == secondTestType)
+        {
+            testType = firstTestType;
+            return true;
+        }
+
+        testType = null;
+        return false;
+    }
+
+    private TestType GetTestType(Type type)
+    {
+        if (type.IsEnum)
+        {
+            return TestType.Enum;
+        }
+
+        return IsSimpleType(type)
+            ? TestType.Primitive
+            : TestType.CustomType;
+    }
+
+    private bool IsSimpleType(Type type)
+    {
+        HashSet<Type> primitiveTypes = new()
+        {
+            typeof(string),
+            typeof(decimal),
+            typeof(DateTime),
+            typeof(DateOnly),
+            typeof(TimeOnly),
+            typeof(DateTimeOffset),
+            typeof(TimeSpan),
+            typeof(Guid)
+        };
+
+        if (type.IsPrimitive || primitiveTypes.Contains(type))
+        {
+            return true;
+        }
+
+        return TryUnboxNullableType(type, out Type? unboxType) && IsSimpleType(unboxType);
+    }
+
+    private bool TryUnboxNullableType(Type type, [NotNullWhen(true)] out Type? unboxNullableType)
+    {
+        Type? underlyingType = Nullable.GetUnderlyingType(type);
+
+        if (underlyingType is null)
+        {
+            unboxNullableType = underlyingType;
+            return false;
+        }
+
+        unboxNullableType = underlyingType;
+        return true;
+    }
+
+    /// <summary>
+    /// Упрощённая типизация для тестирования
+    /// </summary>
+    private enum TestType
+    {
+        /// <summary>
+        /// Неизвестный тип
+        /// </summary>
+        /// <remarks>
+        /// Указывает на исключительный случай, в корректно работающем коде не должен попадаться
+        /// </remarks>
+        Unknown = 0,
+
+        /// <summary>
+        /// Примитивный тип, находящийся в BCL
+        /// </summary>
+        /// <remarks>
+        /// <b>Необходимые действия:</b> просто сравнить типы
+        /// </remarks>
+        Primitive = 1,
+
+        /// <summary>
+        /// Тип перечисление
+        /// </summary>
+        /// <remarks>
+        /// <b>Необходимые действия:</b> сравнить все значения перечисления
+        /// </remarks>
+        Enum = 2,
+
+        /// <summary>
+        /// Пользовательский тип
+        /// </summary>
+        /// <remarks>
+        /// <b>Необходимые действия:</b> сравнить все свойства типа
+        /// </remarks>
+        CustomType = 3
     }
 }

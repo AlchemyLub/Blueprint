@@ -1,5 +1,6 @@
 namespace AlchemyLub.Blueprint.ArchTests.Results;
 
+// TODO: Причесать модель
 /// <summary>
 /// Представляет собой агрегированный результат теста
 /// </summary>
