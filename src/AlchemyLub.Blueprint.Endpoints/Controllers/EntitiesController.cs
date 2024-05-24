@@ -23,7 +23,7 @@ public class EntitiesController(IApplicationService applicationService) : Contro
     /// Создать сущность
     /// </summary>
     [HttpPost]
-    public async Task<Guid> CreateEntity(EntityType type) => await applicationService.CreateEntity(type);
+    public async Task<Guid> CreateEntity() => await applicationService.CreateEntity();
 
     /// <summary>
     /// Удалить сущность

@@ -9,34 +9,47 @@ public class ContractsTests
     [Fact]
     public void TestContractsCorrespondToControllers()
     {
-        //IEnumerable<Type> controllerTypes = Assemblies.EndpointsAssembly.GetTypes().Where(t =>
-        //    typeof(ControllerBase).IsAssignableFrom(t)
-        //    && t.Name.EndsWith(TypeNameSuffixes.Controller, StringComparison.InvariantCultureIgnoreCase));
-        //IEnumerable<Type> clientTypes = Assemblies.ClientsAssembly.GetTypes().Where(t =>
-        //    t.Name.EndsWith(TypeNameSuffixes.Client, StringComparison.InvariantCultureIgnoreCase)
-        //    && t.IsInterface);
+        IEnumerable<Type> controllerTypes = Assemblies.EndpointsAssembly.GetTypes().Where(t =>
+            typeof(ControllerBase).IsAssignableFrom(t)
+            && t.Name.EndsWith(TypeNameSuffixes.Controller, StringComparison.InvariantCultureIgnoreCase));
+        IEnumerable<Type> clientTypes = Assemblies.ClientsAssembly.GetTypes().Where(t =>
+            t.Name.EndsWith(TypeNameSuffixes.Client, StringComparison.InvariantCultureIgnoreCase)
+            && t.IsInterface);
 
-        //IEnumerable<(Type controllerType, Type clientType)> equaledTypes = from controllerType in controllerTypes
-        //    join clientType
-        //        in clientTypes
-        //        on controllerType.Name[..^(TypeNameSuffixes.Controller.Length - 1)]
-        //        equals clientType.Name[1..^(TypeNameSuffixes.Client.Length - 1)]
-        //    select (controllerType, clientType);
+        IEnumerable<(Type controllerType, Type clientType)> equaledTypes = from controllerType in controllerTypes
+                                                                           join clientType
+                                                                               in clientTypes
+                                                                               on controllerType.Name[..^(TypeNameSuffixes.Controller.Length - 1)]
+                                                                               equals clientType.Name[1..^(TypeNameSuffixes.Client.Length - 1)]
+                                                                           select (controllerType, clientType);
 
         AssertResult result = new();
 
-        //foreach ((Type ControllerType, Type ClientType) in equaledTypes)
-        //{
-        //    result = result.Combine(EqualTypes(ControllerType, ClientType));
-        //}
+        foreach ((Type controllerType, Type clientType) in equaledTypes)
+        {
+            result.Combine(EqualContractClasses(controllerType, clientType));
+        }
 
-        Type controllerType = typeof(EntitiesController);
-        Type contractType = typeof(EntitiesController);
+        result.IsSuccessful.Should().BeTrue();
+    }
 
-        MethodInfo[] controllerMethods = controllerType.GetMethods();
-        MethodInfo[] contractMethods = contractType.GetMethods();
+    private AssertResult EqualContractClasses(Type controllerType, Type contractType)
+    {
+        AssertResult result = new();
 
-        // TODO: Исключение для неравного количества
+        MethodInfo[] controllerMethods = controllerType
+            .GetMethods(BindingFlags.Public | BindingFlags.Instance)
+            .Where(t => t.DeclaringType == controllerType)
+            .ToArray();
+        MethodInfo[] contractMethods = contractType
+            .GetMethods(BindingFlags.Public | BindingFlags.Instance)
+            .Where(t => t.DeclaringType == contractType)
+            .ToArray();
+
+        if (controllerMethods.Length != contractMethods.Length)
+        {
+            result.AddError($"У классов [{controllerType.FullName}] и [{contractType.FullName}] не совпадает количество методов");
+        }
 
         if (controllerMethods.Length > 1)
         {
@@ -44,23 +57,26 @@ public class ContractsTests
             Array.Sort(contractMethods, (p1, p2) => string.CompareOrdinal(p1.Name, p2.Name));
         }
 
-        result = result.Combine(EqualMethods(typeof(EntityRequest), typeof(ClientEntityRequest)));
-
-        if (!result.IsSuccessful)
+        for (int i = 0; i < controllerMethods.Length; i++)
         {
-            foreach (string error in result.GetErrors())
-            {
-                Console.WriteLine(error);
-            }
+            result = result.Combine(EqualMethods(controllerMethods[i], contractMethods[i]));
         }
 
-        result.IsSuccessful.Should().BeTrue();
+        return result;
     }
 
 
     private AssertResult EqualMethods(MethodInfo firstMethodInfo, MethodInfo secondMethodInfo)
     {
         AssertResult result = new();
+
+        Type firstReturnType = firstMethodInfo.ReturnType;
+        Type secondReturnType = secondMethodInfo.ReturnType;
+
+        if (firstReturnType != secondReturnType)
+        {
+            result.Combine(EqualTypes(firstReturnType, secondReturnType));
+        }
 
         ParameterInfo[] firstParameters = firstMethodInfo.GetParameters();
         ParameterInfo[] secondParameters = secondMethodInfo.GetParameters();
@@ -89,7 +105,7 @@ public class ContractsTests
                 result.AddError($"Параметры [{firstParameterInfoName}] и [{secondParameterInfoName}] имеют разные имена");
             }
 
-            result = result.Combine(EqualTypes(firstParameterInfo.ParameterType, secondParameterInfo.ParameterType));
+            result.Combine(EqualTypes(firstParameterInfo.ParameterType, secondParameterInfo.ParameterType));
         }
 
         return result;

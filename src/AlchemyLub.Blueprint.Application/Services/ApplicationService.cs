@@ -7,7 +7,7 @@ internal sealed class ApplicationService(IInfrastructureService infrastructureSe
     public async Task<Entity> GetEntity(Guid id) => await infrastructureService.GetDbEntity(id);
 
     /// <inheritdoc />
-    public async Task<Guid> CreateEntity(EntityType entityType) => await infrastructureService.CreateDbEntity();
+    public async Task<Guid> CreateEntity() => await infrastructureService.CreateDbEntity();
 
     /// <inheritdoc />
     public async Task<bool> DeleteEntity(Guid id) => await infrastructureService.DeleteDbEntity(id);

@@ -15,9 +15,8 @@ public interface IApplicationService
     /// <summary>
     /// Создать новую сущность
     /// </summary>
-    /// <param name="entityType">Тип новой сущности</param>
     /// <returns>Идентификатор новой сущности</returns>
-    public Task<Guid> CreateEntity(EntityType entityType);
+    public Task<Guid> CreateEntity();
 
     /// <summary>
     /// Удалить сущность
