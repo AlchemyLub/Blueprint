@@ -1,6 +1,5 @@
 namespace AlchemyLub.Blueprint.ArchTests;
 
-// TODO: Дописать по мере возможностей! Пока готово только сравнение типов(надо ещё проверить на дженериках) и сравнить все методы их параметры и возвращаемые значения
 /// <summary>
 /// Тесты для проверки корректного сопоставления контрактов и конечных точек
 /// </summary>
@@ -9,25 +8,34 @@ public class ContractsTests
     [Fact]
     public void TestContractsCorrespondToControllers()
     {
-        IEnumerable<Type> controllerTypes = Assemblies.EndpointsAssembly.GetTypes().Where(t =>
-            typeof(ControllerBase).IsAssignableFrom(t)
-            && t.Name.EndsWith(TypeNameSuffixes.Controller, StringComparison.InvariantCultureIgnoreCase));
-        IEnumerable<Type> clientTypes = Assemblies.ClientsAssembly.GetTypes().Where(t =>
-            t.Name.EndsWith(TypeNameSuffixes.Client, StringComparison.InvariantCultureIgnoreCase)
-            && t.IsInterface);
-
-        IEnumerable<(Type controllerType, Type clientType)> equaledTypes = from controllerType in controllerTypes
-                                                                           join clientType
-                                                                               in clientTypes
-                                                                               on controllerType.Name[..^(TypeNameSuffixes.Controller.Length - 1)]
-                                                                               equals clientType.Name[1..^(TypeNameSuffixes.Client.Length - 1)]
-                                                                           select (controllerType, clientType);
-
         AssertResult result = new();
+        Type[] controllerTypes = Assemblies.EndpointsAssembly
+            .GetTypes()
+            .Where(t =>
+                typeof(ControllerBase).IsAssignableFrom(t)
+                && t.Name.EndsWith(TypeNameSuffixes.Controller, StringComparison.InvariantCultureIgnoreCase))
+            .ToArray();
 
-        foreach ((Type controllerType, Type clientType) in equaledTypes)
+        Type[] clientTypes = Assemblies.ClientsAssembly
+            .GetTypes()
+            .Where(t => t.Name.EndsWith(TypeNameSuffixes.Client, StringComparison.InvariantCultureIgnoreCase) && !t.IsInterface)
+            .ToArray();
+
+        if (controllerTypes.Length != clientTypes.Length)
         {
-            result.Combine(EqualContractClasses(controllerType, clientType));
+            result.AddError("Не совпадает количество контроллеров и клиентов");
+            //result.IsSuccessful.Should().BeTrue();
+        }
+
+        if (controllerTypes.Length > 1)
+        {
+            Array.Sort(controllerTypes, (p1, p2) => string.CompareOrdinal(p1.Name, p2.Name));
+            Array.Sort(clientTypes, (p1, p2) => string.CompareOrdinal(p1.Name, p2.Name));
+        }
+
+        for (int i = 0; i < controllerTypes.Length; i++)
+        {
+            result.Combine(EqualContractClasses(controllerTypes[i], clientTypes[i]));
         }
 
         result.IsSuccessful.Should().BeTrue();
@@ -39,11 +47,11 @@ public class ContractsTests
 
         MethodInfo[] controllerMethods = controllerType
             .GetMethods(BindingFlags.Public | BindingFlags.Instance)
-            .Where(t => t.DeclaringType == controllerType)
+            .Where(t => t.DeclaringType == controllerType && !CheckGeneratedAttributes(t))
             .ToArray();
         MethodInfo[] contractMethods = contractType
             .GetMethods(BindingFlags.Public | BindingFlags.Instance)
-            .Where(t => t.DeclaringType == contractType)
+            .Where(t => t.DeclaringType == contractType && !CheckGeneratedAttributes(t))
             .ToArray();
 
         if (controllerMethods.Length != contractMethods.Length)
@@ -64,6 +72,9 @@ public class ContractsTests
 
         return result;
     }
+
+    private bool CheckGeneratedAttributes(MethodInfo methodInfo) =>
+        methodInfo.CustomAttributes.Any(t => t.AttributeType.Name.Contains("Generate"));
 
 
     private AssertResult EqualMethods(MethodInfo firstMethodInfo, MethodInfo secondMethodInfo)
