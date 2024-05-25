@@ -1,8 +1,12 @@
+global using System.Collections.Frozen;
 global using System.ComponentModel;
 global using System.Diagnostics.CodeAnalysis;
 global using System.Reflection;
 global using AlchemyLub.Blueprint.Application.Services.Abstractions;
+global using AlchemyLub.Blueprint.ArchTests.Enums;
+global using AlchemyLub.Blueprint.ArchTests.Extensions;
 global using AlchemyLub.Blueprint.ArchTests.Results;
+global using AlchemyLub.Blueprint.ArchTests.Services;
 global using AlchemyLub.Blueprint.Clients.Abstractions;
 global using AlchemyLub.Blueprint.Domain;
 global using AlchemyLub.Blueprint.Endpoints.Controllers;
