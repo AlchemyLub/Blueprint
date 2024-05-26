@@ -1,5 +1,6 @@
 global using AlchemyLub.Blueprint.Application.Services.Abstractions;
 global using AlchemyLub.Blueprint.Clients.Abstractions;
+global using AlchemyLub.Blueprint.Clients.Requests;
 global using AlchemyLub.Blueprint.Domain;
 global using AlchemyLub.Blueprint.Endpoints.Controllers;
 global using AlchemyLub.Blueprint.IntegrationTests.Extensions;
