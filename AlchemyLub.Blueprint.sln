@@ -18,8 +18,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlchemyLub.Blueprint.ArchTe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlchemyLub.Blueprint.IntegrationTests", "tests\AlchemyLub.Blueprint.IntegrationTests\AlchemyLub.Blueprint.IntegrationTests.csproj", "{0B2EE43F-885B-4746-BF35-0C3656099FEA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlchemyLub.Blueprint.Application.UnitTests", "tests\AlchemyLub.Blueprint.UnitTests\AlchemyLub.Blueprint.Application.UnitTests.csproj", "{C55E3D39-79B9-45B9-8C4A-4FCDCACA2F06}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlchemyLub.Blueprint.App", "src\AlchemyLub.Blueprint.App\AlchemyLub.Blueprint.App.csproj", "{3C981E38-D2B2-40C6-807F-094542905A65}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlchemyLub.Blueprint.Application", "src\AlchemyLub.Blueprint.Application\AlchemyLub.Blueprint.Application.csproj", "{D2048FAF-1C96-4206-8082-D4ED78CB0FF2}"
@@ -36,6 +34,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlchemyLub.Blueprint.TestSe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlchemyLub.Blueprint.TestServices.UnitTests", "tests\AlchemyLub.Blueprint.TestServices.UnitTests\AlchemyLub.Blueprint.TestServices.UnitTests.csproj", "{EED62A1C-FE17-4997-83A6-0BACB54258D5}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlchemyLub.Blueprint.Application.UnitTests", "tests\AlchemyLub.Blueprint.Application.UnitTests\AlchemyLub.Blueprint.Application.UnitTests.csproj", "{5A18CE0F-F320-4326-9E11-0BAFEB56038B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -50,14 +50,14 @@ Global
 		{0B2EE43F-885B-4746-BF35-0C3656099FEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0B2EE43F-885B-4746-BF35-0C3656099FEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0B2EE43F-885B-4746-BF35-0C3656099FEA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A18CE0F-F320-4326-9E11-0BAFEB56038B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A18CE0F-F320-4326-9E11-0BAFEB56038B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A18CE0F-F320-4326-9E11-0BAFEB56038B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A18CE0F-F320-4326-9E11-0BAFEB56038B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{71DD48BB-344F-4DEA-85D8-EF9064B76AA4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{71DD48BB-344F-4DEA-85D8-EF9064B76AA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{71DD48BB-344F-4DEA-85D8-EF9064B76AA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{71DD48BB-344F-4DEA-85D8-EF9064B76AA4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C55E3D39-79B9-45B9-8C4A-4FCDCACA2F06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C55E3D39-79B9-45B9-8C4A-4FCDCACA2F06}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C55E3D39-79B9-45B9-8C4A-4FCDCACA2F06}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C55E3D39-79B9-45B9-8C4A-4FCDCACA2F06}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3C981E38-D2B2-40C6-807F-094542905A65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3C981E38-D2B2-40C6-807F-094542905A65}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3C981E38-D2B2-40C6-807F-094542905A65}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -93,7 +93,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{3190F749-FF1E-46BA-AE3B-CA4DFE7F4FF8} = {F7A1A89A-82EE-4D65-8D81-8178A4E4B7E3}
 		{0B2EE43F-885B-4746-BF35-0C3656099FEA} = {F7A1A89A-82EE-4D65-8D81-8178A4E4B7E3}
-		{C55E3D39-79B9-45B9-8C4A-4FCDCACA2F06} = {F7A1A89A-82EE-4D65-8D81-8178A4E4B7E3}
+		{5A18CE0F-F320-4326-9E11-0BAFEB56038B} = {F7A1A89A-82EE-4D65-8D81-8178A4E4B7E3}
 		{EED62A1C-FE17-4997-83A6-0BACB54258D5} = {F7A1A89A-82EE-4D65-8D81-8178A4E4B7E3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
