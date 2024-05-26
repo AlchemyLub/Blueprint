@@ -5,6 +5,7 @@ namespace AlchemyLub.Blueprint.ArchTests;
 /// </summary>
 public class ContractsTests
 {
+    // TODO: Сделать отдельный корректный тест
     [Fact]
     public void TestContractsCorrespondToControllers()
     {

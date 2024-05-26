@@ -23,10 +23,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="TestModels\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\src\AlchemyLub.Blueprint.TestServices\AlchemyLub.Blueprint.TestServices.csproj" />
   </ItemGroup>
 

@@ -42,14 +42,36 @@ public static class TypeExtensions
     /// </summary>
     /// <param name="enumType">Тип перечисления [<see langword="enum"/>]</param>
     /// <returns>Массив конкретных значений перечисления [<see langword="enum"/>]</returns>
-    internal static FieldInfo[] GetEnumFields(this Type enumType)
+    internal static EnumField[] GetEnumFields(this Type enumType)
     {
         if (!enumType.IsEnum)
         {
             throw new NotImplementedException("Нужно нормальное исключение о том, что тип не является типом перечисления");
         }
 
-        return enumType.GetFields().Where(t => t.Name != "value__").ToArray();
+        return enumType
+            .GetFields()
+            .Where(t => t.Name != "value__")
+            .Select(t => new EnumField(t.GetEnumConstantValue(), t.Name))
+            .ToArray();
+    }
+
+    /// <summary>
+    /// Возвращает массив публичных методов класса
+    /// </summary>
+    /// <param name="type"><see cref="Type"/></param>
+    /// <returns>Публичные методы типа, без унаследованных</returns>
+    internal static MethodMetadata[] GetPublicInstanceMethods(this Type type)
+    {
+        const BindingFlags bindingFlags = BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly;
+
+        var one = type.GetMethods(bindingFlags);
+
+        return type
+            .GetMethods(bindingFlags)
+            .Where(t => !t.CheckGeneratedAttributes())
+            .Select(t => new MethodMetadata(t.Name, t.GetMethodParameters(), t.ReturnType))
+            .ToArray();
     }
 
     /// <summary>

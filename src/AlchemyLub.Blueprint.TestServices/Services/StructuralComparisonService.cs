@@ -32,7 +32,7 @@ public static class StructuralComparisonService
         {
             SimplifiedType.Primitive => result.AddError($"Типы {firstType.FullName} и {secondType.FullName}" +
                                                         $" являются базовыми и не соответствуют друг другу"),
-            SimplifiedType.Enum => CompareEnumTypes(firstType, secondType),
+            SimplifiedType.Enum => CompareEnums(firstType, secondType),
             SimplifiedType.CustomType => CompareCustomTypes(firstType, secondType),
             SimplifiedType.Unknown => result.AddError($"{firstType.FullName} является неизвестным типом"), // TODO: Нужна нормальная ошибка
             _ => throw new InvalidEnumArgumentException(nameof(testType), (int)testType, typeof(SimplifiedType))
@@ -47,18 +47,12 @@ public static class StructuralComparisonService
     /// <returns></returns>
     public static AssertResult CompareContracts(Type firstContractType, Type secondContractType)
     {
-        const BindingFlags bindingFlags = BindingFlags.Public | BindingFlags.Instance;
+        const BindingFlags bindingFlags = BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly;
 
         AssertResult result = new();
 
-        MethodInfo[] controllerMethods = firstContractType
-            .GetMethods(bindingFlags)
-            .Where(t => FilterCurrentInstanceMethods(t, firstContractType))
-            .ToArray();
-        MethodInfo[] contractMethods = secondContractType
-            .GetMethods(bindingFlags)
-            .Where(t => FilterCurrentInstanceMethods(t, secondContractType))
-            .ToArray();
+        MethodMetadata[] controllerMethods = firstContractType.GetPublicInstanceMethods();
+        MethodMetadata[] contractMethods = secondContractType.GetPublicInstanceMethods();
 
         if (controllerMethods.Length != contractMethods.Length)
         {
@@ -82,27 +76,27 @@ public static class StructuralComparisonService
     /// <summary>
     /// Структурно сравнивает два метода
     /// </summary>
-    /// <param name="firstMethodInfo">Первый метод</param>
-    /// <param name="secondMethodInfo">Второй метод</param>
+    /// <param name="firstMethodMetadata">Первый метод</param>
+    /// <param name="secondMethodMetadata">Второй метод</param>
     /// <returns>Агрегированный результат проверки</returns>
-    public static AssertResult CompareMethods(MethodInfo firstMethodInfo, MethodInfo secondMethodInfo)
+    public static AssertResult CompareMethods(MethodMetadata firstMethodMetadata, MethodMetadata secondMethodMetadata)
     {
         AssertResult result = new();
 
-        Type firstReturnType = firstMethodInfo.ReturnType;
-        Type secondReturnType = secondMethodInfo.ReturnType;
+        Type firstReturnType = firstMethodMetadata.ReturnType;
+        Type secondReturnType = secondMethodMetadata.ReturnType;
 
         if (firstReturnType != secondReturnType)
         {
             result.Combine(CompareTypes(firstReturnType, secondReturnType));
         }
 
-        ParameterInfo[] firstParameters = firstMethodInfo.GetParameters();
-        ParameterInfo[] secondParameters = secondMethodInfo.GetParameters();
+        MethodParameter[] firstParameters = firstMethodMetadata.Parameters;
+        MethodParameter[] secondParameters = secondMethodMetadata.Parameters;
 
         if (firstParameters.Length != secondParameters.Length)
         {
-            return result.AddError($"У методов [{firstMethodInfo.Name}] и [{secondMethodInfo.Name}] не совпадает количество параметров");
+            return result.AddError($"У методов [{firstMethodMetadata.Name}] и [{secondMethodMetadata.Name}] не совпадает количество параметров");
         }
 
         if (firstParameters.Length > 1)
@@ -113,18 +107,15 @@ public static class StructuralComparisonService
 
         for (int i = 0; i < firstParameters.Length; i++)
         {
-            ParameterInfo firstParameterInfo = firstParameters[i];
-            ParameterInfo secondParameterInfo = secondParameters[i];
+            MethodParameter firstParameterInfo = firstParameters[i];
+            MethodParameter secondParameterInfo = secondParameters[i];
 
-            string firstParameterInfoName = firstParameterInfo.Name!;
-            string secondParameterInfoName = secondParameterInfo.Name!;
-
-            if (firstParameterInfoName != secondParameterInfoName)
+            if (firstParameterInfo.Name != secondParameterInfo.Name)
             {
-                result.AddError($"Параметры [{firstParameterInfoName}] и [{secondParameterInfoName}] имеют разные имена");
+                result.AddError($"Параметры [{firstParameterInfo.Name}] и [{secondParameterInfo.Name}] имеют разные имена");
             }
 
-            result.Combine(CompareTypes(firstParameterInfo.ParameterType, secondParameterInfo.ParameterType));
+            result.Combine(CompareTypes(firstParameterInfo.Type, secondParameterInfo.Type));
         }
 
         return result;
@@ -136,7 +127,7 @@ public static class StructuralComparisonService
     /// <param name="firstEnum">Первый тип перечисления [<see langword="enum"/>]</param>
     /// <param name="secondEnum">Второй тип перечисления [<see langword="enum"/>]</param>
     /// <returns>Агрегированный результат проверки</returns>
-    public static AssertResult CompareEnumTypes(Type firstEnum, Type secondEnum)
+    public static AssertResult CompareEnums(Type firstEnum, Type secondEnum)
     {
         AssertResult result = new();
 
@@ -150,8 +141,8 @@ public static class StructuralComparisonService
             return result.AddError($"{secondEnum.FullName} не является перечислением [{nameof(Enum)}]");
         }
 
-        FieldInfo[] firstFieldsInfo = firstEnum.GetEnumFields();
-        FieldInfo[] secondFieldsInfo = secondEnum.GetEnumFields();
+        EnumField[] firstFieldsInfo = firstEnum.GetEnumFields();
+        EnumField[] secondFieldsInfo = secondEnum.GetEnumFields();
 
         if (firstFieldsInfo.Length != secondFieldsInfo.Length)
         {
@@ -160,26 +151,20 @@ public static class StructuralComparisonService
 
         if (firstFieldsInfo.Length > 1)
         {
-            Array.Sort(firstFieldsInfo, (p1, p2) => string.CompareOrdinal(p1.Name, p2.Name));
-            Array.Sort(secondFieldsInfo, (p1, p2) => string.CompareOrdinal(p1.Name, p2.Name));
+            Array.Sort(firstFieldsInfo, (p1, p2) => p1.Value.CompareTo(p2.Value));
+            Array.Sort(secondFieldsInfo, (p1, p2) => p1.Value.CompareTo(p2.Value));
         }
 
         for (int i = 0; i < firstFieldsInfo.Length; i++)
         {
-            FieldInfo firstFieldInfo = firstFieldsInfo[i];
-            FieldInfo secondFieldInfo = secondFieldsInfo[i];
+            EnumField firstFieldInfo = firstFieldsInfo[i];
+            EnumField secondFieldInfo = secondFieldsInfo[i];
 
-            string firstFieldInfoName = firstFieldInfo.Name;
-            string secondFieldInfoName = firstFieldInfo.Name;
-
-            int firstFieldInfoConstantValue = Convert.ToInt32(firstFieldInfo.GetRawConstantValue());
-            int secondFieldInfoConstantValue = Convert.ToInt32(secondFieldInfo.GetRawConstantValue());
-
-            if (firstFieldInfoName != secondFieldInfoName || firstFieldInfoConstantValue != secondFieldInfoConstantValue)
+            if (firstFieldInfo.Name != secondFieldInfo.Name || firstFieldInfo.Value != secondFieldInfo.Value)
             {
                 result.AddError($"У перечислений [{firstEnum.FullName}] и [{secondEnum.FullName}] не совпадают значения " +
-                                $"{firstFieldInfoConstantValue}. {firstFieldInfoName}" +
-                                $" <-> {secondFieldInfoConstantValue}. {secondFieldInfoName}");
+                                $"{firstFieldInfo.Value}. {firstFieldInfo.Name}" +
+                                $" <-> {secondFieldInfo.Value}. {secondFieldInfo.Name}");
             }
         }
 
