@@ -36,6 +36,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlchemyLub.Blueprint.TestSe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlchemyLub.Blueprint.Application.UnitTests", "tests\AlchemyLub.Blueprint.Application.UnitTests\AlchemyLub.Blueprint.Application.UnitTests.csproj", "{5A18CE0F-F320-4326-9E11-0BAFEB56038B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlchemyLub.Blueprint.TestServices.AspNetCore", "AlchemyLub.Blueprint.TestServices.AspNetCore\AlchemyLub.Blueprint.TestServices.AspNetCore.csproj", "{BF2C103B-E05A-417D-AA05-49258BC271B9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -62,6 +64,10 @@ Global
 		{3C981E38-D2B2-40C6-807F-094542905A65}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3C981E38-D2B2-40C6-807F-094542905A65}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3C981E38-D2B2-40C6-807F-094542905A65}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF2C103B-E05A-417D-AA05-49258BC271B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF2C103B-E05A-417D-AA05-49258BC271B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF2C103B-E05A-417D-AA05-49258BC271B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF2C103B-E05A-417D-AA05-49258BC271B9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CC287CE2-15D7-4F13-A2FB-2E4491EA3C7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CC287CE2-15D7-4F13-A2FB-2E4491EA3C7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CC287CE2-15D7-4F13-A2FB-2E4491EA3C7F}.Release|Any CPU.ActiveCfg = Release|Any CPU

@@ -4,6 +4,7 @@ global using AlchemyLub.Blueprint.Clients.Abstractions;
 global using AlchemyLub.Blueprint.Domain;
 global using AlchemyLub.Blueprint.Endpoints.Controllers;
 global using AlchemyLub.Blueprint.Infrastructure.Services;
+global using AlchemyLub.Blueprint.TestServices.Extensions;
 global using AlchemyLub.Blueprint.TestServices.Results;
 global using AlchemyLub.Blueprint.TestServices.Services;
 global using FluentAssertions;

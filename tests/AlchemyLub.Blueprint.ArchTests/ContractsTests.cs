@@ -9,6 +9,8 @@ public class ContractsTests
     [Fact]
     public void TestContractsCorrespondToControllers()
     {
+        IEnumerable<Type> controllers = Assemblies.ClientsAssembly.GetAllControllers();
+
         AssertResult result = new();
         Type[] controllerTypes = Assemblies.EndpointsAssembly
             .GetTypes()

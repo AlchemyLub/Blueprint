@@ -13,8 +13,17 @@ public static class MethodInfoExtensions
     internal static MethodParameter[] GetMethodParameters(this MethodInfo methodInfo) =>
         methodInfo
             .GetParameters()
+            .Where(t => t.ParameterType != typeof(CancellationToken))
             .Select(t => new MethodParameter(t.ParameterType, t.Name ?? string.Empty))
             .ToArray();
+
+    /// <summary>
+    /// Возвращает параметры метода
+    /// </summary>
+    /// <param name="methodInfo"><see cref="MethodInfo"/></param>
+    /// <returns>Параметры текущего метода</returns>
+    internal static MethodMetadata ToMethodMetadata(this MethodInfo methodInfo) =>
+        new(methodInfo.Name, methodInfo.GetMethodParameters(), methodInfo.ReturnType);
 
     /// <summary>
     /// Проверяет отсутствие у метода атрибутов автогенерации

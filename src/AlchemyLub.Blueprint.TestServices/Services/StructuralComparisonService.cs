@@ -117,6 +117,21 @@ public static class StructuralComparisonService
         return result;
     }
 
+
+    /// <summary>
+    /// Структурно сравнивает два метода
+    /// </summary>
+    /// <param name="firstMethodInfo">Первый метод</param>
+    /// <param name="secondMethodInfo">Второй метод</param>
+    /// <returns>Агрегированный результат проверки</returns>
+    public static AssertResult CompareMethods(MethodInfo firstMethodInfo, MethodInfo secondMethodInfo)
+    {
+        MethodMetadata firstMethodMetadata = firstMethodInfo.ToMethodMetadata();
+        MethodMetadata secondMethodMetadata = secondMethodInfo.ToMethodMetadata();
+
+        return CompareMethods(firstMethodMetadata, secondMethodMetadata);
+    }
+
     /// <summary>
     /// Структурно сравнивает два типа перечисления [<see langword="enum"/>]
     /// </summary>

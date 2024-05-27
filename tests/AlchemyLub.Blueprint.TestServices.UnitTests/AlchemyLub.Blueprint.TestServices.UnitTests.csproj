@@ -26,4 +26,8 @@
     <ProjectReference Include="..\..\src\AlchemyLub.Blueprint.TestServices\AlchemyLub.Blueprint.TestServices.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="TestMethods\" />
+  </ItemGroup>
+
 </Project>
