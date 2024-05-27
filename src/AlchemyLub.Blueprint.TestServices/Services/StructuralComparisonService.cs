@@ -1,5 +1,3 @@
-using AlchemyLub.Blueprint.TestServices.Extensions;
-
 namespace AlchemyLub.Blueprint.TestServices.Services;
 
 /// <summary>
@@ -47,8 +45,6 @@ public static class StructuralComparisonService
     /// <returns></returns>
     public static AssertResult CompareContracts(Type firstContractType, Type secondContractType)
     {
-        const BindingFlags bindingFlags = BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly;
-
         AssertResult result = new();
 
         MethodMetadata[] controllerMethods = firstContractType.GetPublicInstanceMethods();

@@ -65,8 +65,6 @@ public static class TypeExtensions
     {
         const BindingFlags bindingFlags = BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly;
 
-        var one = type.GetMethods(bindingFlags);
-
         return type
             .GetMethods(bindingFlags)
             .Where(t => !t.CheckGeneratedAttributes())
