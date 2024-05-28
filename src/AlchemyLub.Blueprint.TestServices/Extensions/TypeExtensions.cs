@@ -61,7 +61,7 @@ public static class TypeExtensions
     /// </summary>
     /// <param name="type"><see cref="Type"/></param>
     /// <returns>Публичные методы типа, без унаследованных</returns>
-    internal static MethodMetadata[] GetPublicInstanceMethods(this Type type)
+    public static MethodMetadata[] GetPublicInstanceMethods(this Type type)
     {
         const BindingFlags bindingFlags = BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly;
 

@@ -5,18 +5,20 @@ namespace AlchemyLub.Blueprint.TestServices.UnitTests;
 /// </summary>
 public class StructuralComparisonMethodsTests
 {
-    public static TheoryData<Type, Type, bool> Data =>
+    private static readonly MethodMetadata[] TestServiceMethods = typeof(TestService).GetPublicInstanceMethods();
+    private static readonly MethodMetadata[] SameTestServiceMethods = typeof(SameTestService).GetPublicInstanceMethods();
+    private static readonly MethodMetadata[] WrongTestServiceMethods = typeof(WrongTestService).GetPublicInstanceMethods();
+
+    // TODO: Подумать как сделать такие тесты менее хрупкими, чтобы можно было доставать по одному методу, а не просто по индексу
+    public static TheoryData<MethodMetadata, MethodMetadata, bool> Data =>
         new()
         {
-            { typeof(UserType), typeof(SameUserType), true },
-            { typeof(UserRoles), typeof(SameUserRoles), true },
-            { typeof(UserRoles), typeof(SameUserType), false },
-            { typeof(UserType), typeof(UserRoles), false },
-            { typeof(UserType), typeof(WrongUserType), false },
-            { typeof(UserRoles), typeof(WrongUserRoles), false },
-            { typeof(TestUser), typeof(SameUserType), false },
-            { typeof(UserType), typeof(SameTestUser), false },
-            { typeof(SameTestUser), typeof(SameTestUser), false }
+            { TestServiceMethods[0], SameTestServiceMethods[0], true },
+            { TestServiceMethods[1], SameTestServiceMethods[1], true },
+            { TestServiceMethods[2], SameTestServiceMethods[2], true },
+            { TestServiceMethods[0], WrongTestServiceMethods[0], false },
+            { TestServiceMethods[1], WrongTestServiceMethods[1], false },
+            { TestServiceMethods[2], WrongTestServiceMethods[2], false }
         };
 
     /// <summary>
@@ -24,7 +26,7 @@ public class StructuralComparisonMethodsTests
     /// </summary>
     [Theory]
     [MemberData(nameof(Data))]
-    public void CompareMethods_Should_BeSuccessful(MethodInfo firstMethod, MethodInfo secondMethod, bool result)
+    public void CompareMethods_Should_BeSuccessful(MethodMetadata firstMethod, MethodMetadata secondMethod, bool result)
     {
         AssertResult assertResult = StructuralComparisonService.CompareMethods(firstMethod, secondMethod);
 
