@@ -11,7 +11,7 @@ public static class StructuralComparisonService
     /// <param name="firstType">Первый тип</param>
     /// <param name="secondType">Второй тип</param>
     /// <returns>Агрегированный результат проверки</returns>
-    /// <exception cref="InvalidEnumArgumentException">Ошибка возникает, если невозможно определить упрощённый тип сравниваемых объектов</exception>
+    /// <exception cref="InvalidSimplifiedTypeException">Ошибка возникает, если невозможно определить упрощённый тип сравниваемых объектов</exception>
     public static AssertResult CompareTypes(Type firstType, Type secondType)
     {
         AssertResult result = new();
@@ -32,8 +32,8 @@ public static class StructuralComparisonService
                                                         $" являются базовыми и не соответствуют друг другу"),
             SimplifiedType.Enum => CompareEnums(firstType, secondType),
             SimplifiedType.CustomType => CompareCustomTypes(firstType, secondType),
-            SimplifiedType.Unknown => result.AddError($"{firstType.FullName} является неизвестным типом"), // TODO: Нужна нормальная ошибка
-            _ => throw new InvalidEnumArgumentException(nameof(testType), (int)testType, typeof(SimplifiedType))
+            SimplifiedType.Unknown => throw new InvalidSimplifiedTypeException(firstType),
+            _ => throw new InvalidSimplifiedTypeException(firstType)
         };
     }
 
@@ -150,6 +150,11 @@ public static class StructuralComparisonService
         if (!secondEnum.IsEnum)
         {
             return result.AddError($"{secondEnum.FullName} не является перечислением [{nameof(Enum)}]");
+        }
+
+        if (firstEnum == secondEnum)
+        {
+            return result;
         }
 
         EnumField[] firstFieldsInfo = firstEnum.GetEnumFields();

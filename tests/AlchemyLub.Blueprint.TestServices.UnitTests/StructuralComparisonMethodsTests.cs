@@ -9,7 +9,6 @@ public class StructuralComparisonMethodsTests
     private static readonly MethodMetadata[] SameTestServiceMethods = typeof(SameTestService).GetPublicInstanceMethods();
     private static readonly MethodMetadata[] WrongTestServiceMethods = typeof(WrongTestService).GetPublicInstanceMethods();
 
-    // TODO: Подумать как сделать такие тесты менее хрупкими, чтобы можно было доставать по одному методу, а не просто по индексу
     public static TheoryData<MethodMetadata, MethodMetadata, bool> Data =>
         new()
         {
@@ -20,6 +19,16 @@ public class StructuralComparisonMethodsTests
             { TestServiceMethods[1], WrongTestServiceMethods[1], false },
             { TestServiceMethods[2], WrongTestServiceMethods[2], false }
         };
+
+    /// <summary>
+    /// Статический конструктор для предварительной сортировки методов по имени.
+    /// </summary>
+    static StructuralComparisonMethodsTests()
+    {
+        Array.Sort(TestServiceMethods, (p1, p2) => string.CompareOrdinal(p1.Name, p2.Name));
+        Array.Sort(SameTestServiceMethods, (p1, p2) => string.CompareOrdinal(p1.Name, p2.Name));
+        Array.Sort(WrongTestServiceMethods, (p1, p2) => string.CompareOrdinal(p1.Name, p2.Name));
+    }
 
     /// <summary>
     /// Проверяет структурное соответствие двух методов

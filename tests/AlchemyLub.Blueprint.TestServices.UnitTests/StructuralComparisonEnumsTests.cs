@@ -10,10 +10,13 @@ public sealed class StructuralComparisonEnumsTests
         {
             { typeof(UserType), typeof(SameUserType), true },
             { typeof(UserRoles), typeof(SameUserRoles), true },
+            { typeof(UserRoles), typeof(UserRoles), true },
+            { typeof(UserType), typeof(UserType), true },
             { typeof(UserRoles), typeof(SameUserType), false },
             { typeof(UserType), typeof(UserRoles), false },
             { typeof(UserType), typeof(WrongUserType), false },
             { typeof(UserRoles), typeof(WrongUserRoles), false },
+            { typeof(WrongUserRoles), typeof(WrongUserType), false },
             { typeof(TestUser), typeof(SameUserType), false },
             { typeof(UserType), typeof(SameTestUser), false },
             { typeof(SameTestUser), typeof(SameTestUser), false }

@@ -2,12 +2,12 @@ namespace AlchemyLub.Blueprint.TestServices.UnitTests.TestMethods;
 
 public sealed class TestService
 {
-    public Task SetName(Guid modelId, string newName) => Task.CompletedTask;
-
     public void Push(decimal salary, bool isActive) { }
 
-    public Task<IEnumerable<string>> Handle(Guid id, CancellationToken cancellationToken = default) =>
-        Task.FromResult(Enumerable.Empty<string>());
+    public async Task<IEnumerable<string>> Handle(Guid id, CancellationToken cancellationToken = default) =>
+        await Task.FromResult(Enumerable.Empty<string>());
+
+    public Task SetName(Guid modelId, string? newName) => Task.CompletedTask;
 
     private async Task Handle() => await Task.CompletedTask;
 }
