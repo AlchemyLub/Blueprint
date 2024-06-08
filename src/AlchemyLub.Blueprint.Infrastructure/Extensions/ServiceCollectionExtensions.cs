@@ -16,7 +16,7 @@ public static class ServiceCollectionExtensions
 
     private static IServiceCollection AddServices(this IServiceCollection services) =>
         services
-            .AddScoped<IInfrastructureService, InfrastructureService>();
+            .AddScoped<IEntityRepository, EntityRepository>();
 
     private static IServiceCollection AddDatabaseContext(this IServiceCollection services) =>
         services

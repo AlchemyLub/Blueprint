@@ -1,5 +1,3 @@
-using AlchemyLub.Blueprint.Clients.Extensions;
-
 namespace AlchemyLub.Blueprint.IntegrationTests;
 
 public class IntegrationTestWebAppFactory : WebApplicationFactory<Program>
@@ -10,6 +8,6 @@ public class IntegrationTestWebAppFactory : WebApplicationFactory<Program>
         {
             services.AddBlueprintClients();
 
-            services.Replace<IInfrastructureService, InfrastructureServiceStub>();
+            services.Replace<IEntityRepository, EntityRepositoryStub>();
         });
 }

@@ -1,9 +1,9 @@
 namespace AlchemyLub.Blueprint.IntegrationTests.Stubs;
 
 /// <summary>
-/// Заглушка для <see cref="IInfrastructureService"/>
+/// Заглушка для <see cref="IEntityRepository"/>
 /// </summary>
-public class InfrastructureServiceStub : IInfrastructureService
+public class EntityRepositoryStub : IEntityRepository
 {
     private readonly Func<Guid, Entity> defaultEntityFunc = id => new(id)
     {
@@ -13,7 +13,7 @@ public class InfrastructureServiceStub : IInfrastructureService
     };
 
     /// <inheritdoc />
-    public async Task<Entity> GetDbEntity(Guid id)
+    public async Task<Entity> GetEntity(Guid id)
     {
         await Task.CompletedTask;
 
@@ -21,7 +21,7 @@ public class InfrastructureServiceStub : IInfrastructureService
     }
 
     /// <inheritdoc />
-    public async Task<Guid> CreateDbEntity()
+    public async Task<Guid> CreateEntity()
     {
         await Task.CompletedTask;
 
@@ -29,7 +29,7 @@ public class InfrastructureServiceStub : IInfrastructureService
     }
 
     /// <inheritdoc />
-    public async Task<bool> DeleteDbEntity(Guid id)
+    public async Task<bool> DeleteEntity(Guid id)
     {
         await Task.CompletedTask;
 
@@ -37,7 +37,7 @@ public class InfrastructureServiceStub : IInfrastructureService
     }
 
     /// <inheritdoc />
-    public async Task<Entity> UpdateDbEntity(Entity entity)
+    public async Task<Entity> UpdateEntity(Entity entity)
     {
         await Task.CompletedTask;
 

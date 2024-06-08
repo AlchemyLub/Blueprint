@@ -14,7 +14,7 @@ internal static class Constants
         internal static readonly Assembly ClientsAssembly = typeof(IEntitiesClient).Assembly;
         internal static readonly Assembly EndpointsAssembly = typeof(EntitiesController).Assembly;
         internal static readonly Assembly ApplicationAssembly = typeof(IApplicationService).Assembly;
-        internal static readonly Assembly InfrastructureAssembly = typeof(InfrastructureService).Assembly;
+        internal static readonly Assembly InfrastructureAssembly = typeof(EntityRepository).Assembly;
     }
 
     /// <summary>
@@ -28,14 +28,5 @@ internal static class Constants
         internal const string Endpoints = $"{nameof(AlchemyLub)}.{nameof(Blueprint)}.{nameof(Blueprint.Endpoints)}";
         internal const string Application = $"{nameof(AlchemyLub)}.{nameof(Blueprint)}.{nameof(Blueprint.Application)}";
         internal const string Infrastructure = $"{nameof(AlchemyLub)}.{nameof(Blueprint)}.{nameof(Blueprint.Infrastructure)}";
-    }
-
-    /// <summary>
-    /// Суффиксы из названий типов
-    /// </summary>
-    internal static class TypeNameSuffixes
-    {
-        internal const string Controller = nameof(Controller);
-        internal const string Client = nameof(Client);
     }
 }

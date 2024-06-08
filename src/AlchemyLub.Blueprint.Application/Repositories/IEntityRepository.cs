@@ -1,22 +1,22 @@
-namespace AlchemyLub.Blueprint.Application.Services.Abstractions;
+namespace AlchemyLub.Blueprint.Application.Repositories;
 
 /// <summary>
-/// Сервис инфраструктурного слоя
+/// Репозиторий для работы с сущностями
 /// </summary>
-public interface IInfrastructureService
+public interface IEntityRepository
 {
     /// <summary>
     /// Получить сущность из БД
     /// </summary>
     /// <param name="id">Идентификатор сущности</param>
     /// <returns>Запрашиваемая сущность</returns>
-    public Task<Entity> GetDbEntity(Guid id);
+    public Task<Entity> GetEntity(Guid id);
 
     /// <summary>
     /// Создать новую сущность в БД
     /// </summary>
     /// <returns>Идентификатор созданной сущности</returns>
-    public Task<Guid> CreateDbEntity();
+    public Task<Guid> CreateEntity();
 
     // TODO: Заменить результат на Success/Failure
     /// <summary>
@@ -24,12 +24,12 @@ public interface IInfrastructureService
     /// </summary>
     /// <param name="id">Идентификатор сущности</param>
     /// <returns><see langword="true"/> если удаление успешно, <see langword="false"/> если нет</returns>
-    public Task<bool> DeleteDbEntity(Guid id);
+    public Task<bool> DeleteEntity(Guid id);
 
     /// <summary>
     /// Изменить сущность
     /// </summary>
     /// <param name="entity">Новая модель сущности</param>
     /// <returns>Обновлённая модель <see cref="Entity"/></returns>
-    public Task<Entity> UpdateDbEntity(Entity entity);
+    public Task<Entity> UpdateEntity(Entity entity);
 }

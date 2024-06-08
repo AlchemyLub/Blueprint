@@ -1,4 +1,4 @@
-namespace AlchemyLub.Blueprint.Infrastructure.Data.Configurations;
+namespace AlchemyLub.Blueprint.Infrastructure.ContextConfigurations;
 
 /// <summary>
 /// Конфигурация для модели <see cref="Entity"/>

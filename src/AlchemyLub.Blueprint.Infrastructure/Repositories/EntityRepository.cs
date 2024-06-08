@@ -1,7 +1,7 @@
-namespace AlchemyLub.Blueprint.Infrastructure.Services;
+namespace AlchemyLub.Blueprint.Infrastructure.Repositories;
 
-/// <inheritdoc cref="IInfrastructureService"/>
-public sealed class InfrastructureService : IInfrastructureService
+/// <inheritdoc cref="IEntityRepository"/>
+public class EntityRepository : IEntityRepository
 {
     private readonly Func<Guid, Entity> defaultEntityFunc = id => new(id)
     {
@@ -11,7 +11,7 @@ public sealed class InfrastructureService : IInfrastructureService
     };
 
     /// <inheritdoc />
-    public async Task<Entity> GetDbEntity(Guid id)
+    public async Task<Entity> GetEntity(Guid id)
     {
         await Task.CompletedTask;
 
@@ -19,7 +19,7 @@ public sealed class InfrastructureService : IInfrastructureService
     }
 
     /// <inheritdoc />
-    public async Task<Guid> CreateDbEntity()
+    public async Task<Guid> CreateEntity()
     {
         await Task.CompletedTask;
 
@@ -27,7 +27,7 @@ public sealed class InfrastructureService : IInfrastructureService
     }
 
     /// <inheritdoc />
-    public async Task<bool> DeleteDbEntity(Guid id)
+    public async Task<bool> DeleteEntity(Guid id)
     {
         await Task.CompletedTask;
 
@@ -35,7 +35,7 @@ public sealed class InfrastructureService : IInfrastructureService
     }
 
     /// <inheritdoc />
-    public async Task<Entity> UpdateDbEntity(Entity entity)
+    public async Task<Entity> UpdateEntity(Entity entity)
     {
         await Task.CompletedTask;
 

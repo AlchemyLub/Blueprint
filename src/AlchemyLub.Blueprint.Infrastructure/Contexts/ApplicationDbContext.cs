@@ -1,4 +1,4 @@
-namespace AlchemyLub.Blueprint.Infrastructure.Data;
+namespace AlchemyLub.Blueprint.Infrastructure.Contexts;
 
 /// <summary>
 /// Контекст базы данных сервиса
