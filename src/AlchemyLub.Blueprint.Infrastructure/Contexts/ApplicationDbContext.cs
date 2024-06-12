@@ -4,9 +4,11 @@ namespace AlchemyLub.Blueprint.Infrastructure.Contexts;
 /// Контекст базы данных сервиса
 /// </summary>
 /// <param name="options"><see cref="DbContextOptions{ApplicationDbContext}"/></param>
-public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : DbContext(options), IApplicationDbContext
+public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : DbContext(options)
 {
-    /// <inheritdoc />
+    /// <summary>
+    /// Коллекция сущностей домена
+    /// </summary>
     public DbSet<Entity> Entities => Set<Entity>();
 
     /// <inheritdoc />

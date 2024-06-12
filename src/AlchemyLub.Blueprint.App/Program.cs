@@ -6,6 +6,6 @@ WebApplication app = builder.Build();
 
 app.UseAllLayers();
 
-app.Run();
+await app.RunAsync();
 
 public partial class Program;
