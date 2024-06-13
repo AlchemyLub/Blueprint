@@ -1,4 +1,3 @@
-global using AlchemyLub.Blueprint.Application.Data.Abstractions;
 global using AlchemyLub.Blueprint.Application.Repositories;
 global using AlchemyLub.Blueprint.Domain;
 global using AlchemyLub.Blueprint.Infrastructure.ContextConfigurations;

@@ -28,7 +28,7 @@ dotnet_style_prefer_simplified_interpolation = true:suggestion
 dotnet_style_namespace_match_folder = true:suggestion
 
 [{*.json,*.yml,*.yaml}]
-indent_size = 2
+indent_size = 4
 indent_style = space
 
 [*.md]
@@ -149,6 +149,8 @@ csharp_style_var_elsewhere = false
 csharp_style_implicit_object_creation_when_type_is_apparent = true
 csharp_style_namespace_declarations = file_scoped:silent
 
+# Do not declare static members on generic types
+dotnet_diagnostic.CA1000.severity = none
 # use the LoggerMessage delegates
 dotnet_diagnostic.CA1848.severity = none
 # static log message
@@ -160,7 +162,7 @@ dotnet_diagnostic.CA1304.severity = none
 # Do not prefix enum values with type name
 dotnet_diagnostic.CA1712.severity = warning
 # Identifiers should not match keywords
-dotnet_diagnostic.CA1716.severity = warning
+dotnet_diagnostic.CA1716.severity = suggestion
 # Identifier contains type name
 dotnet_diagnostic.CA1720.severity = silent
 # Type names should not match namespaces

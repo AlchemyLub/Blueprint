@@ -1,6 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <ItemGroup>
+    <PackageReference Include="Serilog.AspNetCore" Version="8.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\AlchemyLub.Blueprint.Endpoints\AlchemyLub.Blueprint.Endpoints.csproj" />
     <ProjectReference Include="..\AlchemyLub.Blueprint.Infrastructure\AlchemyLub.Blueprint.Infrastructure.csproj" />
   </ItemGroup>
