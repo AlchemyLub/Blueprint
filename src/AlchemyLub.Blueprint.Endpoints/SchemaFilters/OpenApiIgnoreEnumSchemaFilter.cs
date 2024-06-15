@@ -9,7 +9,7 @@ public sealed class OpenApiIgnoreEnumSchemaFilter : ISchemaFilter
     {
         if (context.Type.IsEnum)
         {
-            var enumOpenApiStrings = new List<IOpenApiAny>();
+            List<IOpenApiAny> enumOpenApiStrings = new();
 
             foreach (var enumValue in Enum.GetValues(context.Type))
             {

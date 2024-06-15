@@ -5,7 +5,6 @@ namespace AlchemyLub.Blueprint.Domain.Enums;
 /// </summary>
 public enum EntityType
 {
-    // TODO: Нужно игнорировать такие вещи в swagger
     /// <summary>
     /// Неизвестный тип
     /// </summary>

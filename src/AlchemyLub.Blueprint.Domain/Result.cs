@@ -1,6 +1,5 @@
 namespace AlchemyLub.Blueprint.Domain;
 
-// TODO: Комментарии!
 public interface IResult
 {
     public bool IsSuccess { get; }
@@ -8,8 +7,11 @@ public interface IResult
     public bool IsFailure => !IsSuccess;
 
     public Error Error { get; }
+}
 
-    public Task<IResult> AsTask => Task.FromResult(this);
+public interface IResult<out T> : IResult
+{
+    public T? Value { get; }
 }
 
 public readonly record struct Result : IResult
@@ -39,14 +41,14 @@ public readonly record struct Result : IResult
 
     public Error Error { get; }
 
-    //public Task<Result> AsTask => Task.FromResult(this);
+    public Task<Result> AsTask() => Task.FromResult(this);
 
     public static Result Success() => StaticSuccess;
 
     public static Result Failure(Error error) => new(error);
 }
 
-public readonly record struct Result<T> : IResult
+public readonly record struct Result<T> : IResult<T>
 {
     public Result() => FailFast();
 
@@ -82,7 +84,7 @@ public readonly record struct Result<T> : IResult
 
     public Error Error { get; }
 
-    //public Task<Result<T>> AsTask => Task.FromResult(this);
+    public Task<Result<T>> AsTask() => Task.FromResult(this);
 
     [MemberNotNull(nameof(Value))]
     public static Result<T> Success(T value) => new(value);

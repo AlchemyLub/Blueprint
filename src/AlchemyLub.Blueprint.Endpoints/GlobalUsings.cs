@@ -2,7 +2,6 @@ global using System.Reflection;
 global using System.Text.Json.Serialization;
 global using AlchemyLub.Blueprint.Application.Services.Abstractions;
 global using AlchemyLub.Blueprint.Domain;
-global using AlchemyLub.Blueprint.Domain.Enums;
 global using AlchemyLub.Blueprint.Endpoints.Attributes;
 global using AlchemyLub.Blueprint.Endpoints.Requests;
 global using AlchemyLub.Blueprint.Endpoints.Responses;
