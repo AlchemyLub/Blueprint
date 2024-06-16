@@ -28,7 +28,7 @@ dotnet_style_prefer_simplified_interpolation = true:suggestion
 dotnet_style_namespace_match_folder = true:suggestion
 
 [{*.json,*.yml,*.yaml}]
-indent_size = 4
+indent_size = 2
 indent_style = space
 
 [*.md]
@@ -149,8 +149,6 @@ csharp_style_var_elsewhere = false
 csharp_style_implicit_object_creation_when_type_is_apparent = true
 csharp_style_namespace_declarations = file_scoped:silent
 
-# Do not declare static members on generic types
-dotnet_diagnostic.CA1000.severity = none
 # use the LoggerMessage delegates
 dotnet_diagnostic.CA1848.severity = none
 # static log message
@@ -182,14 +180,14 @@ dotnet_diagnostic.CA1062.severity = none
 # Remove the underscores from member name
 dotnet_diagnostic.CA1707.severity = none
 
-# unused value
-dotnet_diagnostic.IDE0058.severity = none
 # Using directives must be placed outside of a namespace declaration
 dotnet_diagnostic.IDE0065.severity = none
 # Use conditional expression for return
 dotnet_diagnostic.IDE0046.severity = none
 # Remove unnecessary expression value
 dotnet_diagnostic.IDE0058.severity = none
+# Collection initialization can be simplified
+dotnet_diagnostic.IDE0305.severity = suggestion
 
 # Microsoft.CodeAnalysis.CSharp
 
