@@ -1,5 +1,8 @@
 namespace AlchemyLub.Blueprint.Application.UnitTests;
 
+/// <summary>
+/// Тесты для <see cref="Result"/> и <see cref="Result{T}"/>
+/// </summary>
 public class ResultTests
 {
     [Fact]
@@ -31,7 +34,7 @@ public class ResultTests
     {
         Result result = Result.Success();
 
-        Assert.Null(result.Error);
+        Assert.Equal(Error.None, result.Error);
     }
 
     [Fact]
@@ -73,7 +76,7 @@ public class ResultTests
     {
         Result<int> result = Result<int>.Success(42);
 
-        Assert.Null(result.Error);
+        Assert.Equal(Error.None, result.Error);
     }
 
     [Fact]
@@ -85,11 +88,11 @@ public class ResultTests
     }
 
     [Fact]
-    public void ResultT_Failure_ValueNull()
+    public void ResultT_Failure_ValueIsDefault()
     {
         Result<int> result = Result<int>.Failure(new("Test error"));
 
-        Assert.Null(result.Value);
+        Assert.Equal(default, result.Value);
     }
 
     [Fact]

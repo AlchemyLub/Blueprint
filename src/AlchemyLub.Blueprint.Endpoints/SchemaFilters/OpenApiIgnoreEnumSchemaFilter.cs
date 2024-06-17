@@ -9,11 +9,11 @@ public sealed class OpenApiIgnoreEnumSchemaFilter : ISchemaFilter
     {
         if (context.Type.IsEnum)
         {
-            List<IOpenApiAny> enumOpenApiStrings = new();
+            List<IOpenApiAny> enumOpenApiStrings = [];
 
-            foreach (var enumValue in Enum.GetValues(context.Type))
+            foreach (object? enumValue in Enum.GetValues(context.Type))
             {
-                var member = context.Type.GetMember(enumValue.ToString() ?? string.Empty)[0];
+                MemberInfo member = context.Type.GetMember(enumValue.ToString() ?? string.Empty)[0];
                 if (!member.GetCustomAttributes<OpenApiIgnoreEnumAttribute>().Any())
                 {
                     enumOpenApiStrings.Add(new OpenApiString(enumValue.ToString()));

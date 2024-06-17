@@ -149,6 +149,8 @@ csharp_style_var_elsewhere = false
 csharp_style_implicit_object_creation_when_type_is_apparent = true
 csharp_style_namespace_declarations = file_scoped:silent
 
+# Do not declare static members on generic types
+dotnet_diagnostic.CA1000.severity = suggestion
 # use the LoggerMessage delegates
 dotnet_diagnostic.CA1848.severity = none
 # static log message
