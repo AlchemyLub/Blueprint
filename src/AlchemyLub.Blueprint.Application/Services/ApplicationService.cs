@@ -10,7 +10,7 @@ internal sealed class ApplicationService(IEntityRepository repository) : IApplic
     public async Task<Guid> CreateEntity() => await repository.CreateEntity();
 
     /// <inheritdoc />
-    public async Task<bool> DeleteEntity(Guid id) => await repository.DeleteEntity(id);
+    public async Task<Result> DeleteEntity(Guid id) => await repository.DeleteEntity(id);
 
     /// <inheritdoc />
     public async Task<Entity> UpdateEntity(Guid id, Entity request) =>

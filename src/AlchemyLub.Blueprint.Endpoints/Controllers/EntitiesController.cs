@@ -30,7 +30,12 @@ public class EntitiesController(IApplicationService applicationService) : Contro
     /// </summary>
     /// <param name="id">Идентификатор сущности</param>
     [HttpDelete("{id}")]
-    public async Task<bool> DeleteEntity(Guid id) => await applicationService.DeleteEntity(id);
+    public async Task<bool> DeleteEntity(Guid id)
+    {
+        Result result = await applicationService.DeleteEntity(id);
+
+        return result.IsSuccess;
+    }
 
     /// <summary>
     /// Обновить сущность

@@ -82,9 +82,11 @@ public class ResultTests
     [Fact]
     public void ResultT_Success_ValueNotNull()
     {
-        Result<int> result = Result<int>.Success(42);
+        int expectedResult = 42;
 
-        Assert.NotNull(result.Value);
+        Result<int> result = Result<int>.Success(expectedResult);
+
+        Assert.Equal(expectedResult, result.Value);
     }
 
     [Fact]

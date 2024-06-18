@@ -27,11 +27,13 @@ public class EntityRepository : IEntityRepository
     }
 
     /// <inheritdoc />
-    public async Task<bool> DeleteEntity(Guid id)
+    public async Task<Result> DeleteEntity(Guid id)
     {
         await Task.CompletedTask;
 
-        return defaultEntityFunc(id).Id == id;
+        return defaultEntityFunc(id).Id == id
+            ? Result.Success()
+            : Result.Failure(new("Entity not found"));
     }
 
     /// <inheritdoc />

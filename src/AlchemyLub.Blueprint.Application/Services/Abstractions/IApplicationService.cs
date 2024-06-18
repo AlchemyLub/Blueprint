@@ -23,7 +23,7 @@ public interface IApplicationService
     /// </summary>
     /// <param name="id">Идентификатор сущности</param>
     /// <returns><see langword="true"/> если удаление успешно, <see langword="false"/> если нет</returns>
-    public Task<bool> DeleteEntity(Guid id);
+    public Task<Result> DeleteEntity(Guid id);
 
     /// <summary>
     /// Изменить сущность

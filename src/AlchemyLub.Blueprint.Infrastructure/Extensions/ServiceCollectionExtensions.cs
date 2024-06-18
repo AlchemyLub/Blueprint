@@ -12,7 +12,8 @@ public static class ServiceCollectionExtensions
     /// <returns><see cref="IServiceCollection"/></returns>
     public static IServiceCollection AddInfrastructureLayer(this IServiceCollection services) =>
         services
-            .AddServices();
+            .AddServices()
+            .AddDatabaseContext();
 
     private static IServiceCollection AddServices(this IServiceCollection services) =>
         services
