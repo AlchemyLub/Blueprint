@@ -24,7 +24,6 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
     {
         base.OnConfiguring(optionsBuilder);
 
-        // TODO: Дописать инициализацию строки подключения и перенести ближе к регистрации в DI
         NpgsqlConnectionStringBuilder connectionStringBuilder = new()
         {
             Host = "Server",

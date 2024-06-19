@@ -4,7 +4,7 @@ builder.Services.AddAllLayers();
 
 WebApplication app = builder.Build();
 
-// TODO: Нужно прописать в appsettings работу с Serilog
+// Нужно прописать в appsettings работу с Serilog
 builder.Host.UseSerilog((context, configuration) =>
     configuration.ReadFrom.Configuration(context.Configuration));
 

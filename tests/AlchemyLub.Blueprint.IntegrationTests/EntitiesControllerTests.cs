@@ -1,6 +1,5 @@
 namespace AlchemyLub.Blueprint.IntegrationTests;
 
-// TODO: Если будет время, нужно накатить адекватные тесты.
 /// <summary>
 /// Тесты для <see cref="EntitiesController"/>
 /// </summary>
