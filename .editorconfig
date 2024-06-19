@@ -27,7 +27,11 @@ dotnet_style_prefer_compound_assignment = true:suggestion
 dotnet_style_prefer_simplified_interpolation = true:suggestion
 dotnet_style_namespace_match_folder = true:suggestion
 
-[{*.json,*.yml,*.yaml}]
+[*.json]
+indent_size = 4
+indent_style = space
+
+[{*.yml,*.yaml}]
 indent_size = 2
 indent_style = space
 
@@ -373,6 +377,10 @@ dotnet_diagnostic.SA1647.severity = warning
 dotnet_diagnostic.SA1648.severity = warning
 dotnet_diagnostic.SA1649.severity = none
 dotnet_diagnostic.SA1651.severity = none
+
+# Sonar scaner
+
+dotnet_diagnostic.S1118.severity = suggestion
 
 ### Configuration for .Net analyzers executed on this repo ###
 

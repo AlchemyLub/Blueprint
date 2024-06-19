@@ -10,16 +10,13 @@ public static class WebApplicationExtensions
     /// </summary>
     /// <param name="app"><see cref="WebApplication"/></param>
     /// <returns><see cref="WebApplication"/></returns>
-    public static WebApplication UseEndpointsLayer(this WebApplication app)
+    public static IApplicationBuilder UseEndpointsLayer(this IApplicationBuilder app)
     {
-        if (app.Environment.IsDevelopment())
-        {
-            app.UseSwagger(options =>
-                options.PreSerializeFilters.Add((swagger, request) =>
-                    swagger.Servers = new List<OpenApiServer> { new() { Url = $"https://{request.Host}" } }));
+        app.UseSwagger(options =>
+            options.PreSerializeFilters.Add((swagger, request) =>
+                swagger.Servers = new List<OpenApiServer> { new() { Url = $"https://{request.Host}" } }));
 
-            app.UseSwaggerUI();
-        }
+        app.UseSwaggerUI();
 
         app.UseHttpsRedirection();
         app.UseRouting();
@@ -30,10 +27,8 @@ public static class WebApplicationExtensions
 
         app.UseEndpoints(endpoints => endpoints.MapControllers());
 
-        app.UseHealthChecks("/health", new HealthCheckOptions()
+        return app.UseHealthChecks("/health", new HealthCheckOptions()
         {
         });
-
-        return app;
     }
 }

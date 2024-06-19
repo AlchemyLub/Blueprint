@@ -10,6 +10,15 @@ public static class WebApplicationExtensions
     /// </summary>
     /// <param name="app"><see cref="WebApplication"/></param>
     /// <returns><see cref="WebApplication"/></returns>
-    public static WebApplication UseAllLayers(this WebApplication app) =>
-        app.UseEndpointsLayer();
+    public static IApplicationBuilder UseAllLayers(this IApplicationBuilder app) =>
+        app
+            .UseEndpointsLayer()
+            .UseSerilog()
+            .UseMiddlewares();
+
+    private static IApplicationBuilder UseSerilog(this IApplicationBuilder app) => app.UseSerilogRequestLogging();
+
+    private static IApplicationBuilder UseMiddlewares(this IApplicationBuilder app) =>
+        app
+            .UseMiddleware<RequestContextLoggingMiddleware>();
 }

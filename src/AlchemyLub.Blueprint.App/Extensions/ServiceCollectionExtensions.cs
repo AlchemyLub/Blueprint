@@ -14,5 +14,10 @@ public static class ServiceCollectionExtensions
         services
             .AddApplicationLayer()
             .AddEndpointsLayer()
-            .AddInfrastructureLayer();
+            .AddInfrastructureLayer()
+            .AddMiddlewares();
+
+    private static IServiceCollection AddMiddlewares(this IServiceCollection services) =>
+        services
+            .AddScoped<RequestContextLoggingMiddleware>();
 }
