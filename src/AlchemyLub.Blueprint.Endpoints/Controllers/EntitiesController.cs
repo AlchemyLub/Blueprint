@@ -12,6 +12,7 @@ public class EntitiesController(IApplicationService applicationService) : Contro
     /// </summary>
     /// <param name="id">Идентификатор сущности</param>
     [HttpGet("{id}")]
+    [ResponseCache(Duration = 10, Location = ResponseCacheLocation.Any, NoStore = false)]
     public async Task<EntityResponse> GetEntity(Guid id)
     {
         Entity entity = await applicationService.GetEntity(id);

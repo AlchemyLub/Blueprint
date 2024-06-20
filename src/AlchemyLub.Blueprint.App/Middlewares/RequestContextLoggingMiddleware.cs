@@ -39,6 +39,6 @@ public sealed class RequestContextLoggingMiddleware(ILogger<RequestContextLoggin
     {
         context.Request.Headers.TryGetValue(CorrelationIdHeaderName, out StringValues correlationId);
 
-        return correlationId.FirstOrDefault() ?? context.TraceIdentifier;
+        return correlationId.FirstOrDefault() ?? Guid.NewGuid().ToString();
     }
 }

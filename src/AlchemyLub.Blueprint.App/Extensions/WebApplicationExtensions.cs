@@ -12,9 +12,9 @@ public static class WebApplicationExtensions
     /// <returns><see cref="WebApplication"/></returns>
     public static IApplicationBuilder UseAllLayers(this IApplicationBuilder app) =>
         app
+            .UseMiddlewares()
             .UseEndpointsLayer()
-            .UseSerilog()
-            .UseMiddlewares();
+            .UseSerilog();
 
     private static IApplicationBuilder UseSerilog(this IApplicationBuilder app) => app.UseSerilogRequestLogging();
 

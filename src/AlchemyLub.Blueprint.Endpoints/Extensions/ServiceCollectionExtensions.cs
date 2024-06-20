@@ -20,6 +20,8 @@ public static class ServiceCollectionExtensions
 
         services.AddValidators();
 
+        services.AddResponseCaching();
+
         services.AddSwaggerGen(options =>
         {
             options.SupportNonNullableReferenceTypes();
