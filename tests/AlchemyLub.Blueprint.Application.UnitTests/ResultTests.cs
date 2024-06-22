@@ -1,7 +1,7 @@
 namespace AlchemyLub.Blueprint.Application.UnitTests;
 
 /// <summary>
-/// Тесты для <see cref="Result"/> и <see cref="Result{T}"/>
+/// РўРµСЃС‚С‹ РґР»СЏ <see cref="Result"/> Рё <see cref="Result{T}"/>
 /// </summary>
 public class ResultTests
 {
@@ -50,7 +50,7 @@ public class ResultTests
     [Fact]
     public void ResultT_Success_IsSuccessTrue()
     {
-        Result<int> result = Result<int>.Success(42);
+        Result<int> result = Result.Success(42);
 
         Assert.True(result.IsSuccess);
     }
@@ -58,7 +58,7 @@ public class ResultTests
     [Fact]
     public void ResultT_Failure_IsSuccessFalse()
     {
-        Result<int> result = Result<int>.Failure(new("Test error"));
+        Result<int> result = Result.Failure<int>(new("Test error"));
 
         Assert.False(result.IsSuccess);
     }
@@ -66,7 +66,7 @@ public class ResultTests
     [Fact]
     public void ResultT_Failure_ErrorNotNull()
     {
-        Result<int> result = Result<int>.Failure(new("Test error"));
+        Result<int> result = Result.Failure<int>(new("Test error"));
 
         Assert.NotNull(result.Error);
     }
@@ -74,7 +74,7 @@ public class ResultTests
     [Fact]
     public void ResultT_Success_ErrorNull()
     {
-        Result<int> result = Result<int>.Success(42);
+        Result<int> result = Result.Success(42);
 
         Assert.Equal(Error.None, result.Error);
     }
@@ -84,7 +84,7 @@ public class ResultTests
     {
         int expectedResult = 42;
 
-        Result<int> result = Result<int>.Success(expectedResult);
+        Result<int> result = Result.Success(expectedResult);
 
         Assert.Equal(expectedResult, result.Value);
     }
@@ -92,7 +92,7 @@ public class ResultTests
     [Fact]
     public void ResultT_Failure_ValueIsDefault()
     {
-        Result<int> result = Result<int>.Failure(new("Test error"));
+        Result<int> result = Result.Failure<int>(new("Test error"));
 
         Assert.Equal(default, result.Value);
     }
@@ -100,7 +100,7 @@ public class ResultTests
     [Fact]
     public void ResultT_AsTask_CompletesSuccessfully()
     {
-        Result<int> result = Result<int>.Success(42);
+        Result<int> result = Result.Success(42);
 
         Task<Result<int>> task = result.AsTask();
 
