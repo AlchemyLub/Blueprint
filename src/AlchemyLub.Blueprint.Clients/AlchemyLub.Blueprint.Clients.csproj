@@ -2,8 +2,8 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.1" />
-    <PackageReference Include="Refit" Version="7.0.0" />
-    <PackageReference Include="Refit.HttpClientFactory" Version="7.0.0" />
+    <PackageReference Include="Refit" Version="7.1.0" />
+    <PackageReference Include="Refit.HttpClientFactory" Version="7.1.0" />
   </ItemGroup>
 
 </Project>

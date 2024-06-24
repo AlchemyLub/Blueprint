@@ -5,4 +5,8 @@ namespace AlchemyLub.Blueprint.Endpoints.Requests;
 /// </summary>
 /// <param name="Title">Заголовок</param>
 /// <param name="Description">Описание</param>
-public record EntityRequest(string Title, string Description);
+/// <param name="Count">Количество</param>
+public record EntityRequest(
+    string Title,
+    string Description,
+    int? Count);

@@ -5,5 +5,9 @@ namespace AlchemyLub.Blueprint.Endpoints.Validators;
 /// </summary>
 public class EntityRequestValidator : AbstractValidator<EntityRequest>
 {
-    public EntityRequestValidator() => RuleFor(t => t.Title).NotEmpty();
+    public EntityRequestValidator()
+    {
+        RuleFor(t => t.Title).NotEmpty();
+        RuleFor(t => t.Count).GreaterThan(10);
+    }
 }

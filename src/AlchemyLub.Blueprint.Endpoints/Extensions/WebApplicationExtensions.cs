@@ -27,8 +27,6 @@ public static class WebApplicationExtensions
 
         app.UseEndpoints(endpoints => endpoints.MapControllers());
 
-        return app.UseHealthChecks("/health", new HealthCheckOptions()
-        {
-        });
+        return app.UseHealthChecks("/health", new HealthCheckOptions());
     }
 }

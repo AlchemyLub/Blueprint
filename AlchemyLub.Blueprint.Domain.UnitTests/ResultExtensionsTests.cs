@@ -95,7 +95,7 @@ public class ResultExtensionsTests
         Result result = Result.Success();
 
         Func<Result, int> action = r => r.Match(
-            () => SuccessResult,
+            () => 0,
             null);
 
         result.Invoking(action)

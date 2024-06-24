@@ -44,7 +44,7 @@ public class EntitiesController(IApplicationService applicationService) : Contro
     /// <param name="id">Идентификатор сущности</param>
     /// <param name="request">Новая сущность</param>
     [HttpPatch("{id}")]
-    public async Task<EntityResponse> UpdateEntity(Guid id, EntityRequest request)
+    public async Task<EntityResponse> UpdateEntity(Guid id, [FromBody] EntityRequest request)
     {
         Entity newEntity = new(id)
         {

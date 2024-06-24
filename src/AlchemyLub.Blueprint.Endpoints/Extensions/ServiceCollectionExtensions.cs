@@ -13,7 +13,7 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddEndpointsLayer(this IServiceCollection services)
     {
         services
-            .AddControllers()
+            .AddControllers(options => options.Filters.Add<AutoValidationEndpointFilter>())
             .AddJsonOptions(options => options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
 
         services.AddEndpointsApiExplorer();
