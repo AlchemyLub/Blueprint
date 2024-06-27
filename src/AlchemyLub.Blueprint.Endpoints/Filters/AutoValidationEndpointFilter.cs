@@ -1,76 +1,96 @@
 namespace AlchemyLub.Blueprint.Endpoints.Filters;
 
-public class AutoValidationEndpointFilter : IAsyncActionFilter
+/// <summary>
+/// Action filter for automatic validation of action method arguments.
+/// </summary>
+public class AutoValidationEndpointFilter : IEndpointFilter, IAsyncActionFilter
 {
     /// <inheritdoc />
     public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
     {
-        IServiceProvider serviceProvider = context.HttpContext.RequestServices;
+        ValidationResult validationResult = await ValidateArguments(
+            context.HttpContext.RequestServices,
+            context.ActionArguments.Select(t => t.Value).ToList(),
+            context.HttpContext.RequestAborted);
 
-        foreach (object? argument in context.ActionArguments.Select(t => t.Value))
+        if (!validationResult.IsValid)
+        {
+            context.Result = new ObjectResult(CreateValidationProblemDetails(validationResult));
+
+            return;
+        }
+
+        await next();
+    }
+
+    /// <inheritdoc />
+    public async ValueTask<object?> InvokeAsync(EndpointFilterInvocationContext context, EndpointFilterDelegate next)
+    {
+        ValidationResult validationResult = await ValidateArguments(
+            context.HttpContext.RequestServices,
+            context.Arguments,
+            context.HttpContext.RequestAborted);
+
+        if (!validationResult.IsValid)
+        {
+            context.HttpContext.Response.StatusCode = 400;
+            ProblemDetails problemDetails = CreateValidationProblemDetails(validationResult);
+
+            await context.HttpContext.Response.WriteAsync(JsonSerializer.Serialize(problemDetails));
+
+            return null;
+        }
+
+        return await next(context);
+    }
+
+    private static async Task<ValidationResult> ValidateArguments(
+        IServiceProvider serviceProvider,
+        IList<object?> arguments,
+        CancellationToken cancellationToken = default)
+    {
+        ValidationResult result = new();
+
+        foreach (object? argument in arguments)
         {
             if (argument is null)
             {
                 continue;
             }
 
-            if (argument.GetType().IsCustomType() &&
-                serviceProvider.GetValidator(argument.GetType()) is IValidator validator)
+            Type argumentType = argument.GetType();
+
+            if (!argumentType.IsCustomType())
+            {
+                continue;
+            }
+
+            Type validatorType = typeof(IValidator<>).MakeGenericType(argumentType);
+
+            object? validatorObject = serviceProvider.GetService(validatorType);
+
+            if (validatorObject is IValidator validator)
             {
                 IValidationContext validationContext = new ValidationContext<object>(argument);
 
-                ValidationResult? validationResult =
-                    await validator.ValidateAsync(validationContext, context.HttpContext.RequestAborted);
+                ValidationResult validationResult = await validator.ValidateAsync(validationContext, cancellationToken);
 
-                if (!validationResult.IsValid)
-                {
-                    context.Result = new ObjectResult(new ProblemDetails
-                    {
-                        Title = "Validation Error",
-                        Detail = "One or more validation errors occurred.",
-                        Status = 400,
-                        Extensions =
-                        {
-                            { "errors", validationResult.ToValidationProblemErrors() }
-                        }
-                    });
-
-                    return;
-                }
+                result.Errors.AddRange(validationResult.Errors);
             }
         }
 
-        await next();
-    }
-}
-
-static file class Extensions
-{
-    public static bool IsCustomType(this Type? type)
-    {
-        Type[] builtInTypes =
-        [
-            typeof(string),
-            typeof(decimal),
-            typeof(DateTime),
-            typeof(DateTimeOffset),
-            typeof(TimeSpan),
-            typeof(Guid),
-            typeof(Enum)
-        ];
-
-        return type != null && type.IsClass && !type.IsEnum && !type.IsValueType && !type.IsPrimitive && !builtInTypes.Contains(type);
+        return result;
     }
 
-    public static object? GetValidator(this IServiceProvider serviceProvider, Type type) =>
-        serviceProvider.GetService(typeof(IValidator<>).MakeGenericType(type));
-
-    public static Dictionary<string, string[]> ToValidationProblemErrors(this ValidationResult validationResult) =>
-        validationResult.Errors
-            .GroupBy(validationFailure => validationFailure.PropertyName)
-            .ToDictionary(
-                validationFailureGrouping => validationFailureGrouping.Key,
-                validationFailureGrouping => validationFailureGrouping
-                    .Select(validationFailure => validationFailure.ErrorMessage)
-                    .ToArray());
+    private static ProblemDetails CreateValidationProblemDetails(ValidationResult validationResult) =>
+        new()
+        {
+            Title = "Validation Error",
+            Detail = "One or more validation errors occurred.",
+            Status = 400,
+            Extensions =
+            {
+                { "errors", validationResult.ToValidationProblemErrors() }
+            }
+        };
 }

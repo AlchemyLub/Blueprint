@@ -42,14 +42,14 @@ public class EntitiesController(IApplicationService applicationService) : Contro
     /// Обновить сущность
     /// </summary>
     /// <param name="id">Идентификатор сущности</param>
-    /// <param name="request">Новая сущность</param>
+    /// <param name="requests">Новая сущность</param>
     [HttpPatch("{id}")]
-    public async Task<EntityResponse> UpdateEntity(Guid id, [FromBody] EntityRequest request)
+    public async Task<EntityResponse> UpdateEntity(Guid id, EntityRequest[] requests)
     {
         Entity newEntity = new(id)
         {
-            Title = request.Title,
-            Description = request.Description,
+            Title = requests[0].Title,
+            Description = requests[0].Description,
             CreatedAt = DateTime.UtcNow
         };
 
