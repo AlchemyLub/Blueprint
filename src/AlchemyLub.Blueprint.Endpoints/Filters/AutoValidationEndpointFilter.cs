@@ -33,12 +33,7 @@ public class AutoValidationEndpointFilter : IEndpointFilter, IAsyncActionFilter
 
         if (!validationResult.IsValid)
         {
-            context.HttpContext.Response.StatusCode = 400;
-            ProblemDetails problemDetails = CreateValidationProblemDetails(validationResult);
-
-            await context.HttpContext.Response.WriteAsync(JsonSerializer.Serialize(problemDetails));
-
-            return null;
+            return Results.BadRequest(CreateValidationProblemDetails(validationResult));
         }
 
         return await next(context);

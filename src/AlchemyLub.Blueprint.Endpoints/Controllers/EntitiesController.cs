@@ -44,12 +44,12 @@ public class EntitiesController(IApplicationService applicationService) : Contro
     /// <param name="id">Идентификатор сущности</param>
     /// <param name="requests">Новая сущность</param>
     [HttpPatch("{id}")]
-    public async Task<EntityResponse> UpdateEntity(Guid id, EntityRequest[] requests)
+    public async Task<EntityResponse> UpdateEntity(Guid id, EntityRequest requests)
     {
         Entity newEntity = new(id)
         {
-            Title = requests[0].Title,
-            Description = requests[0].Description,
+            Title = requests.Title,
+            Description = requests.Description,
             CreatedAt = DateTime.UtcNow
         };
 
