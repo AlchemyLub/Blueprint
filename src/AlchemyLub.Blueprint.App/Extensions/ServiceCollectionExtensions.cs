@@ -9,12 +9,13 @@ public static class ServiceCollectionExtensions
     /// Регистрирует все слои приложения
     /// </summary>
     /// <param name="services"><see cref="IServiceCollection"/></param>
+    /// <param name="configuration"><see cref="IConfiguration"/></param>
     /// <returns><see cref="IServiceCollection"/></returns>
-    public static IServiceCollection AddAllLayers(this IServiceCollection services) =>
+    public static IServiceCollection AddAllLayers(this IServiceCollection services, IConfiguration configuration) =>
         services
             .AddApplicationLayer()
             .AddEndpointsLayer()
-            .AddInfrastructureLayer()
+            .AddInfrastructureLayer(configuration)
             .AddMiddlewares();
 
     private static IServiceCollection AddMiddlewares(this IServiceCollection services) =>
