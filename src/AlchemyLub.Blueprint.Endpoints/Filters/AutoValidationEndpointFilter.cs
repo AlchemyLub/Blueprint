@@ -85,7 +85,7 @@ public class AutoValidationEndpointFilter : IEndpointFilter, IAsyncActionFilter
             Status = 400,
             Extensions =
             {
-                { "errors", validationResult.ToValidationProblemErrors() }
+                { "errors", validationResult.ToDictionary() }
             }
         };
 }

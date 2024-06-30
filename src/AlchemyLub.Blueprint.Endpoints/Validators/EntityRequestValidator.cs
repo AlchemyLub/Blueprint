@@ -3,7 +3,7 @@ namespace AlchemyLub.Blueprint.Endpoints.Validators;
 /// <summary>
 /// Валидатор для <see cref="EntityRequest"/>
 /// </summary>
-public class EntityRequestValidator : AbstractValidator<EntityRequest>
+public sealed class EntityRequestValidator : AbstractValidator<EntityRequest>
 {
     public EntityRequestValidator()
     {

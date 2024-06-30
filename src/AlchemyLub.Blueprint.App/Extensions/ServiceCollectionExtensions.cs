@@ -13,6 +13,7 @@ public static class ServiceCollectionExtensions
     /// <returns><see cref="IServiceCollection"/></returns>
     public static IServiceCollection AddAllLayers(this IServiceCollection services, IConfiguration configuration) =>
         services
+            .AddOptions()
             .AddApplicationLayer()
             .AddEndpointsLayer()
             .AddInfrastructureLayer(configuration)
@@ -21,4 +22,12 @@ public static class ServiceCollectionExtensions
     private static IServiceCollection AddMiddlewares(this IServiceCollection services) =>
         services
             .AddScoped<RequestContextLoggingMiddleware>();
+
+    private static IServiceCollection AddOptions(this IServiceCollection services)
+    {
+        services
+            .AddOptionsWithValidation<CacheOptions, CacheOptionsValidator>();
+
+        return services;
+    }
 }

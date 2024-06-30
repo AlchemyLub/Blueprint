@@ -4,6 +4,7 @@ global using AlchemyLub.Blueprint.Domain;
 global using AlchemyLub.Blueprint.Infrastructure.Constants;
 global using AlchemyLub.Blueprint.Infrastructure.ContextConfigurations;
 global using AlchemyLub.Blueprint.Infrastructure.Contexts;
+global using AlchemyLub.Blueprint.Infrastructure.Enums;
 global using AlchemyLub.Blueprint.Infrastructure.Repositories;
 global using Microsoft.EntityFrameworkCore;
 global using Microsoft.EntityFrameworkCore.Diagnostics;

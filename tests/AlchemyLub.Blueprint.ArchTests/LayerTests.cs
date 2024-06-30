@@ -3,7 +3,7 @@ namespace AlchemyLub.Blueprint.ArchTests;
 /// <summary>
 /// Тесты для проверки связей между слоями
 /// </summary>
-public class LayerTests
+public sealed class LayerTests
 {
     /// <summary>
     /// Слой клиентов <see cref="Clients"/> не должен зависеть от других слоёв

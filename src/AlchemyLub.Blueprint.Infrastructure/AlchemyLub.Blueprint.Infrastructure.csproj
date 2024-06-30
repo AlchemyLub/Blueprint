@@ -10,8 +10,4 @@
     <ProjectReference Include="..\AlchemyLub.Blueprint.Application\AlchemyLub.Blueprint.Application.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Repositories\" />
-  </ItemGroup>
-
 </Project>

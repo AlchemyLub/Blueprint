@@ -192,6 +192,8 @@ dotnet_diagnostic.IDE0065.severity = none
 dotnet_diagnostic.IDE0046.severity = none
 # Remove unnecessary expression value
 dotnet_diagnostic.IDE0058.severity = none
+# Use primary constructors
+dotnet_diagnostic.IDE0290.severity = suggestion
 # Collection initialization can be simplified
 dotnet_diagnostic.IDE0305.severity = suggestion
 
