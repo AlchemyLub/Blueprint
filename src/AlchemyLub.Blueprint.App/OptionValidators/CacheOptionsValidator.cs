@@ -10,13 +10,9 @@ public sealed class CacheOptionsValidator : AbstractValidator<CacheOptions>
                 .IsInEnum()
                 .NotEqual(CacheStore.None);
 
-            RuleFor(t => t.IsAbsoluteExpiration)
-                .Equal(true)
-                .When(t => !t.IsSlidingExpiration);
-
-            RuleFor(t => t.IsSlidingExpiration)
-                .Equal(true)
-                .When(t => !t.IsAbsoluteExpiration);
+            RuleFor(t => t)
+                .Must((options, _) => options.IsSlidingExpiration != options.IsAbsoluteExpiration)
+                .WithMessage("[IsSlidingExpiration] and [IsAbsoluteExpiration] cannot be turned on or off at the same time");
 
             RuleFor(t => t.CacheDuration)
                 .GreaterThan(0);
