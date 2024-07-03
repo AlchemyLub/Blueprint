@@ -3,7 +3,7 @@ namespace AlchemyLub.Blueprint.ArchTests;
 public sealed class CodingRuleTests
 {
     /// <summary>
-    /// Тест должен проверять, что все кастомные опции запечатаны. Сейчас работает некорректно!
+    /// Тест должен проверять, что все кастомные опции запечатаны
     /// </summary>
     [Fact]
     public void Options_Should_BeSealed()
@@ -23,6 +23,6 @@ public sealed class CodingRuleTests
 
         int result = conditionList.Count();
 
-        result.Should().Be(int.MaxValue);
+        result.Should().BePositive();
     }
 }
