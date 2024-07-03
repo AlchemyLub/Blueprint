@@ -26,13 +26,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlchemyLub.Blueprint.Domain
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlchemyLub.Blueprint.Endpoints", "src\AlchemyLub.Blueprint.Endpoints\AlchemyLub.Blueprint.Endpoints.csproj", "{C82CE337-3D1A-4049-94D5-187BA456D1ED}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlchemyLub.Blueprint.Infrastructure", "src\AlchemyLub.Blueprint.Infrastructure\AlchemyLub.Blueprint.Infrastructure.csproj", "{2C848D53-60F9-4076-8F34-35D67DF5F7FA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlchemyLub.Blueprint.Infrastructure.Database", "src\AlchemyLub.Blueprint.Infrastructure\AlchemyLub.Blueprint.Infrastructure.Database.csproj", "{2C848D53-60F9-4076-8F34-35D67DF5F7FA}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlchemyLub.Blueprint.Clients", "src\AlchemyLub.Blueprint.Clients\AlchemyLub.Blueprint.Clients.csproj", "{CC287CE2-15D7-4F13-A2FB-2E4491EA3C7F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlchemyLub.Blueprint.Application.UnitTests", "tests\AlchemyLub.Blueprint.Application.UnitTests\AlchemyLub.Blueprint.Application.UnitTests.csproj", "{5A18CE0F-F320-4326-9E11-0BAFEB56038B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlchemyLub.Blueprint.Domain.UnitTests", "AlchemyLub.Blueprint.Domain.UnitTests\AlchemyLub.Blueprint.Domain.UnitTests.csproj", "{6D2D8FAA-4F40-4134-93FE-E2CE4ECC3DA5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlchemyLub.Blueprint.Infrastructure.Outbox", "src\AlchemyLub.Blueprint.Infrastructure.Outbox\AlchemyLub.Blueprint.Infrastructure.Outbox.csproj", "{37B67576-FF5C-43CE-9C6F-571EB596BDC6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -80,6 +82,10 @@ Global
 		{6D2D8FAA-4F40-4134-93FE-E2CE4ECC3DA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6D2D8FAA-4F40-4134-93FE-E2CE4ECC3DA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6D2D8FAA-4F40-4134-93FE-E2CE4ECC3DA5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{37B67576-FF5C-43CE-9C6F-571EB596BDC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37B67576-FF5C-43CE-9C6F-571EB596BDC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37B67576-FF5C-43CE-9C6F-571EB596BDC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37B67576-FF5C-43CE-9C6F-571EB596BDC6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

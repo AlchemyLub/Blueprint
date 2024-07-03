@@ -1,4 +1,4 @@
-namespace AlchemyLub.Blueprint.Infrastructure.Options;
+namespace AlchemyLub.Blueprint.Infrastructure.Database.Options;
 
 /// <summary>
 /// Represents the options for caching.

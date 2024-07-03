@@ -1,4 +1,4 @@
-namespace AlchemyLub.Blueprint.Infrastructure.Contexts;
+namespace AlchemyLub.Blueprint.Infrastructure.Database.Contexts;
 
 /// <summary>
 /// Application database context

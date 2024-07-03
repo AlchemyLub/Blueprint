@@ -1,4 +1,4 @@
-namespace AlchemyLub.Blueprint.Infrastructure.Extensions;
+namespace AlchemyLub.Blueprint.Infrastructure.Database.Extensions;
 
 /// <summary>
 /// Provides extension methods for <inheritdoc cref="IConfiguration"/>

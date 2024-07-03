@@ -1,4 +1,4 @@
-namespace AlchemyLub.Blueprint.Infrastructure.Enums;
+namespace AlchemyLub.Blueprint.Infrastructure.Database.Enums;
 
 /// <summary>
 /// Represents the type of cache store.

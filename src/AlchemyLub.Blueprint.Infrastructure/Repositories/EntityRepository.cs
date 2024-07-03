@@ -1,4 +1,4 @@
-namespace AlchemyLub.Blueprint.Infrastructure.Repositories;
+namespace AlchemyLub.Blueprint.Infrastructure.Database.Repositories;
 
 /// <inheritdoc cref="IEntityRepository"/>
 public class EntityRepository : IEntityRepository

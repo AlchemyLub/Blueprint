@@ -1,4 +1,4 @@
-namespace AlchemyLub.Blueprint.Infrastructure.Extensions;
+namespace AlchemyLub.Blueprint.Infrastructure.Database.Extensions;
 
 /// <summary>
 /// Методы расширения для <see cref="IServiceCollection"/>

@@ -8,7 +8,14 @@ public sealed class CodingRuleTests
     [Fact]
     public void Options_Should_BeSealed()
     {
-        ConditionList conditionList = Types.InCurrentDomain()
+        ConditionList conditionList = Types.InAssemblies(new[]
+            {
+                Assemblies.ApplicationAssembly,
+                Assemblies.ClientsAssembly,
+                Assemblies.DomainAssembly,
+                Assemblies.EndpointsAssembly,
+                Assemblies.InfrastructureAssembly
+            })
             .That()
             .HaveNameEndingWith("Options")
             .Should()

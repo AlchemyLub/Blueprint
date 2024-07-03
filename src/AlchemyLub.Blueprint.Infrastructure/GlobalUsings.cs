@@ -1,11 +1,11 @@
 global using System.Diagnostics.CodeAnalysis;
 global using AlchemyLub.Blueprint.Application.Repositories;
 global using AlchemyLub.Blueprint.Domain;
-global using AlchemyLub.Blueprint.Infrastructure.Constants;
-global using AlchemyLub.Blueprint.Infrastructure.ContextConfigurations;
-global using AlchemyLub.Blueprint.Infrastructure.Contexts;
-global using AlchemyLub.Blueprint.Infrastructure.Enums;
-global using AlchemyLub.Blueprint.Infrastructure.Repositories;
+global using AlchemyLub.Blueprint.Infrastructure.Database.Constants;
+global using AlchemyLub.Blueprint.Infrastructure.Database.ContextConfigurations;
+global using AlchemyLub.Blueprint.Infrastructure.Database.Contexts;
+global using AlchemyLub.Blueprint.Infrastructure.Database.Enums;
+global using AlchemyLub.Blueprint.Infrastructure.Database.Repositories;
 global using Microsoft.EntityFrameworkCore;
 global using Microsoft.EntityFrameworkCore.Diagnostics;
 global using Microsoft.EntityFrameworkCore.Metadata.Builders;
