@@ -1,4 +1,4 @@
-﻿namespace AlchemyLub.Blueprint.Generator.Templates;
+namespace AlchemyLub.Blueprint.Generator.Templates;
 
 internal static class ClassComponents
 {
@@ -21,10 +21,9 @@ namespace CustomNamespace
         /// </summary>
         /// <param name="services"><see cref="IServiceCollection"/></param>
         /// <param name="decoratorsConfigurator">
-        /// Конфигуратор декораторов. Можно задать, какие декораторы включены, какие нет. Ключи - имена декораторов, значения - включены или нет.
-        /// Если не задан, то все декораторы включены
+        /// Конфигуратор декораторов. Можно задать, какие декораторы включены, какие нет.
+        /// Ключи - имена декораторов, значения - включены или нет. Если <see langword="null"/>, то все декораторы по умолчанию выключены
         /// </param>
-        /// <returns></returns>
         public static IServiceCollection AddDecorators(
             this IServiceCollection services,
             Dictionary<string, bool>? decoratorsConfigurator = null)
@@ -34,6 +33,16 @@ namespace CustomNamespace
     internal const string ExtensionClassBasement =
 """
             return services;
+        }
+
+        private static bool IsDecoratorEnabled(string decoratorName, Dictionary<string, bool>? decoratorsConfigurator = null)
+        {
+            if (decoratorsConfigurator is null)
+            {
+                return false;
+            }
+
+            return decoratorsConfigurator.TryGetValue(decoratorName, out bool decoratorEnabled) && decoratorEnabled;
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace AlchemyLub.Blueprint.Generator;
+namespace AlchemyLub.Blueprint.Generator;
 
 [Generator]
 public sealed class DecoratorGenerator : IIncrementalGenerator
@@ -59,8 +59,6 @@ public sealed class DecoratorGenerator : IIncrementalGenerator
         INamedTypeSymbol classSymbol,
         IEnumerable<string> decoratorNames)
     {
-        string className = classSymbol.Name;
-
         ReadOnlyCollection<MethodModel> methods = classDeclaration.Members
             .OfType<MethodDeclarationSyntax>()
             .Select(m =>
@@ -77,7 +75,7 @@ public sealed class DecoratorGenerator : IIncrementalGenerator
             .AsReadOnly();
 
         return new(
-            className,
+            classSymbol.Name,
             methods,
             decoratorNames.ToList().AsReadOnly());
     }
