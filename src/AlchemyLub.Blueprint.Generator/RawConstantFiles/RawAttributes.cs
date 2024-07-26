@@ -8,10 +8,10 @@ internal sealed class RawAttributes
 namespace DecoratorGenerator.Attributes
 {
     /// <summary>
-    /// Attribute that marks the decorated method
+    /// Attribute that marks the decorated class
     /// </summary>
-    [AttributeUsage(AttributeTargets.Method, Inherited = false)]
-    public sealed class DecorateAttribute<T> : System.Attribute
+    [AttributeUsage(AttributeTargets.Class, Inherited = false)]
+    public sealed class DecorateAttribute<T> : System.Attribute where T : IDecorator
     {
     }
 }

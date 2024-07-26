@@ -1,4 +1,4 @@
-﻿namespace AlchemyLub.Blueprint.App.Middlewares;
+namespace AlchemyLub.Blueprint.App.Middlewares;
 
 /// <summary>
 /// Middleware that logs the request context.

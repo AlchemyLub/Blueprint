@@ -1,3 +1,7 @@
-﻿namespace AlchemyLub.Blueprint.Generator.Models;
+namespace AlchemyLub.Blueprint.Generator.Models;
 
-public record struct MethodModel(string FullName, IReadOnlyCollection<ParameterModel> Parameters, string ReturnType);
+public record struct MethodModel(
+    string FullName,
+    string ReturnType,
+    IReadOnlyCollection<ParameterModel> Parameters,
+    string? Keywords = null);
