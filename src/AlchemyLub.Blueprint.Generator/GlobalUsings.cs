@@ -4,6 +4,7 @@ global using System.Collections.Immutable;
 global using System.Collections.ObjectModel;
 global using System.Diagnostics;
 global using System.Text;
+global using AlchemyLub.Blueprint.Generator.Builders;
 global using AlchemyLub.Blueprint.Generator.Exceptions;
 global using AlchemyLub.Blueprint.Generator.Models;
 global using AlchemyLub.Blueprint.Generator.RawConstantFiles;

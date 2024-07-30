@@ -22,7 +22,7 @@ public sealed class DecoratorGenerator : IIncrementalGenerator
             DependencyInjectionDecoratorFileName,
             SourceText.From(RawDecorators.DependencyInjectionDecoratorMethods, Encoding.UTF8)));
 
-        IncrementalValueProvider<ImmutableArray<DecoratedClassModel>> pipeline = context.SyntaxProvider.ForAttributeWithMetadataName(
+        IncrementalValueProvider<ImmutableArray<ClassModel>> pipeline = context.SyntaxProvider.ForAttributeWithMetadataName(
             "DecoratorGenerator.Attributes.DecorateAttribute`1",
             (node, _) => node is ClassDeclarationSyntax classDeclaration
                          && classDeclaration.Members.OfType<MethodDeclarationSyntax>().Any()
@@ -54,40 +54,29 @@ public sealed class DecoratorGenerator : IIncrementalGenerator
         context.RegisterSourceOutput(pipeline, Execute);
     }
 
-    private static DecoratedClassModel CreateClassModel(
+    private static ClassModel CreateClassModel(
         ClassDeclarationSyntax classDeclaration,
         INamedTypeSymbol classSymbol,
         IEnumerable<string> decoratorNames)
     {
-        ReadOnlyCollection<MethodModel> methods = classDeclaration.Members
-            .OfType<MethodDeclarationSyntax>()
-            .Select(m =>
-                new MethodModel(
-                    m.Identifier.Text,
-                    m.ParameterList.Parameters.Select(t =>
-                        new ParameterModel(
-                            t.Type!.ToFullString(),
-                            t.ToString()))
-                        .ToList()
-                        .AsReadOnly(),
-                    m.ReturnType.ToFullString()))
-            .ToList()
-            .AsReadOnly();
+        IReadOnlyCollection<MethodModel> methods =
+            ClassGenerator.GenerateMethods(classDeclaration.Members.OfType<MethodDeclarationSyntax>());
 
-        return new(
-            classSymbol.Name,
-            methods,
-            decoratorNames.ToList().AsReadOnly());
+        ClassBuilder classBuilder = new(classSymbol.Name);
+
+        classBuilder.WithMethods(methods.ToArray());
+
+        return classBuilder.Build();
     }
 
-    private static void Execute(SourceProductionContext context, ImmutableArray<DecoratedClassModel> classModels)
+    private static void Execute(SourceProductionContext context, ImmutableArray<ClassModel> classModels)
     {
         string code = GenerateCode(classModels);
 
         context.AddSource("DecoratorExtensions.g.cs", code);
     }
 
-    private static string GenerateCode(ImmutableArray<DecoratedClassModel> classModels) =>
+    private static string GenerateCode(ImmutableArray<ClassModel> classModels) =>
 $"""
 {ClassComponents.ExtensionClassHead}
         {string.Join(SyntaxFactory.CarriageReturnLineFeed.ToString(), classModels.Select(GenerateDecorateRows))}
@@ -95,7 +84,7 @@ $"""
 {ClassComponents.ExtensionClassBasement}
 """;
 
-    private static string GenerateDecorateRows(DecoratedClassModel classModel) =>
+    private static string GenerateDecorateRows(ClassModel classModel) =>
         string.Join(
             SyntaxFactory.CarriageReturnLineFeed.ToString(),
             classModel.DecoratorNames.Select(t => $"services.Decorate<{classModel.InterfaceName},{t}>;"));
