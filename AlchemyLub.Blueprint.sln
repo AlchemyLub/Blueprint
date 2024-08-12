@@ -1,5 +1,5 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
+# 17
 VisualStudioVersion = 17.10.34707.107
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{FC7ADEB8-E81E-4AD8-BAFC-83EF0B7165AD}"
@@ -36,11 +36,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlchemyLub.Blueprint.Domain
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlchemyLub.Blueprint.Infrastructure.Outbox", "src\AlchemyLub.Blueprint.Infrastructure.Outbox\AlchemyLub.Blueprint.Infrastructure.Outbox.csproj", "{37B67576-FF5C-43CE-9C6F-571EB596BDC6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlchemyLub.Blueprint.Generator", "src\AlchemyLub.Blueprint.Generator\AlchemyLub.Blueprint.Generator.csproj", "{10D3A2E1-9FE2-4018-809B-9B23427E09F1}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlchemyLub.Blueprint.GeneratorTests", "tests\AlchemyLub.Blueprint.GeneratorTests\AlchemyLub.Blueprint.GeneratorTests.csproj", "{8AC502A9-C97E-48EA-B254-C6B621ECD0B9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlchemyLub.Blueprint.Middleware", "src\AlchemyLub.Blueprint.Middleware\AlchemyLub.Blueprint.Middleware.csproj", "{4F5A9F14-4998-4B68-8F8C-76A6CDBD7B78}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlchemyLub.Blueprint.Middleware", "src\AlchemyLub.Blueprint.Middleware\AlchemyLub.Blueprint.Middleware.csproj", "{4F5A9F14-4998-4B68-8F8C-76A6CDBD7B78}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlchemyLub.Blueprint.Infrastructure.Idempotency", "src\AlchemyLub.Blueprint.Infrastructure.Idempotency\AlchemyLub.Blueprint.Infrastructure.Idempotency.csproj", "{D45BF7CF-97FB-4149-A10C-EE2EF172405D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -92,10 +92,6 @@ Global
 		{37B67576-FF5C-43CE-9C6F-571EB596BDC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{37B67576-FF5C-43CE-9C6F-571EB596BDC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{37B67576-FF5C-43CE-9C6F-571EB596BDC6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{10D3A2E1-9FE2-4018-809B-9B23427E09F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{10D3A2E1-9FE2-4018-809B-9B23427E09F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{10D3A2E1-9FE2-4018-809B-9B23427E09F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{10D3A2E1-9FE2-4018-809B-9B23427E09F1}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8AC502A9-C97E-48EA-B254-C6B621ECD0B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8AC502A9-C97E-48EA-B254-C6B621ECD0B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8AC502A9-C97E-48EA-B254-C6B621ECD0B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -104,6 +100,10 @@ Global
 		{4F5A9F14-4998-4B68-8F8C-76A6CDBD7B78}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4F5A9F14-4998-4B68-8F8C-76A6CDBD7B78}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4F5A9F14-4998-4B68-8F8C-76A6CDBD7B78}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D45BF7CF-97FB-4149-A10C-EE2EF172405D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D45BF7CF-97FB-4149-A10C-EE2EF172405D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D45BF7CF-97FB-4149-A10C-EE2EF172405D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D45BF7CF-97FB-4149-A10C-EE2EF172405D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

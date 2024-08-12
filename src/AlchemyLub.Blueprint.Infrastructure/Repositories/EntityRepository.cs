@@ -1,8 +1,13 @@
+using AlchemyLub.Blueprint.Infrastructure.Database.Options;
+using Microsoft.Extensions.Options;
+
 namespace AlchemyLub.Blueprint.Infrastructure.Database.Repositories;
 
 /// <inheritdoc cref="IEntityRepository"/>
-public class EntityRepository : IEntityRepository
+public class EntityRepository(IOptionsSnapshot<CacheOptions> cacheOptions) : IEntityRepository
 {
+    private readonly CacheOptions inMemoryCache = cacheOptions.Get(CacheOptionNames.MemoryCache);
+
     private readonly Func<Guid, Entity> defaultEntityFunc = id => new(id)
     {
         Title = "Entity title",
@@ -14,6 +19,13 @@ public class EntityRepository : IEntityRepository
     public async Task<Entity> GetEntity(Guid id)
     {
         await Task.CompletedTask;
+
+        CacheOptions cache = inMemoryCache;
+
+        if (cache.IsAbsoluteExpiration)
+        {
+            await Task.CompletedTask;
+        }
 
         return defaultEntityFunc(id);
     }

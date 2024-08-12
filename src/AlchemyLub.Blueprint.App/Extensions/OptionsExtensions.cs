@@ -2,20 +2,34 @@ namespace AlchemyLub.Blueprint.App.Extensions;
 
 public static class OptionsExtensions
 {
-    public static OptionsBuilder<TOptions> AddOptionsWithValidation<TOptions, TValidator>(this IServiceCollection services)
+    public static OptionsBuilder<TOptions> AddOptionsWithValidation<TOptions, TValidator>(
+        this IServiceCollection services,
+        string name)
         where TOptions : class
         where TValidator : class, IValidator<TOptions>
     {
-        services.AddSingleton<IValidator<TOptions>, TValidator>();
+        services.TryAddSingleton<IValidator<TOptions>, TValidator>();
 
         string configurationSectionName = typeof(TOptions).Name;
 
-        return services
-            .AddOptions<TOptions>()
-            .BindConfiguration(configurationSectionName)
+        OptionsBuilder<TOptions> optionsBuilder = new(services, name);
+
+        services.Configure<TOptions>(name, options =>
+        {
+            IConfiguration configuration = services.BuildServiceProvider().GetRequiredService<IConfiguration>();
+            configuration.GetSection($"{configurationSectionName}:{name}").Bind(options);
+        });
+
+        return optionsBuilder
             .AutoValidate()
             .ValidateOnStart();
     }
+
+    public static CacheOptions GetMemoryCacheOptions(this IOptionsSnapshot<CacheOptions> cacheOptions) =>
+        cacheOptions.Get(CacheOptionNames.MemoryCache);
+
+    public static CacheOptions GetDistributedCacheOptions(this IOptionsSnapshot<CacheOptions> cacheOptions) =>
+        cacheOptions.Get(CacheOptionNames.DistributedCache);
 
     private static OptionsBuilder<TOptions> AutoValidate<TOptions>(
         this OptionsBuilder<TOptions> optionsBuilder) where TOptions : class

@@ -2,8 +2,11 @@ namespace AlchemyLub.Blueprint.App.OptionValidators;
 
 public sealed class CacheOptionsValidator : AbstractValidator<CacheOptions>
 {
-    public CacheOptionsValidator()
-    {
+    private const string ExpirationErrorMessage = $"[{nameof(CacheOptions.IsSlidingExpiration)}]" +
+                                                  $" and [{nameof(CacheOptions.IsAbsoluteExpiration)}]" +
+                                                  $" cannot be turned on or off at the same time";
+
+    public CacheOptionsValidator() =>
         When(options => options.IsEnabled, () =>
         {
             RuleFor(t => t.CacheStore)
@@ -12,10 +15,9 @@ public sealed class CacheOptionsValidator : AbstractValidator<CacheOptions>
 
             RuleFor(t => t)
                 .Must((options, _) => options.IsSlidingExpiration != options.IsAbsoluteExpiration)
-                .WithMessage("[IsSlidingExpiration] and [IsAbsoluteExpiration] cannot be turned on or off at the same time");
+                .WithMessage(ExpirationErrorMessage);
 
             RuleFor(t => t.CacheDuration)
                 .GreaterThan(0);
         });
-    }
 }

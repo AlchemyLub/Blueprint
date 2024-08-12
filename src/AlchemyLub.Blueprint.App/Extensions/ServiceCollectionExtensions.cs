@@ -25,8 +25,10 @@ public static class ServiceCollectionExtensions
 
     private static IServiceCollection AddOptions(this IServiceCollection services)
     {
-        services
-            .AddOptionsWithValidation<CacheOptions, CacheOptionsValidator>();
+        services.AddOptionsWithValidation<CacheOptions, CacheOptionsValidator>(CacheOptionNames.MemoryCache);
+        services.AddOptionsWithValidation<CacheOptions, CacheOptionsValidator>(CacheOptionNames.DistributedCache);
+        services.AddOptionsWithValidation<CacheOptions, CacheOptionsValidator>(CacheOptionNames.IdempotencyMemoryCache);
+        services.AddOptionsWithValidation<CacheOptions, CacheOptionsValidator>(CacheOptionNames.IdempotencyDistributedCache);
 
         return services;
     }
