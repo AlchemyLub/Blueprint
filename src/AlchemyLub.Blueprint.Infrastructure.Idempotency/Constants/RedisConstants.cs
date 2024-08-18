@@ -1,4 +1,4 @@
-namespace AlchemyLub.Blueprint.Infrastructure.Database.Constants;
+namespace AlchemyLub.Blueprint.Infrastructure.Idempotency.Constants;
 
 /// <summary>
 /// Constants for Redis

@@ -1,3 +1,3 @@
-﻿namespace AlchemyLub.Blueprint.Infrastructure.Idempotency;
+namespace AlchemyLub.Blueprint.Infrastructure.Idempotency;
 
-public record TestResponse();
+public record TestResponse(Guid Id, string Name);

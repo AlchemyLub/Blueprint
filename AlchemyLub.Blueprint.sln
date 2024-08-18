@@ -36,11 +36,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlchemyLub.Blueprint.Domain
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlchemyLub.Blueprint.Infrastructure.Outbox", "src\AlchemyLub.Blueprint.Infrastructure.Outbox\AlchemyLub.Blueprint.Infrastructure.Outbox.csproj", "{37B67576-FF5C-43CE-9C6F-571EB596BDC6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlchemyLub.Blueprint.GeneratorTests", "tests\AlchemyLub.Blueprint.GeneratorTests\AlchemyLub.Blueprint.GeneratorTests.csproj", "{8AC502A9-C97E-48EA-B254-C6B621ECD0B9}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlchemyLub.Blueprint.Middleware", "src\AlchemyLub.Blueprint.Middleware\AlchemyLub.Blueprint.Middleware.csproj", "{4F5A9F14-4998-4B68-8F8C-76A6CDBD7B78}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlchemyLub.Blueprint.Infrastructure.Idempotency", "src\AlchemyLub.Blueprint.Infrastructure.Idempotency\AlchemyLub.Blueprint.Infrastructure.Idempotency.csproj", "{D45BF7CF-97FB-4149-A10C-EE2EF172405D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlchemyLub.Blueprint.Infrastructure.Idempotency", "src\AlchemyLub.Blueprint.Infrastructure.Idempotency\AlchemyLub.Blueprint.Infrastructure.Idempotency.csproj", "{D45BF7CF-97FB-4149-A10C-EE2EF172405D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -92,10 +90,6 @@ Global
 		{37B67576-FF5C-43CE-9C6F-571EB596BDC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{37B67576-FF5C-43CE-9C6F-571EB596BDC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{37B67576-FF5C-43CE-9C6F-571EB596BDC6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8AC502A9-C97E-48EA-B254-C6B621ECD0B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8AC502A9-C97E-48EA-B254-C6B621ECD0B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8AC502A9-C97E-48EA-B254-C6B621ECD0B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8AC502A9-C97E-48EA-B254-C6B621ECD0B9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4F5A9F14-4998-4B68-8F8C-76A6CDBD7B78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4F5A9F14-4998-4B68-8F8C-76A6CDBD7B78}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4F5A9F14-4998-4B68-8F8C-76A6CDBD7B78}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -113,7 +107,6 @@ Global
 		{0B2EE43F-885B-4746-BF35-0C3656099FEA} = {F7A1A89A-82EE-4D65-8D81-8178A4E4B7E3}
 		{5A18CE0F-F320-4326-9E11-0BAFEB56038B} = {F7A1A89A-82EE-4D65-8D81-8178A4E4B7E3}
 		{6D2D8FAA-4F40-4134-93FE-E2CE4ECC3DA5} = {F7A1A89A-82EE-4D65-8D81-8178A4E4B7E3}
-		{8AC502A9-C97E-48EA-B254-C6B621ECD0B9} = {F7A1A89A-82EE-4D65-8D81-8178A4E4B7E3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {05B9C602-F7FF-44D5-A565-8D86154B38CE}

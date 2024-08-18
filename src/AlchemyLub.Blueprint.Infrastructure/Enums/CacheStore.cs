@@ -6,22 +6,17 @@ namespace AlchemyLub.Blueprint.Infrastructure.Database.Enums;
 public enum CacheStore
 {
     /// <summary>
-    /// No cache store is used.
+    /// No cache store is used
     /// </summary>
     None = 0,
 
     /// <summary>
-    /// In-memory cache is used as the cache store.
+    /// Кеш в памяти
     /// </summary>
     InMemory = 1,
 
     /// <summary>
-    /// Redis is used as the cache store.
+    /// Распределённый кеш
     /// </summary>
-    Redis = 2,
-
-    /// <summary>
-    /// Garnet is used as the cache store.
-    /// </summary>
-    Garnet = 3
+    Distributed = 2
 }
