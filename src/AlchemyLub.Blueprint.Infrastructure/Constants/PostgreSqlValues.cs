@@ -1,9 +1,9 @@
 namespace AlchemyLub.Blueprint.Infrastructure.Database.Constants;
 
 /// <summary>
-/// Constants for PostgreSQL
+/// Values for PostgreSQL
 /// </summary>
-public static class PostgreSqlConstants
+public static class PostgreSqlValues
 {
     public const string Name = "PostgreSql";
 

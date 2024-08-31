@@ -5,6 +5,7 @@ global using AlchemyLub.Blueprint.Infrastructure.Database.Constants;
 global using AlchemyLub.Blueprint.Infrastructure.Database.ContextConfigurations;
 global using AlchemyLub.Blueprint.Infrastructure.Database.Contexts;
 global using AlchemyLub.Blueprint.Infrastructure.Database.Enums;
+global using AlchemyLub.Blueprint.Infrastructure.Database.Extensions;
 global using AlchemyLub.Blueprint.Infrastructure.Database.Options;
 global using AlchemyLub.Blueprint.Infrastructure.Database.Repositories;
 global using Microsoft.EntityFrameworkCore;

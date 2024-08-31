@@ -6,6 +6,9 @@ builder.Configuration
     .AddEnvironmentVariables();
 
 builder.Services.AddAllLayers(builder.Configuration);
+builder.Services.AddObservability(builder.Environment.ApplicationName);
+
+builder.Logging.AddObservability();
 
 builder.Services.Configure<ApiBehaviorOptions>(options =>
 {

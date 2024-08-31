@@ -30,8 +30,8 @@ public static class ServiceCollectionExtensions
             optionBuilder.UseNpgsql(
                 configuration.GetPostgreSqlConnectionString(),
                 builder => builder.EnableRetryOnFailure(
-                    PostgreSqlConstants.MaxRetryCount,
-                    PostgreSqlConstants.MaxRetryDelay,
+                    PostgreSqlValues.MaxRetryCount,
+                    PostgreSqlValues.MaxRetryDelay,
                     null));
 
             optionBuilder.LogTo(

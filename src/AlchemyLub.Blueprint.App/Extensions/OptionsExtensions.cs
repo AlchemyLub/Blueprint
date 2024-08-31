@@ -25,12 +25,6 @@ public static class OptionsExtensions
             .ValidateOnStart();
     }
 
-    public static CacheOptions GetMemoryCacheOptions(this IOptionsSnapshot<CacheOptions> cacheOptions) =>
-        cacheOptions.Get(CacheOptionNames.MemoryCache);
-
-    public static CacheOptions GetDistributedCacheOptions(this IOptionsSnapshot<CacheOptions> cacheOptions) =>
-        cacheOptions.Get(CacheOptionNames.DistributedCache);
-
     private static OptionsBuilder<TOptions> AutoValidate<TOptions>(
         this OptionsBuilder<TOptions> optionsBuilder) where TOptions : class
     {

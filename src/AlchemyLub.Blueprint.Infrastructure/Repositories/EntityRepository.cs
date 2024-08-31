@@ -3,7 +3,7 @@ namespace AlchemyLub.Blueprint.Infrastructure.Database.Repositories;
 /// <inheritdoc cref="IEntityRepository"/>
 public class EntityRepository(IOptionsSnapshot<CacheOptions> cacheOptions) : IEntityRepository
 {
-    private readonly CacheOptions inMemoryCache = cacheOptions.Get(CacheOptionNames.MemoryCache);
+    private readonly CacheOptions inMemoryCache = cacheOptions.GetMemoryCacheOptions();
 
     private readonly Func<Guid, Entity> defaultEntityFunc = id => new(id)
     {

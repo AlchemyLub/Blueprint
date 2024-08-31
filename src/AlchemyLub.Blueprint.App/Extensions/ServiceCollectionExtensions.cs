@@ -19,6 +19,51 @@ public static class ServiceCollectionExtensions
             .AddInfrastructureLayer(configuration)
             .AddMiddlewares();
 
+    /// <summary>
+    /// Регистрирует наблюдаемость для приложения
+    /// </summary>
+    /// <param name="services"><see cref="IServiceCollection"/></param>
+    /// <param name="serviceName">Имя сервиса для которого подключается наблюдаемость</param>
+    /// <returns><see cref="IServiceCollection"/></returns>
+    public static IServiceCollection AddObservability(this IServiceCollection services, string serviceName)
+    {
+        OpenTelemetryBuilder openTelemetry = services.AddOpenTelemetry();
+
+        openTelemetry.ConfigureResource(res => res.AddService(serviceName));
+
+        openTelemetry.WithTracing(tracing =>
+        {
+            tracing.AddAspNetCoreInstrumentation();
+            tracing.AddHttpClientInstrumentation();
+            // tracing.AddSource() // TODO: Разобраться что это такое
+            
+        });
+
+        openTelemetry.WithMetrics(metrics =>
+        {
+            metrics.SetResourceBuilder(ResourceBuilder.CreateDefault().AddService(serviceName));
+
+            metrics.AddAspNetCoreInstrumentation();
+            metrics.AddHttpClientInstrumentation();
+            metrics.AddRuntimeInstrumentation();
+
+            metrics.AddPrometheusExporter();
+        });
+
+        services.AddOpenTelemetry()
+            .ConfigureResource(resource => resource.AddService(serviceName))
+            .WithTracing(tracing =>
+                tracing
+                    .AddAspNetCoreInstrumentation()
+                    .AddOtlpExporter())
+            .WithMetrics(metrics =>
+                metrics
+                    .AddAspNetCoreInstrumentation()
+                    .AddOtlpExporter());
+
+        return services;
+    }
+
     private static IServiceCollection AddMiddlewares(this IServiceCollection services) =>
         services
             .AddScoped<RequestContextLoggingMiddleware>();

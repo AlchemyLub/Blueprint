@@ -11,5 +11,5 @@ public static class ConfigurationExtensions
     /// <param name="configuration">The configuration.</param>
     /// <returns>The PostgreSQL connection string, or null if not found.</returns>
     public static string? GetPostgreSqlConnectionString(this IConfiguration configuration) =>
-        configuration.GetConnectionString(PostgreSqlConstants.Name);
+        configuration.GetConnectionString(PostgreSqlValues.Name);
 }

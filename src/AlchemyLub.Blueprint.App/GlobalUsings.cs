@@ -1,5 +1,7 @@
 global using AlchemyLub.Blueprint.App.Extensions;
+global using AlchemyLub.Blueprint.App.Factories;
 global using AlchemyLub.Blueprint.App.Middlewares;
+global using AlchemyLub.Blueprint.App.Options;
 global using AlchemyLub.Blueprint.App.OptionValidators;
 global using AlchemyLub.Blueprint.Application.Extensions;
 global using AlchemyLub.Blueprint.Endpoints.Extensions;
@@ -13,5 +15,9 @@ global using Microsoft.AspNetCore.Mvc;
 global using Microsoft.Extensions.DependencyInjection.Extensions;
 global using Microsoft.Extensions.Options;
 global using Microsoft.Extensions.Primitives;
+global using OpenTelemetry;
+global using OpenTelemetry.Metrics;
+global using OpenTelemetry.Resources;
+global using OpenTelemetry.Trace;
 global using Serilog;
 global using Serilog.Context;
