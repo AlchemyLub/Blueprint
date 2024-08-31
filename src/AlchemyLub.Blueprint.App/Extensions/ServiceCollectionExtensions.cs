@@ -35,8 +35,7 @@ public static class ServiceCollectionExtensions
         {
             tracing.AddAspNetCoreInstrumentation();
             tracing.AddHttpClientInstrumentation();
-            // tracing.AddSource() // TODO: Разобраться что это такое
-            
+            // tracing.AddSource() // Разобраться что это такое
         });
 
         openTelemetry.WithMetrics(metrics =>

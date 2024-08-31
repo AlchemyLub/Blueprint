@@ -15,5 +15,5 @@ public sealed class ObservabilityOptions
     /// </summary>
     public required bool MetricsIsEnabled { get; set; }
 
-    public required string OpenTelemetryUrl { get; set; }
+    public required Uri OpenTelemetryUrl { get; set; }
 }

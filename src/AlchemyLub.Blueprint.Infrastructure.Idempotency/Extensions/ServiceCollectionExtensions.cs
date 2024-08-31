@@ -13,7 +13,7 @@ public static class ServiceCollectionExtensions
     /// <returns><see cref="IServiceCollection"/></returns>
     public static IServiceCollection AddIdempotencyServices(this IServiceCollection services, IConfiguration configuration)
     {
-        // TODO: Более детально настроить кеши
+        // Более детально настроить кеши
         services.AddMemoryCache(options =>
         {
             options.TrackStatistics = true;

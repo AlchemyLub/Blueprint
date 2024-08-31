@@ -5,12 +5,14 @@ namespace AlchemyLub.Blueprint.App.Extensions;
 /// </summary>
 public static class ConfigurationExtensions
 {
-    public static string? GetObservabilityUrl(this IConfiguration configuration)
+    public static Uri? GetObservabilityUrl(this IConfiguration configuration)
     {
         string configurationPath = ConfigurationPathFactory.CreatePath(
             nameof(ObservabilityOptions),
             nameof(ObservabilityOptions.OpenTelemetryUrl));
 
-        return configuration.GetSection(configurationPath).Value;
+        Uri.TryCreate(configuration.GetSection(configurationPath).Value, UriKind.Absolute, out Uri? url);
+
+        return url;
     }
 }
