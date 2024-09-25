@@ -38,7 +38,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlchemyLub.Blueprint.Infras
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlchemyLub.Blueprint.Domain.UnitTests", "tests\AlchemyLub.Blueprint.Domain.UnitTests\AlchemyLub.Blueprint.Domain.UnitTests.csproj", "{357FF650-12FB-4967-8622-486F36C433C2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlchemyLub.Blueprint.App.UnitTests", "tests\AlchemyLub.Blueprint.App.UnitTests\AlchemyLub.Blueprint.App.UnitTests.csproj", "{398EE8E5-40D8-40D4-9AE7-F1D5C5960220}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlchemyLub.Blueprint.App.UnitTests", "tests\AlchemyLub.Blueprint.App.UnitTests\AlchemyLub.Blueprint.App.UnitTests.csproj", "{398EE8E5-40D8-40D4-9AE7-F1D5C5960220}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlchemyLub.Blueprint.Infrastructure.S3", "src\AlchemyLub.Blueprint.Infrastructure.S3\AlchemyLub.Blueprint.Infrastructure.S3.csproj", "{CB9F14BD-1C5B-4BB7-B3FD-F4CCC793EAF8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -98,6 +100,10 @@ Global
 		{398EE8E5-40D8-40D4-9AE7-F1D5C5960220}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{398EE8E5-40D8-40D4-9AE7-F1D5C5960220}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{398EE8E5-40D8-40D4-9AE7-F1D5C5960220}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CB9F14BD-1C5B-4BB7-B3FD-F4CCC793EAF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CB9F14BD-1C5B-4BB7-B3FD-F4CCC793EAF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CB9F14BD-1C5B-4BB7-B3FD-F4CCC793EAF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CB9F14BD-1C5B-4BB7-B3FD-F4CCC793EAF8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

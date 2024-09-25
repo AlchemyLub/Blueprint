@@ -11,7 +11,7 @@ public static class ServiceCollectionExtensions
     /// <param name="services"><see cref="IServiceCollection"/></param>
     /// <param name="configuration"><see cref="IConfiguration"/></param>
     /// <returns><see cref="IServiceCollection"/></returns>
-    public static IServiceCollection AddInfrastructureLayer(
+    public static IServiceCollection AddDatabaseInfrastructureLayer(
         this IServiceCollection services,
         IConfiguration configuration) =>
         services

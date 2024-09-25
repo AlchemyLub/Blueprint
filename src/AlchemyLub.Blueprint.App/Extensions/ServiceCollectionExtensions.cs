@@ -16,7 +16,8 @@ public static class ServiceCollectionExtensions
             .AddOptions()
             .AddApplicationLayer()
             .AddEndpointsLayer()
-            .AddInfrastructureLayer(configuration)
+            .AddDatabaseInfrastructureLayer(configuration)
+            .AddS3InfrastructureLayer(configuration)
             .AddMiddlewares();
 
     /// <summary>
