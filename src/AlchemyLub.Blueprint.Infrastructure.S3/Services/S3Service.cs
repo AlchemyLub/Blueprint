@@ -1,5 +1,3 @@
-using Minio.DataModel.Response;
-
 namespace AlchemyLub.Blueprint.Infrastructure.S3.Services;
 
 /// <inheritdoc cref="IS3Service"/>
@@ -10,7 +8,7 @@ internal sealed class S3Service(IConfiguration configuration, IMinioClient minio
     {
         string key = $"{DateTime.UtcNow:s}.{file.FileName}";
 
-        List<string> allowedExtensions = new List<string> { ".doc", ".pdf", ".rtf", ".docx" };
+        List<string> allowedExtensions = [".doc", ".pdf", ".rtf", ".docx"];
 
         string fileExtension = Path.GetExtension(file.FileName);
 
@@ -23,7 +21,7 @@ internal sealed class S3Service(IConfiguration configuration, IMinioClient minio
 
         if (file.Length > maxFileSizeBytes)
         {
-            throw new FileLoadException($"File size exceeds the maximum allowed size of 25 MB.");
+            throw new FileLoadException("File size exceeds the maximum allowed size of 25 MB.");
         }
 
         await using Stream fileStream = file.OpenReadStream();

@@ -36,7 +36,6 @@ public static class ServiceCollectionExtensions
         {
             tracing.AddAspNetCoreInstrumentation();
             tracing.AddHttpClientInstrumentation();
-            // tracing.AddSource() // Разобраться что это такое
         });
 
         openTelemetry.WithMetrics(metrics =>
@@ -49,17 +48,6 @@ public static class ServiceCollectionExtensions
 
             metrics.AddPrometheusExporter();
         });
-
-        services.AddOpenTelemetry()
-            .ConfigureResource(resource => resource.AddService(serviceName))
-            .WithTracing(tracing =>
-                tracing
-                    .AddAspNetCoreInstrumentation()
-                    .AddOtlpExporter())
-            .WithMetrics(metrics =>
-                metrics
-                    .AddAspNetCoreInstrumentation()
-                    .AddOtlpExporter());
 
         return services;
     }
