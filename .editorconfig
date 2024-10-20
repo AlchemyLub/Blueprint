@@ -29,8 +29,8 @@ dotnet_style_namespace_match_folder = true:suggestion
 
 # JSON config files
 [*.json]
-tab_width = 2
-indent_size = 2
+tab_width = 4
+indent_size = 4
 insert_final_newline = false
 trim_trailing_whitespace = true
 
