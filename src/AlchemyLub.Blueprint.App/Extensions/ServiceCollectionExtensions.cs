@@ -12,12 +12,13 @@ public static class ServiceCollectionExtensions
     /// <param name="configuration"><see cref="IConfiguration"/></param>
     /// <returns><see cref="IServiceCollection"/></returns>
     public static IServiceCollection AddAllLayers(this IServiceCollection services, IConfiguration configuration) =>
+
         services
             .AddOptions()
             .AddApplicationLayer()
             .AddEndpointsLayer()
             .AddDatabaseInfrastructureLayer(configuration)
-            .AddS3InfrastructureLayer(configuration)
+            //.AddS3InfrastructureLayer(configuration)
             .AddMiddlewares();
 
     /// <summary>

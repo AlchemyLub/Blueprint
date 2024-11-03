@@ -1,9 +1,6 @@
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-builder.Configuration
-    .AddJsonFile("appsettings.json", false, true)
-    .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", true, false)
-    .AddEnvironmentVariables();
+builder.Configuration.AddEnvironmentVariables();
 
 builder.Services.AddAllLayers(builder.Configuration);
 builder.Services.AddObservability(builder.Environment.ApplicationName);

@@ -9,7 +9,6 @@ global using AlchemyLub.Blueprint.Infrastructure.Database.Constants;
 global using AlchemyLub.Blueprint.Infrastructure.Database.Enums;
 global using AlchemyLub.Blueprint.Infrastructure.Database.Extensions;
 global using AlchemyLub.Blueprint.Infrastructure.Database.Options;
-global using AlchemyLub.Blueprint.Infrastructure.S3.Extensions;
 global using FluentValidation;
 global using FluentValidation.Results;
 global using Microsoft.AspNetCore.Mvc;
