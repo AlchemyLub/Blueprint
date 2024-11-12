@@ -15,7 +15,7 @@ public static class EnumerableExtensions
         {
             null => throw new ArgumentNullException(nameof(source)),
             List<T> list => list,
-            T[] array => [..array],
+            T[] array => [.. array],
             _ => source.ToList()
         };
 
@@ -49,12 +49,30 @@ public static class EnumerableExtensions
         };
 
     /// <summary>
+    /// Применяет фильтрацию к <see cref="IEnumerable{T}"/> только если выполняется заданное условие
+    /// </summary>
+    /// <typeparam name="T">Тип элементов коллекции</typeparam>
+    /// <param name="source">Исходная коллекция</param>
+    /// <param name="condition">Условие, при котором фильтрация будет применена</param>
+    /// <param name="predicate">Функция фильтрации</param>
+    /// <returns>Фильтрованная коллекция, если условие истинно; иначе исходная коллекция</returns>
+    public static IEnumerable<T> WhereIf<T>(this IEnumerable<T>? source, bool condition, Func<T, bool> predicate)
+    {
+        if (source is null)
+        {
+            ArgumentNullException.ThrowIfNull(source);
+        }
+
+        return condition ? source.FilterWithPredicate(predicate) : source;
+    }
+
+    /// <summary>
     /// Фильтрует коллекцию, исключая все элементы равные <see langword="null"/>
     /// </summary>
     /// <typeparam name="T">Тип элементов коллекции</typeparam>
     /// <param name="source">Исходная коллекция</param>
     /// <returns>Коллекция, содержащая только ненулевые элементы</returns>
-    public static IEnumerable<T> WhereIfNotNull<T>(this IEnumerable<T?>? source) where T : class
+    public static IEnumerable<T> WhereNotNull<T>(this IEnumerable<T?>? source) where T : class
     {
         if (source is null)
         {
@@ -76,7 +94,7 @@ public static class EnumerableExtensions
     /// <typeparam name="T">Тип элементов коллекции</typeparam>
     /// <param name="source">Исходная коллекция</param>
     /// <returns>Коллекция, содержащая только ненулевые элементы</returns>
-    public static IEnumerable<T> WhereIfNotNull<T>(this IEnumerable<T?>? source) where T : struct
+    public static IEnumerable<T> WhereNotNull<T>(this IEnumerable<T?>? source) where T : struct
     {
         if (source is null)
         {
@@ -93,21 +111,22 @@ public static class EnumerableExtensions
     }
 
     /// <summary>
-    /// Применяет фильтрацию к <see cref="IEnumerable{T}"/> только если выполняется заданное условие
+    /// Применяет фильтрацию к <see cref="IEnumerable{T}"/>, если параметр не равен <see langword="null"/>
     /// </summary>
     /// <typeparam name="T">Тип элементов коллекции</typeparam>
     /// <param name="source">Исходная коллекция</param>
-    /// <param name="condition">Условие, при котором фильтрация будет применена</param>
+    /// <param name="value">Значение, проверяемое на <see langword="null"/> для фильтрации</param>
     /// <param name="predicate">Функция фильтрации</param>
-    /// <returns>Фильтрованная коллекция, если условие истинно; иначе исходная коллекция</returns>
-    public static IEnumerable<T> WhereIf<T>(this IEnumerable<T>? source, bool condition, Func<T, bool> predicate)
+    /// <returns>Фильтрованная коллекция, если параметр не равен <see langword="null"/>; иначе исходная коллекция</returns>
+    public static IEnumerable<T> WhereIfValueNotNull<T>(this IEnumerable<T?>? source, T? value, Func<T?, bool> predicate)
+        where T : struct
     {
         if (source is null)
         {
             ArgumentNullException.ThrowIfNull(source);
         }
 
-        return condition ? source.FilterWithPredicate(predicate) : source;
+        return source.WhereIf(value is not null, item => value is not null && predicate(item)).WhereNotNull();
     }
 
     /// <summary>
@@ -115,17 +134,18 @@ public static class EnumerableExtensions
     /// </summary>
     /// <typeparam name="T">Тип элементов коллекции</typeparam>
     /// <param name="source">Исходная коллекция</param>
-    /// <param name="parameter">Параметр для фильтрации</param>
+    /// <param name="value">Значение, проверяемое на <see langword="null"/> для фильтрации</param>
     /// <param name="predicate">Функция фильтрации</param>
     /// <returns>Фильтрованная коллекция, если параметр не равен <see langword="null"/>; иначе исходная коллекция</returns>
-    public static IEnumerable<T> WhereIfNotNull<T>(this IEnumerable<T?>? source, T? parameter, Func<T?, bool> predicate)
+    public static IEnumerable<T> WhereIfValueNotNull<T>(this IEnumerable<T?>? source, T? value, Func<T?, bool> predicate)
+        where T : class
     {
         if (source is null)
         {
             ArgumentNullException.ThrowIfNull(source);
         }
 
-        return source.WhereIf(parameter is not null, item => parameter != null && predicate(item));
+        return source.WhereIf(value is not null, item => value is not null && predicate(item)).WhereNotNull();
     }
 
     private static IEnumerable<T> FilterWithPredicate<T>(this IEnumerable<T> source, Func<T, bool> predicate)
