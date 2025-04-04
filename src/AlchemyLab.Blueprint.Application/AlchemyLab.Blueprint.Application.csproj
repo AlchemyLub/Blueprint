@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="AlchemyLab.Blueprint.ArchTests" />
+    <InternalsVisibleTo Include="AlchemyLab.Blueprint.UnitTests" />
+    <InternalsVisibleTo Include="AlchemyLab.Blueprint.IntegrationTests" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AlchemyLab.Blueprint.Domain\AlchemyLab.Blueprint.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Analyzers" Version="8.0.10" />
+  </ItemGroup>
+
+</Project>
