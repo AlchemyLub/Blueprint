@@ -36,13 +36,9 @@ public class EntityRepository(IOptionsSnapshot<CacheOptions> cacheOptions) : IEn
     }
 
     /// <inheritdoc />
-    public async Task<Result> DeleteEntity(Guid id)
+    public async Task DeleteEntity(Guid id)
     {
         await Task.CompletedTask;
-
-        return defaultEntityFunc(id).Id == id
-            ? Result.Success()
-            : Result.Failure(new("Entity not found"));
     }
 
     /// <inheritdoc />

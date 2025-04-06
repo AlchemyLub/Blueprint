@@ -79,16 +79,16 @@ public class ValidationException : Exception
 public class ValidationBehavior<TRequest, TResponse> : IPipeline<TRequest, TResponse>
     where TRequest : notnull
 {
-    private readonly IServiceProvider _serviceProvider;
-    private readonly ILogger<ValidationBehavior<TRequest, TResponse>> _logger;
+    private readonly IServiceProvider serviceProvider;
+    private readonly ILogger<ValidationBehavior<TRequest, TResponse>> logger;
 
     /// <summary>
     /// Инициализирует новый экземпляр класса <see cref="ValidationBehavior{TRequest, TResponse}"/>
     /// </summary>
     public ValidationBehavior(IServiceProvider serviceProvider, ILogger<ValidationBehavior<TRequest, TResponse>> logger)
     {
-        _serviceProvider = serviceProvider ?? throw new ArgumentNullException(nameof(serviceProvider));
-        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+        this.serviceProvider = serviceProvider ?? throw new ArgumentNullException(nameof(serviceProvider));
+        this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
     /// <inheritdoc />
@@ -96,16 +96,17 @@ public class ValidationBehavior<TRequest, TResponse> : IPipeline<TRequest, TResp
         TRequest request,
         Func<TRequest, Task<TResponse>> next)
     {
-        _logger.LogDebug("Validating request {RequestType}", typeof(TRequest).Name);
+        logger.LogDebug("Validating request {RequestType}", typeof(TRequest).Name);
 
         // Проверка через валидатор
-        var validator = _serviceProvider.GetService<Pipelines.IValidator<TRequest>>();
-        if (validator != null)
+        Pipelines.IValidator<TRequest>? validator = serviceProvider.GetService<Pipelines.IValidator<TRequest>>();
+
+        if (validator is not null)
         {
-            var result = await validator.ValidateAsync(request);
+            Pipelines.ValidationResult result = await validator.ValidateAsync(request);
             if (!result.IsValid)
             {
-                _logger.LogWarning("Validation failed for {RequestType}", typeof(TRequest).Name);
+                logger.LogWarning("Validation failed for {RequestType}", typeof(TRequest).Name);
                 throw new Pipelines.ValidationException(result);
             }
         }
@@ -119,12 +120,12 @@ public class ValidationBehavior<TRequest, TResponse> : IPipeline<TRequest, TResp
             }
             catch (Exception ex)
             {
-                _logger.LogWarning(ex, "Validation failed for {RequestType}", typeof(TRequest).Name);
+                logger.LogWarning(ex, "Validation failed for {RequestType}", typeof(TRequest).Name);
                 throw;
             }
         }
 
-        _logger.LogDebug("Validation successful for {RequestType}", typeof(TRequest).Name);
+        logger.LogDebug("Validation successful for {RequestType}", typeof(TRequest).Name);
         return await next(request);
     }
 }

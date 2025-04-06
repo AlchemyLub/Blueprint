@@ -29,11 +29,9 @@ public class EntityRepositoryStub : IEntityRepository
     }
 
     /// <inheritdoc />
-    public async Task<Result> DeleteEntity(Guid id)
+    public async Task DeleteEntity(Guid id)
     {
         await Task.CompletedTask;
-
-        return Result.Success();
     }
 
     /// <inheritdoc />

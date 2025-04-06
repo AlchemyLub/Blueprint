@@ -22,21 +22,22 @@ namespace AlchemyLab.Blueprint.UseCase.Examples.Pipelines
         }
 
         /// <inheritdoc />
-        public async Task<TResponse> HandleAsync(
-            TRequest request,
-            Func<TRequest, Task<TResponse>> next)
+        public async Task<TResponse> HandleAsync(TRequest request, Func<TRequest, Task<TResponse>> next)
         {
-            _logger.LogInformation("Executing {useCase} with request {request}", typeof(TRequest).Name, request);
+            _logger.LogInformation("Executing {UseCase} with request {Request}", typeof(TRequest).Name, request);
 
             try
             {
-                var result = await next(request);
-                _logger.LogInformation("Successfully executed {useCase}", typeof(TRequest).Name);
+                TResponse result = await next(request);
+
+                _logger.LogInformation("Successfully executed {UseCase}", typeof(TRequest).Name);
+
                 return result;
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error executing {useCase}", typeof(TRequest).Name);
+                _logger.LogError(ex, "Error executing {UseCase}", typeof(TRequest).Name);
+
                 throw;
             }
         }

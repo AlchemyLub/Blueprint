@@ -23,7 +23,7 @@ public interface IEntityRepository
     /// </summary>
     /// <param name="id">Идентификатор сущности</param>
     /// <returns><see langword="true"/> если удаление успешно, <see langword="false"/> если нет</returns>
-    public Task<Result> DeleteEntity(Guid id);
+    public Task DeleteEntity(Guid id);
 
     /// <summary>
     /// Изменить сущность

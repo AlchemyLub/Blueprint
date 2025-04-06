@@ -1,0 +1,16 @@
+global using System.Collections.Immutable;
+global using System.Composition;
+global using System.Text;
+global using AlchemyLab.Blueprint.MinimalControllers.Attributes.HttpMethods;
+global using AlchemyLab.Blueprint.MinimalControllers.Generator.Constants;
+global using AlchemyLab.Blueprint.MinimalControllers.Generator.Diagnostics;
+global using AlchemyLab.Blueprint.MinimalControllers.Generator.Diagnosticss;
+global using AlchemyLab.Blueprint.MinimalControllers.Generator.Extensions;
+global using AlchemyLab.Blueprint.MinimalControllers.Generator.Models;
+global using Microsoft.CodeAnalysis;
+global using Microsoft.CodeAnalysis.CodeActions;
+global using Microsoft.CodeAnalysis.CodeFixes;
+global using Microsoft.CodeAnalysis.CSharp;
+global using Microsoft.CodeAnalysis.CSharp.Syntax;
+global using Microsoft.CodeAnalysis.Editing;
+global using Microsoft.CodeAnalysis.Text;

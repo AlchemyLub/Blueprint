@@ -1,8 +1,3 @@
-using System;
-using System.Threading;
-using System.Threading.Tasks;
-using AlchemyLab.Blueprint.UseCase.Pipelines;
-
 namespace AlchemyLab.Blueprint.UseCase.Examples.Validators
 {
     /// <summary>
@@ -13,7 +8,7 @@ namespace AlchemyLab.Blueprint.UseCase.Examples.Validators
         /// <inheritdoc />
         public Task<ValidationResult> ValidateAsync(GetUserRequest request, CancellationToken cancellationToken = default)
         {
-            var result = new ValidationResult();
+            ValidationResult result = new();
 
             if (request.UserId == Guid.Empty)
             {

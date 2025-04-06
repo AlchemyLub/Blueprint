@@ -8,7 +8,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{827E0CD3-B72
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{0AB3BF05-4346-4AA6-1389-037BE0695223}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlchemyLab.Blueprint.OpenApiClientGenerator", "generators\AlchemyLab.Blueprint.OpenApiClientGenerator\AlchemyLab.Blueprint.OpenApiClientGenerator.csproj", "{C65116DD-932A-F67F-A17C-389544E7A868}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlchemyLab.Blueprint.OpenApiClient.Generator", "generators\AlchemyLab.Blueprint.OpenApiClientGenerator\AlchemyLab.Blueprint.OpenApiClient.Generator.csproj", "{C65116DD-932A-F67F-A17C-389544E7A868}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlchemyLab.Blueprint.UseCase", "src\AlchemyLab.Blueprint.UseCase\AlchemyLab.Blueprint.UseCase.csproj", "{BF96C996-0691-A8F5-E0C5-18AE1B94A903}"
 EndProject
@@ -43,6 +43,31 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlchemyLab.Blueprint.GeneratorTests", "tests\AlchemyLab.Blueprint.GeneratorTests\AlchemyLab.Blueprint.GeneratorTests.csproj", "{10DA6D2D-0341-4E31-11D2-A2358A8F3D8A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlchemyLab.Blueprint.IntegrationTests", "tests\AlchemyLab.Blueprint.IntegrationTests\AlchemyLab.Blueprint.IntegrationTests.csproj", "{8D2A4604-4FB3-03B4-D969-589094077F9B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "libraries", "libraries", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "analyzers", "analyzers", "{7E2E06F4-3AA8-4804-BF46-B217EAF8FC8E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlchemyLab.Blueprint.SealedAnalyzer", "analyzers\AlchemyLab.Blueprint.SealedAnalyzer\AlchemyLab.Blueprint.SealedAnalyzer.csproj", "{AC83C472-B016-424B-B574-003C63D51840}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlchemyLab.Blueprint.Constants", "libraries\AlchemyLab.Blueprint.Constants\AlchemyLab.Blueprint.Constants.csproj", "{52CB05BC-EBEA-340D-8C51-A8E6BDDE9F00}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlchemyLab.Blueprint.MinimalControllers.Generator", "generators\AlchemyLab.Blueprint.MinimalControllers\AlchemyLab.Blueprint.MinimalControllers.Generator.csproj", "{7FACF83D-F144-444E-ABE0-E9DE24FCC320}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlchemyLab.Blueprint.MinimalControllers", "libraries\AlchemyLab.Blueprint.MinimalControllers\AlchemyLab.Blueprint.MinimalControllers.csproj", "{22F2AD1A-5FD4-41B8-BF6D-5C041DA9BCC8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}"
+	ProjectSection(SolutionItems) = preProject
+		.dockerignore = .dockerignore
+		.editorconfig = .editorconfig
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		Directory.Build.props = Directory.Build.props
+		Dockerfile = Dockerfile
+		LICENSE = LICENSE
+		nuget.config = nuget.config
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -122,6 +147,22 @@ Global
 		{8D2A4604-4FB3-03B4-D969-589094077F9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8D2A4604-4FB3-03B4-D969-589094077F9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8D2A4604-4FB3-03B4-D969-589094077F9B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC83C472-B016-424B-B574-003C63D51840}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC83C472-B016-424B-B574-003C63D51840}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC83C472-B016-424B-B574-003C63D51840}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC83C472-B016-424B-B574-003C63D51840}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52CB05BC-EBEA-340D-8C51-A8E6BDDE9F00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52CB05BC-EBEA-340D-8C51-A8E6BDDE9F00}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52CB05BC-EBEA-340D-8C51-A8E6BDDE9F00}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52CB05BC-EBEA-340D-8C51-A8E6BDDE9F00}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7FACF83D-F144-444E-ABE0-E9DE24FCC320}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7FACF83D-F144-444E-ABE0-E9DE24FCC320}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7FACF83D-F144-444E-ABE0-E9DE24FCC320}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7FACF83D-F144-444E-ABE0-E9DE24FCC320}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22F2AD1A-5FD4-41B8-BF6D-5C041DA9BCC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22F2AD1A-5FD4-41B8-BF6D-5C041DA9BCC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22F2AD1A-5FD4-41B8-BF6D-5C041DA9BCC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22F2AD1A-5FD4-41B8-BF6D-5C041DA9BCC8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -145,6 +186,10 @@ Global
 		{40C09C4D-2C21-7802-438F-419736498C56} = {0AB3BF05-4346-4AA6-1389-037BE0695223}
 		{10DA6D2D-0341-4E31-11D2-A2358A8F3D8A} = {0AB3BF05-4346-4AA6-1389-037BE0695223}
 		{8D2A4604-4FB3-03B4-D969-589094077F9B} = {0AB3BF05-4346-4AA6-1389-037BE0695223}
+		{AC83C472-B016-424B-B574-003C63D51840} = {7E2E06F4-3AA8-4804-BF46-B217EAF8FC8E}
+		{52CB05BC-EBEA-340D-8C51-A8E6BDDE9F00} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{7FACF83D-F144-444E-ABE0-E9DE24FCC320} = {AD7C8182-B466-96AE-CF31-8AA8EF11C5DF}
+		{22F2AD1A-5FD4-41B8-BF6D-5C041DA9BCC8} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5833FFEF-77E3-475B-ACC2-B04A1190ABEA}

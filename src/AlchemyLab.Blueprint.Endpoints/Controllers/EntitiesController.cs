@@ -47,11 +47,11 @@ public class EntitiesController(
     /// </summary>
     /// <param name="id">Идентификатор сущности</param>
     [HttpDelete("{id}")]
-    public async Task<bool> DeleteEntity(Guid id)
+    public async Task<NoContent> DeleteEntity(Guid id)
     {
-        Result result = await applicationService.DeleteEntity(id);
+        await applicationService.DeleteEntity(id);
 
-        return result.IsSuccess;
+        return TypedResults.NoContent();
     }
 
     /// <summary>

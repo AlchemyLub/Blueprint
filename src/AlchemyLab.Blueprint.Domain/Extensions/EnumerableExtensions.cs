@@ -150,7 +150,7 @@ public static class EnumerableExtensions
 
     private static IEnumerable<T> FilterWithPredicate<T>(this IEnumerable<T> source, Func<T, bool> predicate)
     {
-        foreach (var value in source)
+        foreach (T value in source)
         {
             if (predicate(value))
             {

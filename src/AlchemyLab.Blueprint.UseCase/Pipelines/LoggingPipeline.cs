@@ -4,18 +4,15 @@ namespace AlchemyLab.Blueprint.UseCase.Pipelines
     /// Пайплайн логирования запросов и результатов выполнения UseCase
     /// </summary>
     [GlobalPipeline]
-    public class LoggingPipeline<TRequest, TResponse> : IPipeline<TRequest, TResponse>
-        where TRequest : notnull
+    public class LoggingPipeline<TRequest, TResponse> : IPipeline<TRequest, TResponse> where TRequest : notnull
     {
         private readonly ILogger<LoggingPipeline<TRequest, TResponse>> logger;
 
         /// <summary>
         /// Создает новый экземпляр пайплайна логирования
         /// </summary>
-        public LoggingPipeline(ILogger<LoggingPipeline<TRequest, TResponse>> logger)
-        {
+        public LoggingPipeline(ILogger<LoggingPipeline<TRequest, TResponse>> logger) =>
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
-        }
 
         /// <summary>
         /// Обрабатывает запрос, логируя информацию о запросе и результате выполнения
@@ -24,29 +21,25 @@ namespace AlchemyLab.Blueprint.UseCase.Pipelines
             TRequest request,
             Func<TRequest, Task<TResponse>> next)
         {
-            var requestType = typeof(TRequest).Name;
-            var startTime = DateTime.UtcNow;
+            string requestType = typeof(TRequest).Name;
+            DateTime startTime = DateTime.UtcNow;
 
             try
             {
-                var result = await next(request);
-                var endTime = DateTime.UtcNow;
-                var duration = endTime - startTime;
+                TResponse result = await next(request);
 
-                logger.LogInformation(
-                    "Executed {useCase} in {duration}ms",
-                    requestType,
-                    duration.TotalMilliseconds);
+                DateTime endTime = DateTime.UtcNow;
+
+                TimeSpan duration = endTime - startTime;
+
+                logger.LogInformation("Executed {useCase} in {duration}ms", requestType, duration.TotalMilliseconds);
 
                 return result;
             }
             catch (Exception ex)
             {
-                logger.LogError(
-                    ex,
-                    "Error executing {useCase}: {error}",
-                    requestType,
-                    ex.Message);
+                logger.LogError(ex, "Error executing {useCase}: {error}", requestType, ex.Message);
+
                 throw;
             }
         }
