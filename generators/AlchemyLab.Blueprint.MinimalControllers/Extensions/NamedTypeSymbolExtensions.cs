@@ -7,17 +7,23 @@ internal static class NamedTypeSymbolExtensions
 {
     private static readonly Dictionary<string, string> AttributeToMethodMap = new(StringComparer.OrdinalIgnoreCase)
     {
-        { nameof(GetAttribute), "MapGet" },
-        { nameof(PostAttribute), "MapPost" },
-        { nameof(PutAttribute), "MapPut" },
-        { nameof(PatchAttribute), "MapPatch" },
-        { nameof(DeleteAttribute), "MapDelete" },
-        { nameof(HeadAttribute), "MapHead" },
-        { nameof(OptionsAttribute), "MapOptions" }
+        { "HttpGetAttribute", "MapGet" },
+        { "HttpPostAttribute", "MapPost" },
+        { "HttpPutAttribute", "MapPut" },
+        { "HttpPatchAttribute", "MapPatch" },
+        { "HttpDeleteAttribute", "MapDelete" },
+        { "HttpHeadAttribute", "MapHead" },
+        { "HttpOptionsAttribute", "MapOptions" }
     };
 
-    public static string? GetHttpMethod(this INamedTypeSymbol? symbol) =>
-        symbol is not null
-            ? AttributeToMethodMap.GetValueOrDefault(symbol.Name)
-            : null;
+    /// <summary>
+    /// Возвращает название MinimalApi HTTP-метода для данного символа метода контроллера
+    /// </summary>
+    /// <param name="symbol"><see cref="INamedTypeSymbol"/></param>
+    public static string GetMapHttpMethod(this INamedTypeSymbol? symbol)
+    {
+        ArgumentNullException.ThrowIfNull(symbol);
+
+        return AttributeToMethodMap[symbol.Name];
+    }
 }

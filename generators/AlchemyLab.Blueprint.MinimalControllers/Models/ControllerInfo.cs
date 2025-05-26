@@ -1,18 +1,52 @@
 namespace AlchemyLab.Blueprint.MinimalControllers.Generator.Models;
 
 /// <summary>
-/// Информация о контроллере.
+/// Информация о контроллере
 /// </summary>
 /// <param name="Name">Имя контроллера.</param>
-/// <param name="Namespace">Пространство имен контроллера.</param>
-/// <param name="Route">Базовый маршрут контроллера.</param>
-/// <param name="Endpoints">Список эндпоинтов контроллера.</param>
-/// <param name="DependencyTypes">Типы зависимостей контроллера.</param>
+/// <param name="RouteInfo">Информация о маршруте контроллера</param>
+/// <param name="Endpoints">Список эндпоинтов контроллера</param>
+/// <param name="Tags">Теги контроллера</param>
+/// <param name="Authorization">Информация об авторизации</param>
 /// <param name="Description">Описание контроллера</param>
+/// <param name="IsDeprecated">Флаг устаревания контроллера</param>
 internal readonly record struct ControllerInfo(
     string Name,
-    string Namespace,
-    string Route,
+    RouteInfo RouteInfo,
     ImmutableArray<EndpointInfo> Endpoints,
-    ImmutableArray<string> DependencyTypes,
-    string Description = "");
+    string[] Tags,
+    AuthInfo? Authorization = null,
+    string Description = "",
+    bool IsDeprecated = false)
+{
+    /// <summary>
+    /// Создаёт новый экземпляр <see cref="ControllerInfo"/> на основе данных контроллера
+    /// </summary>
+    /// <param name="controllerClassSymbol"><see cref="INamedTypeSymbol"/></param>
+    /// <param name="endpoints">Список эндпоинтов контроллера</param>
+    /// <param name="routeAttributeData">Информация об атрибуте маршрута</param>
+    /// <param name="authAttributeData">Информация об атрибуте авторизации</param>
+    /// <param name="description">Описание контроллера</param>
+    /// <param name="tags">Теги контроллера</param>
+    /// <param name="isDeprecated">Флаг устаревания контроллера</param>
+    internal static ControllerInfo New(
+        INamedTypeSymbol controllerClassSymbol,
+        IEnumerable<EndpointInfo> endpoints,
+        AttributeData? routeAttributeData,
+        AttributeData? authAttributeData,
+        string description,
+        string[] tags,
+        bool isDeprecated) =>
+        new(
+            controllerClassSymbol.Name,
+            routeAttributeData is not null
+                ? RouteInfo.New(routeAttributeData)
+                : RouteInfo.Empty(),
+            [.. endpoints],
+            tags,
+            authAttributeData is not null
+                ? AuthInfo.New(authAttributeData)
+                : null,
+            description,
+            isDeprecated);
+}

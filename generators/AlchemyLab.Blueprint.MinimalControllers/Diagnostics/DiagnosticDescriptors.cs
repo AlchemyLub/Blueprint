@@ -12,7 +12,7 @@ internal static class DiagnosticDescriptors
     /// </summary>
     public static readonly DiagnosticDescriptor MissingHttpMethodAttribute = new(
         "MC001",
-        "Missing HttpMethodAttribute",
+        "Missing HttpAttribute",
         "Публичный метод {0} в контроллере {1} должен быть помечен атрибутом HTTP (например, [HttpGet], [HttpPost] и т.д.).",
         Category,
         DiagnosticSeverity.Error,
