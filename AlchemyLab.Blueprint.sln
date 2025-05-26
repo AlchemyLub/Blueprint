@@ -69,6 +69,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "examples", "examples", "{DFF02161-7663-449E-B947-B3CCCE0C7B1D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlchemyLab.Blueprint.MinimalControllers.TestApp", "examples\AlchemyLab.Blueprint.MinimalControllers.TestApp\AlchemyLab.Blueprint.MinimalControllers.TestApp.csproj", "{C4FB0D92-C6A7-48B5-9584-9CAAE9A3A14C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -163,6 +167,10 @@ Global
 		{22F2AD1A-5FD4-41B8-BF6D-5C041DA9BCC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{22F2AD1A-5FD4-41B8-BF6D-5C041DA9BCC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{22F2AD1A-5FD4-41B8-BF6D-5C041DA9BCC8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4FB0D92-C6A7-48B5-9584-9CAAE9A3A14C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4FB0D92-C6A7-48B5-9584-9CAAE9A3A14C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4FB0D92-C6A7-48B5-9584-9CAAE9A3A14C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4FB0D92-C6A7-48B5-9584-9CAAE9A3A14C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -190,6 +198,7 @@ Global
 		{52CB05BC-EBEA-340D-8C51-A8E6BDDE9F00} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{7FACF83D-F144-444E-ABE0-E9DE24FCC320} = {AD7C8182-B466-96AE-CF31-8AA8EF11C5DF}
 		{22F2AD1A-5FD4-41B8-BF6D-5C041DA9BCC8} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{C4FB0D92-C6A7-48B5-9584-9CAAE9A3A14C} = {DFF02161-7663-449E-B947-B3CCCE0C7B1D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5833FFEF-77E3-475B-ACC2-B04A1190ABEA}

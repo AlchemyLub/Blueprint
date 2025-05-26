@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <LangVersion>13.0</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Asp.Versioning.Http" Version="8.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.15" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="8.1.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="8.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\generators\AlchemyLab.Blueprint.MinimalControllers\AlchemyLab.Blueprint.MinimalControllers.Generator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" Private="false" />
+    <ProjectReference Include="..\..\libraries\AlchemyLab.Blueprint.MinimalControllers\AlchemyLab.Blueprint.MinimalControllers.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="obj\Debug\net8.0\generated\**\*.cs" />
+  </ItemGroup>
+
+</Project>
