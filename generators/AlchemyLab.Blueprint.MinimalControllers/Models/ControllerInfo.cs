@@ -7,6 +7,7 @@ namespace AlchemyLab.Blueprint.MinimalControllers.Generator.Models;
 /// <param name="RouteInfo">Информация о маршруте контроллера</param>
 /// <param name="Endpoints">Список эндпоинтов контроллера</param>
 /// <param name="Tags">Теги контроллера</param>
+/// <param name="SupportedVersions">Поддерживаемые версии</param>
 /// <param name="Authorization">Информация об авторизации</param>
 /// <param name="Description">Описание контроллера</param>
 /// <param name="IsDeprecated">Флаг устаревания контроллера</param>
@@ -15,6 +16,7 @@ internal readonly record struct ControllerInfo(
     RouteInfo RouteInfo,
     ImmutableArray<EndpointInfo> Endpoints,
     string[] Tags,
+    VersionInfo[]? SupportedVersions = null,
     AuthInfo? Authorization = null,
     string Description = "",
     bool IsDeprecated = false)

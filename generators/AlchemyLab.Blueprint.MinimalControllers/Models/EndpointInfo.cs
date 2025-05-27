@@ -6,6 +6,7 @@ namespace AlchemyLab.Blueprint.MinimalControllers.Generator.Models;
 /// <param name="MethodFullName">Полное имя метода</param>
 /// <param name="HttpMethod">HTTP-метод (MapGet, MapPost, и т.д.)</param>
 /// <param name="RouteInfo">Информация о маршруте эндпоинта</param>
+/// <param name="ActiveVersions">Версии, в которых данный endpoint актуален и работает</param>
 /// <param name="Authorization">Информация об авторизации</param>
 /// <param name="Description">Описание метода</param>
 /// <param name="IsDeprecated">Флаг устаревания метода</param>
@@ -13,6 +14,7 @@ internal record struct EndpointInfo(
     string MethodFullName,
     string HttpMethod,
     RouteInfo RouteInfo,
+    VersionInfo[]? ActiveVersions = null,
     AuthInfo? Authorization = null,
     string Description = "",
     bool IsDeprecated = false)
