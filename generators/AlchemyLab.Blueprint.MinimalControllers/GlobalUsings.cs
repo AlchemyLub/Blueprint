@@ -1,6 +1,7 @@
 global using System.Collections.Immutable;
 global using System.Composition;
 global using System.Diagnostics;
+global using System.Globalization;
 global using System.Text;
 global using System.Text.RegularExpressions;
 global using System.Xml.Linq;

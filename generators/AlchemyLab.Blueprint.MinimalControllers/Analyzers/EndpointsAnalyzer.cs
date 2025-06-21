@@ -16,6 +16,7 @@ internal static class EndpointsAnalyzer
         INamedTypeSymbol? httpMethodAttributeSymbol = compilation.GetTypeByMetadataName(AttributeNames.HttpMethodAttributeName);
         INamedTypeSymbol? authAttributeSymbol = compilation.GetTypeByMetadataName(AttributeNames.AuthAttributeName);
         INamedTypeSymbol? obsoleteAttributeSymbol = compilation.GetTypeByMetadataName(AttributeNames.ObsoleteAttributeName);
+        INamedTypeSymbol? mapToVersionAttributeSymbol = compilation.GetTypeByMetadataName(AttributeNames.MapToApiVersionAttributeName);
 
         if (httpMethodAttributeSymbol is null)
         {
@@ -53,9 +54,13 @@ internal static class EndpointsAnalyzer
             AttributeData? obsoleteAttribute = methodSymbol.GetAttributeDataOrDefault(attr =>
                 SymbolEqualityComparer.Default.Equals(attr.AttributeClass, obsoleteAttributeSymbol));
 
+            IEnumerable<AttributeData>? mapToVersionAttributes = methodSymbol.WhereAttribute(attr =>
+                SymbolEqualityComparer.Default.Equals(attr.AttributeClass, mapToVersionAttributeSymbol));
+
             yield return EndpointInfo.New(
                 methodSymbol,
                 httpAttributeData,
+                mapToVersionAttributes?.ToArray(),
                 authAttributeData,
                 description,
                 obsoleteAttribute is not null);

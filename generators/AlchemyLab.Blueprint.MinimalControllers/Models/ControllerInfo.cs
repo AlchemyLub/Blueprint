@@ -27,6 +27,7 @@ internal readonly record struct ControllerInfo(
     /// <param name="controllerClassSymbol"><see cref="INamedTypeSymbol"/></param>
     /// <param name="endpoints">Список эндпоинтов контроллера</param>
     /// <param name="routeAttributeData">Информация об атрибуте маршрута</param>
+    /// <param name="versionAttributesData">Поддерживаемые версии</param>
     /// <param name="authAttributeData">Информация об атрибуте авторизации</param>
     /// <param name="description">Описание контроллера</param>
     /// <param name="tags">Теги контроллера</param>
@@ -35,6 +36,7 @@ internal readonly record struct ControllerInfo(
         INamedTypeSymbol controllerClassSymbol,
         IEnumerable<EndpointInfo> endpoints,
         AttributeData? routeAttributeData,
+        AttributeData[]? versionAttributesData,
         AttributeData? authAttributeData,
         string description,
         string[] tags,
@@ -46,6 +48,9 @@ internal readonly record struct ControllerInfo(
                 : RouteInfo.Empty(),
             [.. endpoints],
             tags,
+            versionAttributesData?
+                .Select(VersionInfo.NewFromApiVersionAttributeData)
+                .ToArray(),
             authAttributeData is not null
                 ? AuthInfo.New(authAttributeData)
                 : null,

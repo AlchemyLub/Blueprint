@@ -8,7 +8,7 @@ public static class Templates
     /// <summary>
     /// Пространство имен по умолчанию для генерируемого кода
     /// </summary>
-    public const string DefaultNamespace = "AlchemyLab.Blueprint.MinimalControllers";
+    public const string DefaultNamespace = "MinimalControllers";
 
     /// <summary>
     /// Название класса по умолчанию для методов расширения

@@ -5,11 +5,10 @@ namespace AlchemyLab.Blueprint.MinimalControllers.TestApp.Controllers;
 /// <summary>
 /// Контроллер с продуктами
 /// </summary>
-[Authorize]
 [MinimalController]
 [Route("/api/v{version:apiVersion}/products")]
 [ApiVersion(1.0, Deprecated = true)]
-[ApiVersion(2.0)]
+[ApiVersion(2.0, "RC")]
 public class ProductsController
 {
     public record TestResponse(string Name);
@@ -18,6 +17,9 @@ public class ProductsController
     /// Получить все продукты
     /// </summary>
     [HttpGet]
+    [MapToApiVersion(1.0)]
+    [MapToApiVersion(2.0)]
+    [MapToApiVersion(3.0)]
     public static Results<Ok<TestResponse>, NotFound<TestResponse>> GetAll()
     {
         Random random = new();

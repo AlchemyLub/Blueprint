@@ -32,8 +32,6 @@ internal static class ControllersAnalyzer
             return null;
         }
 
-        IEnumerable<EndpointInfo> endpoints = EndpointsAnalyzer.GetEndpointInfos(compilation, controllerClassSymbol);
-
         AttributeData? routeAttributeData = GetRouteAttributeData(compilation, controllerClassSymbol);
 
         if (routeAttributeData is null)
@@ -41,11 +39,15 @@ internal static class ControllersAnalyzer
             return null;
         }
 
+        IEnumerable<EndpointInfo> endpoints = EndpointsAnalyzer.GetEndpointInfos(compilation, controllerClassSymbol);
+
         bool isDeprecated = HasObsoleteAttribute(compilation, controllerClassSymbol);
 
         string description = GetDescription(controllerClassSymbol, cancellationToken);
 
         string[] tags = GetTags(compilation, controllerClassSymbol);
+
+        AttributeData[]? versionAttributesData = GetVersionAttributesData(compilation, controllerClassSymbol);
 
         AttributeData? authAttributeData = GetAuthAttributeData(compilation, controllerClassSymbol);
 
@@ -53,6 +55,7 @@ internal static class ControllersAnalyzer
             controllerClassSymbol,
             endpoints,
             routeAttributeData,
+            versionAttributesData,
             authAttributeData,
             description,
             tags,
@@ -103,14 +106,21 @@ internal static class ControllersAnalyzer
             SymbolEqualityComparer.Default.Equals(attr.AttributeClass, routeAttributeSymbol));
     }
 
-    private static AttributeData[] GetVersionAttributesData(
+    private static AttributeData[]? GetVersionAttributesData(
         Compilation compilation,
         INamedTypeSymbol classSymbol)
     {
-        INamedTypeSymbol? versionAttributeSymbol = compilation.GetTypeByMetadataName(AttributeNames.VersionAttributeName);
+        INamedTypeSymbol? versionAttributeSymbol = compilation.GetTypeByMetadataName(AttributeNames.ApiVersionAttributeName);
 
-        return classSymbol.GetAttributeDataOrDefault(attr =>
-            SymbolEqualityComparer.Default.Equals(attr.AttributeClass, versionAttributeSymbol));
+        if (versionAttributeSymbol is null)
+        {
+            return null;
+        }
+
+        return classSymbol
+            .WhereAttribute(attr =>
+                SymbolEqualityComparer.Default.Equals(attr.AttributeClass, versionAttributeSymbol))?
+            .ToArray();
     }
 
     private static string[] GetTags(

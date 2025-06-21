@@ -43,7 +43,12 @@ internal static class AttributeNames
     internal const string ObsoleteAttributeName = $"System.{nameof(ObsoleteAttribute)}";
 
     /// <summary>
-    /// Имя атрибута используемого для версионирования
+    /// Имя атрибута используемого для версионирования API
     /// </summary>
-    internal const string VersionAttributeName = "Asp.Versioning.ApiVersionAttribute";
+    internal const string ApiVersionAttributeName = "Asp.Versioning.ApiVersionAttribute";
+
+    /// <summary>
+    /// Имя атрибута используемого для указания активных версий API
+    /// </summary>
+    internal const string MapToApiVersionAttributeName = "Asp.Versioning.MapToApiVersionAttribute";
 }

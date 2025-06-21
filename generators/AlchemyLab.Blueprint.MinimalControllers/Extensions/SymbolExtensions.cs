@@ -82,7 +82,7 @@ internal static class SymbolExtensions
     }
 
     /// <summary>
-    /// Возвращает аттрибут, которым помечен символ, если найден, иначе <see langword="null"/>.
+    /// Возвращает аттрибут, которым помечен символ, если найден, иначе <see langword="null"/>
     /// </summary>
     /// <param name="symbol"><see cref="ISymbol"/></param>
     /// <param name="predicate">Предикат для поиска данных об атрибуте</param>
@@ -90,7 +90,7 @@ internal static class SymbolExtensions
         symbol?.GetAttributes().FirstOrDefault(predicate);
 
     /// <summary>
-    /// Возвращает коллекцию аттрибутов, которыми помечен символ.
+    /// Возвращает коллекцию аттрибутов, которыми помечен символ
     /// </summary>
     /// <param name="symbol"><see cref="ISymbol"/></param>
     /// <param name="predicate">Предикат для поиска данных об атрибуте</param>

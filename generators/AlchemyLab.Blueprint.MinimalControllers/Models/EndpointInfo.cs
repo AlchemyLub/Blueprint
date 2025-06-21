@@ -19,21 +19,19 @@ internal record struct EndpointInfo(
     string Description = "",
     bool IsDeprecated = false)
 {
-    public string? ApiVersionSetName { get; private set; }
-
-    public int? CurrentVersion { get; private set; }
-
     /// <summary>
     /// Создаёт новый экземпляр <see cref="EndpointInfo"/> на основе данных метода контроллера
     /// </summary>
     /// <param name="endpointMethodSymbol"><see cref="IMethodSymbol"/></param>
     /// <param name="httpAttributeData">Информация об атрибуте HTTP-метода</param>
+    /// <param name="versionAttributesData">Информация о версионных атрибутах</param>
     /// <param name="authAttributeData">Информация об атрибуте авторизации</param>
     /// <param name="description">Описание метода</param>
     /// <param name="isDeprecated">Флаг устаревания метода</param>
     internal static EndpointInfo New(
         IMethodSymbol endpointMethodSymbol,
         AttributeData httpAttributeData,
+        AttributeData[]? versionAttributesData,
         AttributeData? authAttributeData,
         string description,
         bool isDeprecated)
@@ -44,23 +42,12 @@ internal record struct EndpointInfo(
             GetFullMethodPath(endpointMethodSymbol),
             httpAttributeData.AttributeClass.GetMapHttpMethod(),
             RouteInfo.New(httpAttributeData),
+            versionAttributesData?
+                .Select(VersionInfo.NewFromMapToApiVersionAttributeData)
+                .ToArray(),
             authAttributeData is not null ? AuthInfo.New(authAttributeData) : null,
             description,
             isDeprecated);
-    }
-
-    /// <summary>
-    /// Устанавливает имя набора версий API и текущую версию для эндпоинта
-    /// </summary>
-    /// <param name="apiVersionSetName">Имя набора версий API</param>
-    /// <param name="currentVersion">Текущая версия эндпоинта</param>
-    internal void SetVersion(string apiVersionSetName, int currentVersion)
-    {
-        ArgumentException.ThrowIfNullOrEmpty(apiVersionSetName);
-        ArgumentNullException.ThrowIfNull(currentVersion);
-
-        ApiVersionSetName = apiVersionSetName;
-        CurrentVersion = currentVersion;
     }
 
     private static string GetFullMethodPath(IMethodSymbol methodSymbol)
